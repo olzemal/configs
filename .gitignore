@@ -1,0 +1,6 @@
+*
+!.gitignore
+!.gitconfig
+!.config/starship.toml
+!.i3/config
+!.zshrc
