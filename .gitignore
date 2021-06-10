@@ -1,6 +1,10 @@
 *
 !.gitignore
 !.gitconfig
+!.config/
 !.config/starship.toml
 !.i3/config
 !.zshrc
+!.aliases
+!.xmonad/
+!.xmonad/xmonad.hs
