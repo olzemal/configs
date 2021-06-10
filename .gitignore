@@ -1,10 +1,12 @@
 *
-!.gitignore
-!.gitconfig
+!.aliases
 !.config/
 !.config/starship.toml
+!.gitconfig
+!.gitignore
 !.i3/config
-!.zshrc
-!.aliases
+!.install.sh
+!.vimrc
 !.xmonad/
 !.xmonad/xmonad.hs
+!.zshrc

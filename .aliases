@@ -1,4 +1,5 @@
 alias ls='exa'
-alias ll='exa -alF'
+alias ll='exa -laH'
 alias la='exa -A'
 alias l='exa -CF'
+alias gs='git status' # This might conflict with GhostScript
