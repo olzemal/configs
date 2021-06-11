@@ -1,3 +1,16 @@
+## Git Status Information
+# Icon	Description
+# =	This branch has merge conflicts.
+# ⇡	ahead
+# ⇣	behind
+# ⇕	diverged
+# ?	untracked
+# $	stashed
+# !	modified
+# +	staged
+# »	renamed
+# ✘	deleted
+
 format = """
 $username\
 $hostname\
@@ -29,7 +42,6 @@ show_always = true
 
 # Explicitly show vim mode
 [character]
-success_symbol = "[insert ❯](bold green) "
-error_symbol   = "[insert ✗](bold red) "
-vicmd_symbol   = "[❯](bold green) "
-
+success_symbol = "[insert\n❯](bold green) "
+error_symbol   = "[insert\n✗](bold red) "
+vicmd_symbol   = "[normal\n](bold white)[❯](bold green) "
