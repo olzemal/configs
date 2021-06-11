@@ -1,5 +1,4 @@
 *
 !.config/*
-!.xmonad/*
-!.xmobar/*
 !.*rc
+!.Xresources
