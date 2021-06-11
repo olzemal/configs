@@ -40,8 +40,13 @@ format      = "[$user]($style) "
 disabled    = false
 show_always = true
 
-# Explicitly show vim mode
+[shell]
+bash_indicator = "\nbash"
+zsh_indicator = "\nzsh"
+unknown_indicator = "mystery shell"
+disabled = false
+
 [character]
-success_symbol = "[insert\n❯](bold green) "
-error_symbol   = "[insert\n✗](bold red) "
-vicmd_symbol   = "[normal\n](bold white)[❯](bold green) "
+success_symbol = "[❯](bold green) "
+error_symbol   = "[✗](bold red) "
+vicmd_symbol   = "[V](bold white) "
