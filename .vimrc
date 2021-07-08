@@ -29,13 +29,6 @@ set showcmd
 set ignorecase
 set smartcase
 
-" Allow backspacing over autoindent, line breaks and start of insert action
-set backspace=indent,eol,start
-
-" When opening a new line and no filetype-specific indenting is enabled, keep
-" the same indent as the line you're currently on. Useful for READMEs, etc.
-set autoindent
-
 " Stop certain movements from always going to the first character of a line.
 " While this behaviour deviates from that of Vi, it does what most users
 " coming from other editors would expect.
@@ -64,6 +57,10 @@ set number relativenumber
 
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
+
+" Set ruler
+set colorcolumn=80
+highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 "------------------------------------------------------------
 " Indentations
