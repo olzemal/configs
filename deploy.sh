@@ -1,17 +1,18 @@
 #!/bin/sh
 
-if [ ! -d "$HOME/.config" ]; then
-    mkdir -p "$HOME/.config"
-fi
-if [ ! -d "$HOME/.config/alacritty" ]; then
-    mkdir -p "$HOME/.config/alacritty"
-fi
+[ ! -d ~/.config ] && mkdir -p ~/.config
+[ ! -d ~/.config/alacritty ] && mkdir -p ~/.config/alacritty
 
-cp alacritty.yml	"$HOME/.config/alacritty/"
-cp .aliases		"$HOME/"
-cp .bashrc		"$HOME/"
-cp .spectrwm.conf	"$HOME/"
-cp starship.toml	"$HOME/.config/"
-cp .vimrc		"$HOME/"
-cp .zshrc		"$HOME/"
+echo "Installing CLI Tool Configs"
+cp .aliases		~/.aliases
+cp starship.toml	~/.config/starship.toml
+cp .zshrc		~/.zshrc
+cp .vimrc		~/.vimrc
+cp .bashrc		~/.bashrc
+
+[ $1 == "cli" ] && exit 0
+
+echo "Installing Desktop Configs"
+cp alacritty.yml	~/.config/alacritty/alacritty.yml
+cp .spectrwm.conf	~/.spectrwm.conf
 
