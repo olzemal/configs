@@ -1,9 +1,0 @@
-#!/bin/sh
-if [ $# -gt 0 ]; then
-    n=$(shuf -i 1-$# -n 1)
-    echo $@ | cut -d\  -f $n
-else
-    e=$(cat)
-    n=$(shuf -i 1-$(echo $e | tr ' ' '\n' | wc -l) -n 1)
-    echo $e | cut -d\  -f $n
-fi
