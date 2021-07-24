@@ -40,20 +40,18 @@ font:
   bold_italic:
     family: Hack
     style: Bold Italic
+
   size: 12.0
 
-  # Offset is the extra space around each character. `offset.y` can be thought of
-  # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
     x: 0
     y: 1
 
-# If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
 colors:
   primary:
-    background: '0x282c34'
+    background: '0x000000'
     foreground: '0xbbc2cf'
   selection:
     text: '0xbbc2cf'
