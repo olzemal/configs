@@ -47,6 +47,6 @@ unknown_indicator = "mystery shell"
 disabled = false
 
 [character]
-success_symbol = "[❯](bold green) "
-error_symbol   = "[✗](bold red) "
-vicmd_symbol   = "[V](bold white) "
+success_symbol = "[❯](bold green)"
+error_symbol   = "[✗](bold red)"
+vicmd_symbol   = "[V](bold white)"
