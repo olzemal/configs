@@ -83,6 +83,11 @@ shopt -s histappend
 # enable some aliases
 source ~/.aliases
 
+# pfetch
+if [ -e /bin/pfetch ] ; then
+    PF_INFO="ascii title os kernel uptime wm shell memory" PF_COL2=2 pfetch
+fi
+
 # starship prompt
 eval "$(starship init bash)"
 
