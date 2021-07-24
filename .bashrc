@@ -80,6 +80,9 @@ shopt -s expand_aliases
 # Enable history appending instead of overwriting.  #139609
 shopt -s histappend
 
+# enable some aliases
+source ~/.aliases
+
 # starship prompt
 eval "$(starship init bash)"
 
