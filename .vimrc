@@ -4,6 +4,8 @@
 " have made, as well as sanely reset options when re-sourcing .vimrc
 set nocompatible
 
+source $VIMRUNTIME/vimrc_example.vim
+
 " Enable auto indenting
 if has('filetype')
     filetype indent plugin on
