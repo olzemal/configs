@@ -28,17 +28,17 @@ scrolling:
 
 font:
   normal:
-    family: Source Code Pro
+    family: Hack
     style: Regular
   bold:
-    family: Source Code Pro
+    family: Hack
     style: Bold
   italic:
-    family: Source Code Pro
+    family: Hack
     style: Italic
 
   bold_italic:
-    family: Source Code Pro
+    family: Hack
     style: Bold Italic
   size: 12.0
 
@@ -51,17 +51,12 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Tomorrow Night Bright)
 colors:
-  # Default colors
   primary:
     background: '0x282c34'
     foreground: '0xbbc2cf'
-
   selection:
     text: '0xbbc2cf'
-
-  # Normal colors
   normal:
     black:   '0x1c1f24'
     red:     '0xff6c6b'
@@ -71,8 +66,6 @@ colors:
     magenta: '0xc678dd'
     cyan:    '0x5699af'
     white:   '0x202328'
-
-  # Bright colors
   bright:
     black:   '0x5b6268'
     red:     '0xda8548'
@@ -84,11 +77,7 @@ colors:
     white:   '0xdfdfdf'
 
 # Background opacity
-#
-# Window opacity as a floating point number from `0.0` to `1.0`.
-# The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
-# background_opacity: 0.80
+background_opacity: 0.80
 
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
@@ -96,16 +85,7 @@ selection:
   save_to_clipboard: false
 
 cursor:
-  # Cursor style
-  #
-  # Values for `style`:
-  #   - ▇ Block
-  #   - _ Underline
-  #   - | Beam
   style: Block
-
-  # If this is `true`, the cursor will be rendered as a hollow box when the
-  # window is not focused.
   unfocused_hollow: true
 
 mouse:
