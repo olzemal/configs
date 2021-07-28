@@ -1,4 +1,11 @@
-alias ll='ls -laH'
-alias la='ls -A'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+
+alias gs='git status'
+alias gc='git commit'
+
 alias l='ls -CF'
-alias gs='git status' # This might conflict with GhostScript
+alias la='ls -A'
+alias ll='ls -laH'
+alias ls='ls --color=auto'
