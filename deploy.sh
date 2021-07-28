@@ -2,6 +2,7 @@
 
 [ ! -d ~/.config ] && mkdir -p ~/.config
 [ ! -d ~/.config/alacritty ] && mkdir -p ~/.config/alacritty
+[ ! -d ~/.config/ranger ] && mkdir -p ~/.config/ranger
 
 echo "Installing CLI Tool Configs"
 cp .aliases		~/.aliases
@@ -9,6 +10,7 @@ cp starship.toml	~/.config/starship.toml
 cp .zshrc		~/.zshrc
 cp .vimrc		~/.vimrc
 cp .bashrc		~/.bashrc
+cp rc.conf              ~/.config/ranger/rc.conf
 
 [ $1 == "cli" ] && exit 0
 
