@@ -1,20 +1,20 @@
 #!/bin/sh
 
-[ ! -d ~/.config ] && mkdir -p ~/.config
-[ ! -d ~/.config/alacritty ] && mkdir -p ~/.config/alacritty
-[ ! -d ~/.config/ranger ] && mkdir -p ~/.config/ranger
+[ ! -d "$HOME/.config"           ] && mkdir -p "$HOME/.config"
+[ ! -d "$HOME/.config/alacritty" ] && mkdir -p "$HOME/.config/alacritty"
+[ ! -d "$HOME/.config/ranger"    ] && mkdir -p "$HOME/.config/ranger"
 
 echo "Installing CLI Tool Configs"
-cp .aliases		~/.aliases
-cp starship.toml	~/.config/starship.toml
-cp .zshrc		~/.zshrc
-cp .vimrc		~/.vimrc
-cp .bashrc		~/.bashrc
-cp rc.conf              ~/.config/ranger/rc.conf
+ln -s .aliases          "$HOME/.aliases"
+ln -s starship.toml	"$HOME/.config/starship.toml"
+ln -s .zshrc		"$HOME/.zshrc"
+ln -s .vimrc		"$HOME/.vimrc"
+ln -s .bashrc		"$HOME/.bashrc"
+ln -s rc.conf           "$HOME/.config/ranger/rc.conf"
 
-[ $1 == "cli" ] && exit 0
+[ "$1" = "cli" ] && exit 0
 
 echo "Installing Desktop Configs"
-cp alacritty.yml	~/.config/alacritty/alacritty.yml
-cp .spectrwm.conf	~/.spectrwm.conf
+ln -s alacritty.yml	"$HOME/.config/alacritty/alacritty.yml"
+ln -s .spectrwm.conf	"$HOME/.spectrwm.conf"
 
