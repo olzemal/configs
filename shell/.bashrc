@@ -48,10 +48,6 @@ if ${use_color} ; then
 		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
 	fi
 
-	alias ls='ls --color=auto'
-	alias grep='grep --colour=auto'
-	alias egrep='egrep --colour=auto'
-	alias fgrep='fgrep --colour=auto'
 else
 	if [[ ${EUID} == 0 ]] ; then
 		# show root@ when we don't have colors
@@ -87,7 +83,4 @@ source ~/.aliases
 if [ -e /bin/pfetch ] ; then
     PF_INFO="ascii title os kernel uptime wm shell memory" PF_COL2=2 pfetch
 fi
-
-# starship prompt
-eval "$(starship init bash)"
 
