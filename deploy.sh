@@ -11,7 +11,8 @@ do
             ;;
         bash)
             [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
-            ln -s "$PWD/shell/.bashrc"	"$HOME/.bashrc"
+            ln -s "$PWD/shell/.bashrc" "$HOME/.bashrc"
+            ln -s "$PWD/shell/.bash_profile" "$HOME/.bash_profile"
             ;;
         ranger)
             [ ! -d "$HOME/.config/ranger" ] && mkdir -p "$HOME/.config/ranger"
