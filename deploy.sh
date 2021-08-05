@@ -10,6 +10,7 @@ do
             ln -s "$PWD/shell/.aliases" "$HOME/.aliases"
             ;;
         bash)
+            [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
             ln -s "$PWD/shell/.bashrc"	"$HOME/.bashrc"
             ;;
         ranger)
@@ -26,6 +27,7 @@ do
             ln -s "$PWD/vim/.vimrc" "$HOME/.vimrc"
 	    ;;
         zsh)
+            [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
             ln -s "$PWD/shell/.zshrc" "$HOME/.zshrc"
             ;;
         *)
