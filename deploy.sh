@@ -1,4 +1,6 @@
 #!/bin/sh
+# shellcheck disable=SC1117
+
 for option in "$@"
 do
     case $option in
@@ -24,15 +26,16 @@ do
         starship)
             ln -s "$PWD/starship/starship.toml" "$HOME/.config/starship.toml"
             ;;
-	vim)
+        vim)
             ln -s "$PWD/vim/.vimrc" "$HOME/.vimrc"
-	    ;;
+	        ;;
         zsh)
             [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
             ln -s "$PWD/shell/.zshrc" "$HOME/.zshrc"
             ;;
         *)
-            printf "no config file found for \"$option\"\n"
+            printf "no config file found for \"%s\"\n" "$option"
+            ;;
     esac
 done
 
