@@ -1,41 +1,55 @@
 #!/bin/sh
-# shellcheck disable=SC1117
+
+link() {
+    [ -e "$2" ] && printf 'found existing file %s\n' "$2" && rm -i "$2"
+    ln -s "$1" "$2" 2>/dev/null
+}
+
+help() {
+    printf 'Choose one or more options from the following list to add as an argument to the script:\n'
+    grep '[a-z])' "$0" | sed 's/)//' | xargs printf ' - %s\n'
+}
+
+[ $# -eq 0 ] && help
 
 for option in "$@"
 do
     case $option in
         alacritty)
             [ ! -d "$HOME/.config/alacritty" ] && mkdir -p "$HOME/.config/alacritty"
-            ln -s "$PWD/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+            link "$PWD/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
             ;;
         aliases)
-            ln -s "$PWD/shell/.aliases" "$HOME/.aliases"
+            link "$PWD/shell/.aliases" "$HOME/.aliases"
             ;;
         bash)
             [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
-            ln -s "$PWD/shell/.bashrc" "$HOME/.bashrc"
-            ln -s "$PWD/shell/.bash_profile" "$HOME/.bash_profile"
+            link "$PWD/shell/.bashrc" "$HOME/.bashrc"
+            link "$PWD/shell/.bash_profile" "$HOME/.bash_profile"
             ;;
         ranger)
             [ ! -d "$HOME/.config/ranger" ] && mkdir -p "$HOME/.config/ranger"
-            ln -s "$PWD/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
+            link "$PWD/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
             ;;
         spectrwm)
-            ln -s "$PWD/spectrwm/.spectrwm.conf" "$HOME/.spectrwm.conf"
+            link "$PWD/spectrwm/.spectrwm.conf" "$HOME/.spectrwm.conf"
             ;;
         starship)
-            ln -s "$PWD/starship/starship.toml" "$HOME/.config/starship.toml"
+            link "$PWD/starship/starship.toml" "$HOME/.config/starship.toml"
             ;;
         vim)
-            ln -s "$PWD/vim/.vimrc" "$HOME/.vimrc"
+            link "$PWD/vim/.vimrc" "$HOME/.vimrc"
 	        ;;
         zsh)
             [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
-            ln -s "$PWD/shell/.zshrc" "$HOME/.zshrc"
+            link "$PWD/shell/.zshrc" "$HOME/.zshrc"
             ;;
         *)
-            printf "no config file found for \"%s\"\n" "$option"
+            printf 'no config file found for "%s"\n' "$option"
+            help
+            exit 1
             ;;
     esac
+    printf 'Deployed configs for %s\n' "$option"
 done
 
