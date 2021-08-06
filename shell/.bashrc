@@ -69,7 +69,7 @@ bind -m vi-command 'Control-l: clear-screen'
 bind -m vi-insert 'Control-l: clear-screen'
 
 # VI man pages
-man() { vim <($(which man) $1); }
+man() { view <($(which man) $1); }
 
 # enable some aliases
 [ -e ~/.aliases ] && source ~/.aliases
