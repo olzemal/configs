@@ -7,51 +7,28 @@
 [ -r /usr/share/bash-completion/bash_completion ] \
     && . /usr/share/bash-completion/bash_completion
 
-# Change the window title of X terminals
-case ${TERM} in
-    xterm*|rxvt*|Eterm*|aterm|kterm|gnome*|interix|konsole*)
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'
-	;;
-    screen*)
-        PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'
-	;;
-esac
 
-use_color=true
-safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
-match_lhs=""
-[[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
-[[ -f /etc/DIR_COLORS ]] && match_lhs="${match_lhs}$(</etc/DIR_COLORS)"
-[[ -z ${match_lhs}    ]] \
-    && type -P dircolors >/dev/null \
-    && match_lhs=$(dircolors --print-database)
-[[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] \
-    && use_color=true
 
-if ${use_color}
-then
-    # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
-    if type -P dircolors >/dev/null
-    then
-	if [[ -f ~/.dir_colors ]]
-        then
-	    eval $(dircolors -b ~/.dir_colors)
-	elif [[ -f /etc/DIR_COLORS ]]
-        then
-	    eval $(dircolors -b /etc/DIR_COLORS)
-        fi
-    fi
+PROMPT_LONG=20
+PROMPT_MAX=95
 
-    blue="\e[0;94m"
-    white="\e[0;97m"
-    reset="\e[0m"
+__ps1() {
+    local x='\[\e[0m\]'
 
-    PS1="${blue}\u@\h ${white}\w ${blue}\$ ${reset}"
-else
-    PS1='\u@\h \w \$ '
-fi
+    local r='\[\e[0;91m\]'
+    local g='\[\e[0;92m\]'
+    local b='\[\e[0;94m\]'
+    local w='\[\e[0;97m\]'
 
-unset use_color safe_term match_lhs sh blue white reset
+    local B=$(git branch 2>/dev/null | grep '*' | awk '{print $2}')
+    [ "$B" = "master" -o "$B" = "main" ] \
+        && B="$r($B)" \
+        || B="$g($B)"
+
+    PS1="$b\u@\h $w\w $B $b\$ $x"
+}
+
+PROMPT_COMMAND="__ps1"
 
 xhost +local:root > /dev/null 2>&1
 

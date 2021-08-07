@@ -10,4 +10,4 @@ alias la='ls -A'
 alias ll='ls -laH'
 alias ls='ls --color=auto'
 
-
+alias chmox='chmod +x'
