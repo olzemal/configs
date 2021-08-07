@@ -6,7 +6,7 @@ link() {
 }
 
 help() {
-    printf 'Choose one or more options from the following list to add as an argument to the script:\n'
+    printf 'Choose one or more options from the following list\nto add as an argument to the script:\n'
     grep '[a-z])' "$0" | sed 's/)//' | xargs printf ' - %s\n'
 }
 
@@ -23,7 +23,9 @@ do
             link "$PWD/shell/.aliases" "$HOME/.aliases"
             ;;
         bash)
-            [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
+            [ ! -d "$HOME/.scripts" ] && \
+                git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && \
+                chmod -R +x "$HOME/.scripts/"
             link "$PWD/shell/.bashrc" "$HOME/.bashrc"
             link "$PWD/shell/.bash_profile" "$HOME/.bash_profile"
             ;;
@@ -36,6 +38,9 @@ do
             ;;
         starship)
             link "$PWD/starship/starship.toml" "$HOME/.config/starship.toml"
+            ;;
+        tmux)
+            link "$PWD/tmux/.tmux.conf" "$HOME/.tmux.conf"
             ;;
         vim)
             link "$PWD/vim/.vimrc" "$HOME/.vimrc"
