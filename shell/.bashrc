@@ -15,7 +15,7 @@ __ps1() {
     local b='\e[0;36m'
     local w='\e[0;97m'
 
-    local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
     
     if [ -z "$branch" ]; then
         PS1="$b\u@\h $w\w $b\$ $x"
