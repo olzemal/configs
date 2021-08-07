@@ -4,9 +4,9 @@
 " have made, as well as sanely reset options when re-sourcing .vimrc
 set nocompatible
 
-"+--------------------------------------------------------------------+
-"| Settings                                                           |
-"+--------------------------------------------------------------------+
+"+---------------------------------------------------------------------------+
+"| Settings                                                                  |
+"+---------------------------------------------------------------------------+
 
 " Enable auto indenting
 if has('filetype')
@@ -92,7 +92,6 @@ set pastetoggle=<F11>
 
 " Set ruler
 set colorcolumn=80
-highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " Indentation settings for using 4 spaces instead of tabs.
 set tabstop=4 softtabstop=4
@@ -107,9 +106,14 @@ set ignorecase
 set smartcase
 set scrolloff=4
 
-"+--------------------------------------------------------------------+
-"| Remaps                                                             |
-"+--------------------------------------------------------------------+
+" Colors
+colorscheme torte
+highlight LineNr ctermfg=darkgrey
+highlight ColorColumn ctermbg=darkgrey 
+ 
+"+---------------------------------------------------------------------------+
+"| Remaps                                                                    |
+"+---------------------------------------------------------------------------+
 
 let mapleader=" "
 
