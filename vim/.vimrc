@@ -18,16 +18,23 @@ if has('syntax')
     syntax on
 endif
 
+" When editing a markdown file, enable spellcheck
+augroup markdownSpell
+    au!
+    autocmd FileType markdown setlocal spell
+    autocmd BufRead,BufNewFile *.md setlocal spell
+augroup END
+
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid, when inside an event handler
+" (happens when dropping a file on gvim) and for a commit message (it's
+" likely a different one than last time).
 augroup vimStartup
-  au!
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid, when inside an event handler
-  " (happens when dropping a file on gvim) and for a commit message (it's
-  " likely a different one than last time).
-  autocmd BufReadPost *
-    \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-    \ |   exe "normal! g`\""
-    \ | endif
+    au!
+    autocmd BufReadPost *
+        \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+        \ |   exe "normal! g`\""
+        \ | endif
 augroup END
 
 " store backup, undo and swap files in temp directory
