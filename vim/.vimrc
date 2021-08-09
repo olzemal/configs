@@ -1,8 +1,15 @@
 " .vimrc by Alexander Olzem
 
-" Set 'nocompatible' to ward off unexpected things that your distro might
-" have made, as well as sanely reset options when re-sourcing .vimrc
-set nocompatible
+" The goal of this .vimrc file is to provide a portable configuration for the
+" editor vim. 
+" This configuration requires exactly 0 plugins and will run on most linux
+" systems.
+
+" Some nice things this config provides are:
+" - spellchecking on markdown files
+" - fuzzy finding
+" - 2 space tabstops for yaml files
+" - automatic undo breakpoints
 
 "+---------------------------------------------------------------------------+
 "| Settings                                                                  |
@@ -22,7 +29,7 @@ endif
 augroup markdownSpell
     au!
     autocmd FileType markdown setlocal spell
-    autocmd BufRead,BufNewFile *.md setlocal spell
+    autocmd BufRead,BufNewFile *.md *.MD setlocal spell
 augroup END
 
 " When editing a file, always jump to the last known cursor position.
@@ -91,20 +98,27 @@ set visualbell t_vb=
 " "press <Enter> to continue"
 set cmdheight=2
 
-" Display numbers on the left
+" Display line numbers on the left
 set number
 
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
 
-" Set ruler
+" Set ruler at the right
 set colorcolumn=80
 
 " Indentation settings for using 4 spaces instead of tabs.
-set tabstop=4 softtabstop=4
-set shiftwidth=4
+set tabstop=4 softtabstop=4 shiftwidth=4
 set expandtab
 set smartindent
+
+" Indentation settings for yaml (2 Spaces instead of tabs)
+augroup yamlTabs
+    au!
+    autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.yml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
 
 " Search options
 set nohlsearch
@@ -113,11 +127,16 @@ set ignorecase
 set smartcase
 set scrolloff=4
 
+" Search down in subfolders
+set path+=**
+
 " Colors
 colorscheme torte
 highlight LineNr ctermfg=darkgrey
 highlight ColorColumn ctermbg=darkgrey 
- 
+highlight Pmenu ctermbg=darkgrey ctermfg=white
+highlight PmenuSel ctermbg=blue ctermfg=black
+
 "+---------------------------------------------------------------------------+
 "| Remaps                                                                    |
 "+---------------------------------------------------------------------------+
@@ -127,9 +146,11 @@ let mapleader=" "
 " Behave Y!
 nnoremap Y y$
 
-" No Strokes pls
+" Center next / previous
 nnoremap n nzzzv
 nnoremap N Nzzzv
+
+" Keep the cursor where it was after line concatination
 nnoremap J mzJ`z 
 
 " Undo break points at end of sentences
