@@ -49,6 +49,6 @@ bind -m vi-insert 'Control-l: clear-screen'
 [ -e ~/.aliases ] && source ~/.aliases
 
 # pfetch
-[ -e /bin/pfetch ] \
-    && PF_INFO="ascii title os kernel uptime wm shell memory" PF_COL2=2 pfetch
+[ ! -z "$(command -v pfetch)" ] \
+    && PF_INFO="ascii title os kernel uptime wm shell memory" pfetch
 
