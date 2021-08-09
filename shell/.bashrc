@@ -16,23 +16,28 @@ __ps1() {
     # Check if current dir is a git repo
     if [ -d .git ]; then
         # Get state of local repo
-        local s=$(git status --ahead-behind 2>/dev/null | awk 'FNR==2{print $4}')
-        case $s in
-            behind) s=" -" ;;
-            ahead) s=" +" ;;
-            *) s=" " ;;
+        local st=$(git status --ahead-behind 2>/dev/null | awk 'FNR==2{print $4}')
+        case $st in
+            behind) st='-' ;;
+            ahead) st='+' ;;
+            *) st='' ;;
         esac
     
         # Check for uncommited changes
-        local d=$(git diff 2>/dev/null)
-        [ ! -z "$d" ] && d='*'
+        local di=$(git diff 2>/dev/null)
+        [ ! -z "$di" ] && di='*'
+        
+        # Check if Space after branch is needed    
+        if [ ! -z "$di" ] || [ ! -z "$st" ]; then
+            local s=" "
+        fi
         
         # Display current branch
         local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
         if [ "$branch" = "master" ] || [ "$branch" = "main" ]; then
-            PS1="$b\u@\h $w\w $b($r$branch$s$d$b) \$ $x"
+            PS1="$b\u@\h $w\w $b($r$branch$s$st$di$b) \$ $x"
         else
-            PS1="$b\u@\h $w\w $b($g$branch$s$d$b) \$ $x"
+            PS1="$b\u@\h $w\w $b($g$branch$s$st$di$b) \$ $x"
         fi
     else
         PS1="$b\u@\h $w\w $b\$ $x"
