@@ -18,10 +18,9 @@ __ps1() {
         # Get state of local repo
         local s=$(git status --ahead-behind 2>/dev/null | awk 'FNR==2{print $4}')
         case $s in
-            up) s="=" ;;
-            behind) s="-" ;;
-            ahead) s="+" ;;
-            *) s= "" ;;
+            behind) s=" -" ;;
+            ahead) s=" +" ;;
+            *) s=" " ;;
         esac
     
         # Check for uncommited changes
@@ -30,14 +29,10 @@ __ps1() {
         
         # Display current branch
         local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-        if [ -z "$branch" ]; then
-            PS1="$b\u@\h $w\w $b\$ $x"
+        if [ "$branch" = "master" ] || [ "$branch" = "main" ]; then
+            PS1="$b\u@\h $w\w $b($r$branch$s$d$b) \$ $x"
         else
-            if [ "$branch" = "master" ] || [ "$branch" = "main" ]; then
-                PS1="$b\u@\h $w\w $b($r$branch $s$d$b) \$ $x"
-            else
-                PS1="$b\u@\h $w\w $b($g$branch $s$d$b) \$ $x"
-            fi
+            PS1="$b\u@\h $w\w $b($g$branch$s$d$b) \$ $x"
         fi
     else
         PS1="$b\u@\h $w\w $b\$ $x"
