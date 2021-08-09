@@ -6,34 +6,41 @@
     && . /usr/share/bash-completion/bash_completion
 
 __ps1() {
-    local x='\e[0m'
+    #colors
+    local x='\e[0m'     # reset
+    local r='\e[0;91m'  # red
+    local g='\e[0;92m'  # green
+    local b='\e[0;36m'  # blue
+    local w='\e[0;97m'  # white
 
-    local r='\e[0;91m'
-    local g='\e[0;92m'
-    local b='\e[0;36m'
-    local w='\e[0;97m'
-
-    local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-    local s=$(git status --ahead-behind 2>/dev/null | awk 'FNR==2{print $4}')
-    case $s in
-        up) s="=" ;;
-        behind) s="-" ;;
-        ahead) s="+" ;;
-        *) s= "" ;;
-    esac
-
-    local d=$(git diff)
-    [ ! -z "$d" ] && d='*'
+    # Check if current dir is a git repo
+    if [ -d .git ]; then
+        # Get state of local repo
+        local s=$(git status --ahead-behind 2>/dev/null | awk 'FNR==2{print $4}')
+        case $s in
+            up) s="=" ;;
+            behind) s="-" ;;
+            ahead) s="+" ;;
+            *) s= "" ;;
+        esac
+    
+        # Check for uncommited changes
+        local d=$(git diff 2>/dev/null)
+        [ ! -z "$d" ] && d='*'
         
-
-    if [ -z "$branch" ]; then
-        PS1="$b\u@\h $w\w $b\$ $x"
-    else
-        if [ "$branch" = "master" ] || [ "$branch" = "main" ]; then
-            PS1="$b\u@\h $w\w $b($r$branch $s$d$b) \$ $x"
+        # Display current branch
+        local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+        if [ -z "$branch" ]; then
+            PS1="$b\u@\h $w\w $b\$ $x"
         else
-            PS1="$b\u@\h $w\w $b($g$branch $s$d$b) \$ $x"
+            if [ "$branch" = "master" ] || [ "$branch" = "main" ]; then
+                PS1="$b\u@\h $w\w $b($r$branch $s$d$b) \$ $x"
+            else
+                PS1="$b\u@\h $w\w $b($g$branch $s$d$b) \$ $x"
+            fi
         fi
+    else
+        PS1="$b\u@\h $w\w $b\$ $x"
     fi
 }
 
