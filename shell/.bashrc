@@ -1,6 +1,4 @@
-#
-# ~/.bashrc
-#
+# .bashrc by Alexander Olzem
 
 [[ $- != *i* ]] && return
 
@@ -21,16 +19,20 @@ __ps1() {
         up) s="=" ;;
         behind) s="-" ;;
         ahead) s="+" ;;
-        *) ;;
+        *) s= "" ;;
     esac
+
+    local d=$(git diff)
+    [ ! -z "$d" ] && d='*'
+        
 
     if [ -z "$branch" ]; then
         PS1="$b\u@\h $w\w $b\$ $x"
     else
         if [ "$branch" = "master" ] || [ "$branch" = "main" ]; then
-            PS1="$b\u@\h $w\w $b($r$branch $s$b) \$ $x"
+            PS1="$b\u@\h $w\w $b($r$branch $s$d$b) \$ $x"
         else
-            PS1="$b\u@\h $w\w $b($g$branch $s$b) \$ $x"
+            PS1="$b\u@\h $w\w $b($g$branch $s$d$b) \$ $x"
         fi
     fi
 }
