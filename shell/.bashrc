@@ -13,35 +13,32 @@ __ps1() {
     local b='\e[0;36m'  # blue
     local w='\e[0;97m'  # white
 
+    local gitinfo
     # Check if current dir is a git repo
-    if [ -d .git ]; then
+    local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+    if [ ! -z "$branch" ]; then
         # Get state of local repo
-        local st=$(git status --ahead-behind 2>/dev/null | awk 'FNR==2{print $4}')
-        case $st in
-            behind) st='-' ;;
-            ahead) st='+' ;;
-            *) st='' ;;
+        case "$(git status --ahead-behind 2>/dev/null | awk 'FNR==2{print $4}')" in
+            behind) gitinfo='-' ;;
+            ahead) gitinfo='+' ;;
+            *) gitinfo='' ;;
         esac
     
         # Check for uncommited changes
-        local di=$(git diff 2>/dev/null)
-        [ ! -z "$di" ] && di='*'
-        
-        # Check if Space after branch is needed    
-        if [ ! -z "$di" ] || [ ! -z "$st" ]; then
-            local s=" "
-        fi
-        
-        # Display current branch
-        local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-        if [ "$branch" = "master" ] || [ "$branch" = "main" ]; then
-            PS1="$b\u@\h $w\w $b($r$branch$s$st$di$b) \$ $x"
-        else
-            PS1="$b\u@\h $w\w $b($g$branch$s$st$di$b) \$ $x"
-        fi
-    else
-        PS1="$b\u@\h $w\w $b\$ $x"
+        [ ! -z "$(git diff 2>/dev/null)" ] && gitinfo="$gitinfo*"
+       
+        # Display Branch indicating red when on master/main or else green
+        case "$branch" in
+            master|main)
+                [ -z "$gitinfo" ] && gitinfo="$r$branch" \
+                    || gitinfo="$r$branch $gitinfo" ;;
+            *)
+                [ -z "$gitinfo" ] && gitinfo="$g$branch" \
+                    || gitinfo="$g$branch $gitinfo" ;;
+        esac
+        gitinfo="$b($gitinfo$b)"
     fi
+    PS1="$b\u@\h $w\w $gitinfo$b\$ $x"
 }
 
 PROMPT_COMMAND="__ps1"
