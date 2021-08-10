@@ -10,9 +10,9 @@ __ps1() {
     local x='\e[0m'     # reset
     local r='\e[0;91m'  # red
     local g='\e[0;92m'  # green
-    local b='\e[0;36m'  # blue
+    local b='\e[0;94m'  # blue
     local w='\e[0;97m'  # white
-
+    
     local gitinfo
     # Check if current dir is a git repo
     local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
@@ -36,9 +36,15 @@ __ps1() {
                 [ -z "$gitinfo" ] && gitinfo="$g$branch" \
                     || gitinfo="$g$branch $gitinfo" ;;
         esac
-        gitinfo="$b($gitinfo$b)"
+        gitinfo="$b($gitinfo$b) "
     fi
-    PS1="$b\u@\h $w\w $gitinfo$b\$ $x"
+
+    # check if user is root
+    local U
+    [ $(id -u) -eq 0 ] && U='#'; b=$r || U='$'
+
+    # Final arrangement for prompt
+    PS1="$b\u@\h $w\w $gitinfo$b$U $x"
 }
 
 PROMPT_COMMAND="__ps1"
