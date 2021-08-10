@@ -15,7 +15,7 @@ __ps1() {
     
     # check if user is root
     local U
-    [ $(id -u) -eq 0 ] && U='#'; b=$r || U='$'
+    [ $(id -u) -eq 0 ] && U='#' && b=$r || U='$'
 
     local gitinfo
     # Check if current dir is a git repo
