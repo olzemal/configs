@@ -13,6 +13,10 @@ __ps1() {
     local b='\e[0;94m'  # blue
     local w='\e[0;97m'  # white
     
+    # check if user is root
+    local U
+    [ $(id -u) -eq 0 ] && U='#'; b=$r || U='$'
+
     local gitinfo
     # Check if current dir is a git repo
     local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
@@ -38,10 +42,6 @@ __ps1() {
         esac
         gitinfo="$b($gitinfo$b) "
     fi
-
-    # check if user is root
-    local U
-    [ $(id -u) -eq 0 ] && U='#'; b=$r || U='$'
 
     # Final arrangement for prompt
     PS1="$b\u@\h $w\w $gitinfo$b$U $x"
