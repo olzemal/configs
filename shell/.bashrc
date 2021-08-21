@@ -7,11 +7,12 @@
 
 __ps1() {
     #colors
-    local x='\e[0m'     # reset
-    local r='\e[0;91m'  # red
-    local g='\e[0;92m'  # green
-    local b='\e[0;94m'  # blue
-    local w='\e[0;97m'  # white
+    local x='\[\017\]'       # reset
+    local n='\[\033[0m\]'    # normal
+    local r='\[\033[0;91m\]' # red
+    local g='\[\033[0;92m\]' # green
+    local b='\[\033[0;94m\]' # blue
+    local w='\[\033[0;97m\]' # white
     
     # check if user is root
     local U
@@ -44,7 +45,7 @@ __ps1() {
     fi
 
     # Final arrangement for prompt
-    PS1="$b\u@\h $w\w $gitinfo$b$U $x"
+    PS1="$x$b\u@\h $w\w $gitinfo$b$U $n"
 }
 
 PROMPT_COMMAND="__ps1"
