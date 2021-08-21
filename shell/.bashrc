@@ -16,12 +16,12 @@ __ps1() {
     
     # check if user is root
     local U
-    [ $(id -u) -eq 0 ] && U='#' && b=$r || U='$'
+    [ "$(id -u)" -eq 0 ] && U='#' && b=$r || U='$'
 
     local gitinfo
     # Check if current dir is a git repo
     local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-    if [ ! -z "$branch" ]; then
+    if [ -n "$branch" ]; then
         # Get state of local repo
         case "$(git status --ahead-behind 2>/dev/null | awk 'FNR==2{print $4}')" in
             behind) gitinfo='-' ;;
@@ -30,7 +30,7 @@ __ps1() {
         esac
     
         # Check for uncommited changes
-        [ ! -z "$(git diff 2>/dev/null)" ] && gitinfo="$gitinfo*"
+        [ -n "$(git diff 2>/dev/null)" ] && gitinfo="$gitinfo*"
        
         # Display Branch indicating red when on master/main or else green
         case "$branch" in
@@ -66,9 +66,12 @@ bind -m vi-command 'Control-l: clear-screen'
 bind -m vi-insert 'Control-l: clear-screen'
 
 # enable some aliases
-[ -e ~/.aliases ] && source ~/.aliases
+[ -e "$HOME/.aliases" ] && source "$HOME/.aliases"
+
+# source other system specific autorun scripts
+[ -e "$HOME/.localrc" ] && source "$HOME/.localrc"
 
 # pfetch
-[ ! -z "$(command -v pfetch)" ] \
+[ -n "$(command -v pfetch)" ] \
     && PF_INFO="ascii title os kernel uptime wm shell memory" pfetch
 
