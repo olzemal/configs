@@ -61,9 +61,9 @@ shopt -s autocd             # '..' -> 'cd ..'
 shopt -s histappend         # Enable history appending instead of overwriting.
 
 # VI mode with ctrl-l
-set -o vi                   
-bind -m vi-command 'Control-l: clear-screen'
-bind -m vi-insert 'Control-l: clear-screen'
+#set -o vi                   
+#bind -m vi-command 'Control-l: clear-screen'
+#bind -m vi-insert 'Control-l: clear-screen'
 
 # enable some aliases
 [ -e "$HOME/.aliases" ] && source "$HOME/.aliases"
