@@ -49,12 +49,15 @@ do
             [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
             link "$PWD/shell/.zshrc" "$HOME/.zshrc"
             ;;
+	    cli)
+            eval "$0 bash aliases tmux vim"
+		    ;; 
         *)
-            printf 'no config file found for "%s"\n' "$option"
+            printf '\033[0;31mno config file found for "%s"\033[0m\n' "$option"
             help
             exit 1
             ;;
     esac
-    printf 'Deployed configs for %s\n' "$option"
+    printf '\033[0;32mDeployed configs for %s\033[0m\n' "$option"
 done
 
