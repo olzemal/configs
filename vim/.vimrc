@@ -29,7 +29,8 @@ endif
 augroup markdownSpell
     au!
     autocmd FileType markdown setlocal spell
-    autocmd BufRead,BufNewFile *.md *.MD setlocal spell
+    autocmd BufRead,BufNewFile *.md setlocal spell
+    autocmd BufRead,BufNewFile *.MD setlocal spell
 augroup END
 
 " When editing a file, always jump to the last known cursor position.
@@ -113,11 +114,18 @@ set expandtab
 set smartindent
 
 " Indentation settings for yaml (2 Spaces instead of tabs)
-augroup yamlTabs
+" also fold yaml files at indentations
+augroup yaml
     au!
     autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType yaml set foldmethod=indent
     autocmd BufRead,BufNewFile *.yml setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufRead,BufNewFile *.yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+augroup Makefile
+    au!
+    autocmd FileType Makefile set noexpandtab
 augroup END
 
 " Search options
