@@ -28,7 +28,8 @@ __ps1() {
         esac
     
         # Check for uncommited changes
-        [ -n "$(git diff 2>/dev/null)" ] && gitinfo="$gitinfo*"
+        [ "$(git status | sed -n '4{p;q}')" = "Changes to be committed:" ] \
+            && gitinfo="$gitinfo*"
        
         # Display Branch indicating red when on master/main or else green
         case "$branch" in
