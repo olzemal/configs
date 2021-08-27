@@ -28,7 +28,7 @@ __ps1() {
         esac
     
         # Check for uncommited changes
-        [ "$(git status | sed -n '4{p;q}')" = "Changes to be committed:" ] \
+        [ "$(git status | awk 'FNR==4{print $1}')" = "Changes" ] \
             && gitinfo="$gitinfo*"
        
         # Display Branch indicating red when on master/main or else green
