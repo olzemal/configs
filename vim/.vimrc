@@ -45,6 +45,9 @@ augroup vimStartup
         \ | endif
 augroup END
 
+" Spellchecking for git commit messages
+autocmd FileType gitcommit setlocal spell
+
 " store backup, undo and swap files in temp directory
 set undofile
 set undolevels=1000
