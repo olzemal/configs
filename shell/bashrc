@@ -69,7 +69,7 @@ shopt -s histappend         # Enable history appending instead of overwriting.
 #bind -m vi-insert 'Control-l: clear-screen'
 
 # enable some aliases
-[ -e "$HOME/.aliases" ] && source "$HOME/.aliases"
+[ -e "$HOME/.config/aliases" ] && source "$HOME/.config/aliases"
 
 # source other system specific autorun scripts
 [ -e "$HOME/.localrc" ] && source "$HOME/.localrc"

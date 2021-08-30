@@ -20,35 +20,37 @@ do
             link "$PWD/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
             ;;
         aliases)
-            link "$PWD/shell/.aliases" "$HOME/.aliases"
+            [ ! -d "$HOME/.config" ] && mkdir -p "$HOME/.config"
+            link "$PWD/shell/aliases" "$HOME/.config/aliases"
             ;;
         bash)
             [ ! -d "$HOME/.scripts" ] && \
                 git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && \
                 chmod -R +x "$HOME/.scripts/"
-            link "$PWD/shell/.bashrc" "$HOME/.bashrc"
-            link "$PWD/shell/.bash_profile" "$HOME/.bash_profile"
+            link "$PWD/shell/bashrc" "$HOME/.bashrc"
+            link "$PWD/shell/bash_profile" "$HOME/.bash_profile"
             ;;
         ranger)
             [ ! -d "$HOME/.config/ranger" ] && mkdir -p "$HOME/.config/ranger"
             link "$PWD/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
             ;;
         spectrwm)
-            link "$PWD/spectrwm/.spectrwm.conf" "$HOME/.spectrwm.conf"
+            link "$PWD/spectrwm/spectrwm.conf" "$HOME/.spectrwm.conf"
             ;;
         starship)
             link "$PWD/starship/starship.toml" "$HOME/.config/starship.toml"
             ;;
         tmux)
-            link "$PWD/tmux/.tmux.conf" "$HOME/.tmux.conf"
+            [ ! -d "$HOME/.config/tmux" ] && mkdir -p "$HOME/.config/tmux"
+            link "$PWD/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
             ;;
         vim)
-            link "$PWD/vim/.vimrc" "$HOME/.vimrc"
+            link "$PWD/vim/vimrc" "$HOME/.vimrc"
 	        ;;
         zsh)
             [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
-            link "$PWD/shell/.zshrc" "$HOME/.zshrc"
-            ;;
+            link "$PWD/shell/zshrc" "$HOME/.zshrc"
+            ;;i
 	    cli)
             eval "$0 bash aliases tmux vim"
 		    ;; 
