@@ -17,18 +17,22 @@ __ps1() {
     [ "$(id -u)" -eq 0 ] && U='#' && b=$r || U='$'
 
     local gitinfo
+
     # Check if current dir is a git repo
-    local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+    local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
     if [ -n "$branch" ]; then
         # Get state of local repo
-        case "$(git status --ahead-behind 2>/dev/null | awk 'FNR==2{print $4}')" in
+        local gitstatus="$(git status 2>/dev/null)"
+        case "$(echo "$gitstatus" | awk 'FNR==2{print $4}')" in
             behind) gitinfo='-' ;;
             ahead) gitinfo='+' ;;
             *) gitinfo='' ;;
         esac
     
         # Check for uncommited changes
-        [ "$(git status | awk 'FNR==4{print $1}')" = "Changes" ] \
+        [ "$(echo "$gitstatus" | awk 'FNR==4{print $1}')" = "Changes" ] \
+            && gitinfo="$gitinfo*"
+        [ "$(echo "$gitstatus" | awk 'FNR==5{print $1}')" = "Changes" ] \
             && gitinfo="$gitinfo*"
        
         # Display Branch indicating red when on master/main or else green
