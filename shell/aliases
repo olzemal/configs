@@ -29,4 +29,5 @@ alias chmox='chmod +x'
 alias vi='vim'
 alias ports='netstat -atulpn'
 alias S='sudo systemctl'
+alias '?'='duck'
 
