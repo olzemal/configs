@@ -59,8 +59,10 @@ xhost +local:root > /dev/null 2>&1
 # sudo
 complete -cf sudo
 
-# kubectl
+# Kubernetes
 [ -n "$(command -v kubectl)" ] && source <(kubectl completion bash)
+[ -n "$(command -v helm)" ] && source <(helm completion bash)
+
 
 ## Options
 shopt -s checkwinsize
