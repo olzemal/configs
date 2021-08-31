@@ -1,3 +1,4 @@
+# Grepping
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -8,12 +9,22 @@ alias gd='git diff'
 alias gs='git status'
 
 # Kubernetes
+alias kg='kubectl get'
 alias kgc='kubectl config get-contexts'
 alias kuc='kubectl config use-context'
 
+# ls
 alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -laH'
 alias ls='ls --color=auto'
 
+# Other
 alias chmox='chmod +x'
+alias vi='vim'
+alias ports='netstat -atulpn'
+
+# confirmation
+alias mv='mv -i'
+alias rm='rm -I --preserve-root'
+
