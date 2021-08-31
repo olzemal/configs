@@ -20,12 +20,13 @@ alias la='ls -A'
 alias ll='ls -laH'
 alias ls='ls --color=auto'
 
+# confirmation
+alias mv='mv -i'
+alias rm='rm -I --preserve-root'
+
 # Other
 alias chmox='chmod +x'
 alias vi='vim'
 alias ports='netstat -atulpn'
-
-# confirmation
-alias mv='mv -i'
-alias rm='rm -I --preserve-root'
+alias S='sudo systemctl'
 
