@@ -2,9 +2,14 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 
+# Git
 alias gc='git commit'
 alias gd='git diff'
 alias gs='git status'
+
+# Kubernetes
+alias kgc='kubectl config get-contexts'
+alias kuc='kubectl config use-context'
 
 alias l='ls -CF'
 alias la='ls -A'
