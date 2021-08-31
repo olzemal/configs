@@ -50,10 +50,10 @@ do
         zsh)
             [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
             link "$PWD/shell/zshrc" "$HOME/.zshrc"
-            ;;i
-	    cli)
+            ;;
+    	cli)
             eval "$0 bash aliases tmux vim"
-		    ;; 
+            ;; 
         *)
             printf '\033[0;31mno config file found for "%s"\033[0m\n' "$option"
             help
