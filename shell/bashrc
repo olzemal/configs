@@ -16,8 +16,21 @@ __ps1() {
     local U
     [ "$(id -u)" -eq 0 ] && U='#' && b=$r || U='$'
 
-    local gitinfo
+    # K8s info
+    local k8sinfo
 
+    # Check if k8sinfo is desired
+    if [ -n "$PS1_K8S_INFO" ]; then
+        context=$(kubectl config current-context 2>/dev/null)
+        namespace=$(kubens -c 2>/dev/null)
+        [ -n "$context" ] && k8sinfo="$k8sinfo$b""Context: $w$context "
+        [ -n "$namespace" ] && k8sinfo="$k8sinfo$b""Namespace: $w$namespace"
+        [ -n "$k8sinfo" ] && k8sinfo="$w╔ $k8sinfo $w\n╚ "
+    fi
+
+    ## Git info
+    local gitinfo
+    
     # Check if current dir is a git repo
     local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
     if [ -n "$branch" ]; then
@@ -48,7 +61,7 @@ __ps1() {
     fi
 
     # Final arrangement for prompt
-    PS1="$x$b\u@\h $w\w $gitinfo$b$U $n"
+    PS1="$x$k8sinfo$b\u@\h $w\w $gitinfo$b$U $n"
 }
 
 PROMPT_COMMAND="__ps1"
