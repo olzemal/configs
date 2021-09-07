@@ -30,4 +30,5 @@ alias vi='vim'
 alias ports='netstat -atulpn'
 alias S='sudo systemctl'
 alias '?'='duck'
+alias watch='watch -n 1'
 

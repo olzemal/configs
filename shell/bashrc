@@ -63,6 +63,21 @@ complete -cf sudo
 [ -n "$(command -v kubectl)" ] && source <(kubectl completion bash)
 [ -n "$(command -v helm)" ] && source <(helm completion bash)
 
+_kube_namespaces()
+{
+  local curr_arg;
+  curr_arg=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "- $(kubectl get namespaces -o=jsonpath='{range .items[*].metadata.name}{@}{"\n"}{end}')" -- $curr_arg ) );
+}
+[ -n "$(command -v kubens)" ] && complete -F _kube_namespaces kubens
+
+_kube_contexts()
+{
+  local curr_arg;
+  curr_arg=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "- $(kubectl config get-contexts --output='name')" -- $curr_arg ) );
+}
+[ -n "$(command -v kubectx)" ] && complete -F _kube_contexts kubectx
 
 ## Options
 shopt -s checkwinsize
