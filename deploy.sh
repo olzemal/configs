@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 link() {
     [ -e "$2" ] && printf 'found existing file %s\n' "$2" && rm -i "$2"
@@ -8,6 +8,41 @@ link() {
 help() {
     printf 'Choose one or more options from the following list\nto add as an argument to the script:\n'
     grep '[a-z])' "$0" | sed 's/)//' | xargs printf ' - %s\n'
+}
+
+versionge() {
+    # Run as `versionge "$(mycommand -v)" "<required version>"`
+    # Return 0 if version requirement is satisfied
+    # Return 1 if version requirement is not satisfied
+
+    current="${1//[!0-9\.]/}"
+    desired="${2//[!0-9\.]/}"
+
+    IFS=" " read -r -a c <<< "${current//./ }"
+    IFS=" " read -r -a d <<< "${desired//./ }"
+
+    lc="${#c[*]}"
+    ld="${#d[*]}"
+
+    [ "$lc" -gt "$ld" ] && {
+        for i in $(seq "$ld" $((lc-1)))
+        do
+            d[$i]=0
+        done
+    }
+
+    [ "$ld" -gt "$lc" ] && {
+        for i in $(seq "$lc" $((ld-1)))
+        do
+            c[$i]=0
+        done
+    }
+
+    for i in $(seq 0 $((lc-1)))
+    do
+        [ ${d[$i]} -gt ${c[$i]} ] && return 1
+    done
+    return 0
 }
 
 [ $# -eq 0 ] && help
@@ -25,8 +60,7 @@ do
             ;;
         bash)
             [ ! -d "$HOME/.scripts" ] && \
-                git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && \
-                chmod -R +x "$HOME/.scripts/"
+                git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts"
             link "$PWD/shell/bashrc" "$HOME/.bashrc"
             link "$PWD/shell/bash_profile" "$HOME/.bash_profile"
             ;;
@@ -41,8 +75,13 @@ do
             link "$PWD/starship/starship.toml" "$HOME/.config/starship.toml"
             ;;
         tmux)
-            [ ! -d "$HOME/.config/tmux" ] && mkdir -p "$HOME/.config/tmux"
-            link "$PWD/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
+            if versionge "$(tmux -V)" "3.1"
+            then
+                [ ! -d "$HOME/.config/tmux" ] && mkdir -p "$HOME/.config/tmux"
+                link "$PWD/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
+            else
+                link "$PWD/tmux/tmux.conf" "$HOME/.tmux.conf"
+            fi
             ;;
         vim)
             curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -56,7 +95,7 @@ do
             ;;
     	cli)
             eval "$0 bash aliases tmux vim"
-            ;; 
+            ;;
         *)
             printf '\033[0;31mno config file found for "%s"\033[0m\n' "$option"
             help
