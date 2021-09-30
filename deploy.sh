@@ -45,6 +45,9 @@ do
             link "$PWD/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
             ;;
         vim)
+            curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+                https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            vim +PlugInstall +qall
             link "$PWD/vim/vimrc" "$HOME/.vimrc"
 	        ;;
         zsh)

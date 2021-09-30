@@ -1,19 +1,36 @@
 " .vimrc by Alexander Olzem
 
-" The goal of this .vimrc file is to provide a portable configuration for the
-" editor vim. 
-" This configuration requires exactly 0 plugins and will run on most linux
-" systems.
+"+---------------------------------------------------------------------------+
+"| Plugins                                                                   |
+"+---------------------------------------------------------------------------+
 
-" Some nice things this config provides are:
-" - spellchecking on markdown files
-" - fuzzy finding
-" - 2 space tabstops for yaml files
-" - automatic undo breakpoints
+" Make sure plug is installed
+if !empty(glob("~/.vim/autoload/plug.vim"))
+    call plug#begin('~/.vim/plugged')
+    " Colorscheme
+    Plug 'morhetz/gruvbox'
+    " Intellisense
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    call plug#end()
+endif
 
 "+---------------------------------------------------------------------------+
 "| Settings                                                                  |
 "+---------------------------------------------------------------------------+
+
+" Colors
+if !empty(glob("~/.vim/plugged/gruvbox/colors/gruvbox.vim"))
+    set bg=dark
+    autocmd colorscheme * hi clear SpellBad
+    autocmd colorscheme * hi SpellBad cterm=underline ctermfg=NONE ctermbg=NONE
+    colorscheme gruvbox
+else
+    colorscheme torte
+    highlight LineNr ctermfg=darkgrey
+    highlight ColorColumn ctermbg=darkgrey 
+    highlight Pmenu ctermbg=darkgrey ctermfg=white
+    highlight PmenuSel ctermbg=blue ctermfg=black
+endif
 
 " Enable auto indenting
 if has('filetype')
@@ -141,13 +158,6 @@ set scrolloff=4
 " Search down in subfolders
 set path+=**
 
-" Colors
-colorscheme torte
-highlight LineNr ctermfg=darkgrey
-highlight ColorColumn ctermbg=darkgrey 
-highlight Pmenu ctermbg=darkgrey ctermfg=white
-highlight PmenuSel ctermbg=blue ctermfg=black
-
 "+---------------------------------------------------------------------------+
 "| Remaps                                                                    |
 "+---------------------------------------------------------------------------+
@@ -183,4 +193,15 @@ vnoremap K :m '<-2<CR>gv=gv
 
 nnoremap <leader>k :m .-2<CR>==
 nnoremap <leader>j :m .+1<CR>==
+
+" Intellisense
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
 
