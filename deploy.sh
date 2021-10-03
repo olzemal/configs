@@ -86,9 +86,9 @@ do
         vim)
             curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
                 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-            vim +PlugInstall +qall
             link "$PWD/vim/vimrc" "$HOME/.vimrc"
-	        ;;
+            vim +PlugInstall +qall
+	    ;;
         zsh)
             [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
             link "$PWD/shell/zshrc" "$HOME/.zshrc"
