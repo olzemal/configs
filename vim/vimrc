@@ -9,8 +9,6 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
     call plug#begin('~/.vim/plugged')
     " Colorscheme
     Plug 'morhetz/gruvbox'
-    " Intellisense
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     call plug#end()
 endif
 
