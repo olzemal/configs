@@ -9,6 +9,8 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
     call plug#begin('~/.vim/plugged')
     " Colorscheme
     Plug 'morhetz/gruvbox'
+    " Autocomplete
+    Plug 'lifepillar/vim-mucomplete'
     call plug#end()
 endif
 
@@ -38,6 +40,11 @@ endif
 " Enable syntax highliting
 if has('syntax')
     syntax on
+endif
+
+" Enable vim-µcomplete
+if !empty(glob("~/.vim/plugged/vim-mucomplete/plugin/mucomplete.vim"))
+    let g:mucomplete#enable_auto_at_startup = 1
 endif
 
 " When editing a markdown file, enable spellcheck
@@ -131,6 +138,13 @@ set tabstop=4 softtabstop=4 shiftwidth=4
 set expandtab
 set smartindent
 
+" Mandatory for vim-µcomplete
+set completeopt+=menuone
+set completeopt+=noselect
+
+" Shut off completion messages
+set shortmess+=c
+
 " Indentation settings for yaml (2 Spaces instead of tabs)
 " also fold yaml files at indentations
 augroup yaml
@@ -191,15 +205,4 @@ vnoremap K :m '<-2<CR>gv=gv
 
 nnoremap <leader>k :m .-2<CR>==
 nnoremap <leader>j :m .+1<CR>==
-
-" Intellisense
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ coc#refresh()
 
