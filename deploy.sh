@@ -77,6 +77,9 @@ do
             # Deploy rc.conf
             [ ! -d "$HOME/.config/ranger" ] && mkdir -p "$HOME/.config/ranger"
             link "$PWD/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
+
+            # Install ueberzug
+            [ -z "$(command -v ueberzug)" ] && sudo pip3 install ueberzug
             ;;
 
         tmux)
