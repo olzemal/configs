@@ -17,9 +17,9 @@ versionge() {
 
     current="${1//[!0-9\.]/}"
     desired="${2//[!0-9\.]/}"
-
-    IFS=" " read -r -a c <<< "${current//./ }"
-    IFS=" " read -r -a d <<< "${desired//./ }"
+    
+    IFS="." read -r -a c <<< "${current}"
+    IFS="." read -r -a d <<< "${desired}"
 
     lc="${#c[*]}"
     ld="${#d[*]}"
@@ -41,6 +41,7 @@ versionge() {
     for i in $(seq 0 $((lc-1)))
     do
         [ ${d[$i]} -gt ${c[$i]} ] && return 1
+        [ ${d[$i]} -lt ${c[$i]} ] && return 0
     done
     return 0
 }
@@ -54,48 +55,67 @@ do
             [ ! -d "$HOME/.config/alacritty" ] && mkdir -p "$HOME/.config/alacritty"
             link "$PWD/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
             ;;
+
         aliases)
             [ ! -d "$HOME/.config" ] && mkdir -p "$HOME/.config"
             link "$PWD/shell/aliases" "$HOME/.config/aliases"
             ;;
+
         bash)
+            # Clone scripts repo
             [ ! -d "$HOME/.scripts" ] && \
                 git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts"
+            
+            # Deploy bashrc
             link "$PWD/shell/bashrc" "$HOME/.bashrc"
+
+            # Deploy bash_profile
             link "$PWD/shell/bash_profile" "$HOME/.bash_profile"
             ;;
+
         ranger)
+            # Deploy rc.conf
             [ ! -d "$HOME/.config/ranger" ] && mkdir -p "$HOME/.config/ranger"
             link "$PWD/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
             ;;
-        spectrwm)
-            link "$PWD/spectrwm/spectrwm.conf" "$HOME/.spectrwm.conf"
-            ;;
-        starship)
-            link "$PWD/starship/starship.toml" "$HOME/.config/starship.toml"
-            ;;
+
         tmux)
-            if versionge "$(tmux -V)" "3.1"
-            then
+            # Deploy tmux.conf
+            if versionge "$(tmux -V)" "3.1"; then
                 [ ! -d "$HOME/.config/tmux" ] && mkdir -p "$HOME/.config/tmux"
                 link "$PWD/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
             else
                 link "$PWD/tmux/tmux.conf" "$HOME/.tmux.conf"
             fi
             ;;
+
         vim)
-            curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-                https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-            link "$PWD/vim/vimrc" "$HOME/.vimrc"
+            # Install Plug
+            [ ! -e "$HOME/.vim/autoload/plug.vim" ] && \
+                curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+                    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            
+            # Deploy vimrc
+            if versionge "$(vim --version | head -1 | grep -oP '\d\.\d')" "7.3"; then
+                [ ! -d "$HOME/.vim" ] && mkdir -p "$HOME/.vim"
+                link "$PWD/vim/vimrc" "$HOME/.vim/vimrc"
+            else
+                link "$PWD/vim/vimrc" "$HOME/.vimrc"
+            fi
+
+            # Run PlugInstall
             vim +PlugInstall +qall
 	    ;;
+
         zsh)
             [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
             link "$PWD/shell/zshrc" "$HOME/.zshrc"
             ;;
+
     	cli)
             eval "$0 bash aliases tmux vim"
             ;;
+
         *)
             printf '\033[0;31mno config file found for "%s"\033[0m\n' "$option"
             help
