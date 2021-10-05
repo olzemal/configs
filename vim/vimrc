@@ -21,9 +21,11 @@ endif
 " Colors
 if !empty(glob("~/.vim/plugged/gruvbox/colors/gruvbox.vim"))
     set bg=dark
+    colorscheme gruvbox
     autocmd colorscheme * hi clear SpellBad
     autocmd colorscheme * hi SpellBad cterm=underline ctermfg=NONE ctermbg=NONE
-    colorscheme gruvbox
+    highlight Pmenu ctermbg=darkgrey ctermfg=white
+    highlight PmenuSel ctermbg=blue ctermfg=black
 else
     colorscheme torte
     highlight LineNr ctermfg=darkgrey
