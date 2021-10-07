@@ -1,12 +1,19 @@
+#!/bin/sh
 export GOPATH="$HOME/.local/bin/go"
 export PATH="$HOME/.local/bin:$HOME/.scripts:$GOPATH/bin:$PATH"
 export EDITOR=vim
 export LANG=en_US.UTF-8
 
-[ ! -d $GOPATH ] && mkdir -p $GOPATH
+[ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
 
 # Source bashrc if bash is running and file exists
+{
 [ -n "$BASH_VERSION" ] && \
 [ -f "$HOME/.bashrc" ] && \
-    source "$HOME/.bashrc"
-
+    . "$HOME/.bashrc" 
+} && {
+    # Start X Server when on /dev/tty1
+    if [ "$(tty)" = "/dev/tty1" ]; then
+        pgrep 'dwm' || startx "$HOME/.config/X11/xinitrc"
+    fi
+}
