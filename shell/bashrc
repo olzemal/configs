@@ -103,6 +103,9 @@ shopt -s histappend         # Enable history appending instead of overwriting.
 #bind -m vi-command 'Control-l: clear-screen'
 #bind -m vi-insert 'Control-l: clear-screen'
 
+# Enable Del-key
+tput smkx
+
 # enable some aliases
 [ -e "$HOME/.config/aliases" ] && source "$HOME/.config/aliases"
 

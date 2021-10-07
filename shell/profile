@@ -1,0 +1,12 @@
+export GOPATH="$HOME/.local/bin/go"
+export PATH="$HOME/.local/bin:$HOME/.scripts:$GOPATH/bin:$PATH"
+export EDITOR=vim
+export LANG=en_US.UTF-8
+
+[ ! -d $GOPATH ] && mkdir -p $GOPATH
+
+# Source bashrc if bash is running and file exists
+[ -n "$BASH_VERSION" ] && \
+[ -f "$HOME/.bashrc" ] && \
+    source "$HOME/.bashrc"
+
