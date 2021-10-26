@@ -52,8 +52,10 @@ for option in "$@"
 do
     case $option in
         alacritty)
-            [ ! -d "$HOME/.config/alacritty" ] && mkdir -p "$HOME/.config/alacritty"
-            link "$PWD/alacritty/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+            [ ! -d "$HOME/.config/alacritty" ] && \
+                mkdir -p "$HOME/.config/alacritty"
+            link "$PWD/alacritty/alacritty.yml" \
+                "$HOME/.config/alacritty/alacritty.yml"
             ;;
 
         aliases)
@@ -64,7 +66,8 @@ do
         bash)
             # Clone scripts repo
             [ ! -d "$HOME/.scripts" ] && \
-                git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts"
+                git clone https://gitlab.com/olzemal/scripts.git \
+                    "$HOME/.scripts"
             
             # Deploy bashrc
             link "$PWD/shell/bashrc" "$HOME/.bashrc"
@@ -99,7 +102,10 @@ do
                     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
             
             # Deploy vimrc
-            if versionge "$(vim --version | head -1 | grep -oP '\d\.\d')" "7.3"; then
+            if versionge \
+                "$(vim --version | head -1 | grep -oP '\d\.\d')" \
+                "7.3"
+            then
                 [ ! -d "$HOME/.vim" ] && mkdir -p "$HOME/.vim"
                 link "$PWD/vim/vimrc" "$HOME/.vim/vimrc"
             else
