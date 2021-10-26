@@ -1,10 +1,12 @@
 #!/bin/sh
-export GOPATH="$HOME/.local/bin/go"
-export PATH="$HOME/.local/bin:$HOME/.scripts:$GOPATH/bin:$PATH"
+export GOPATH="$HOME/.local/go"
+export GOBIN="$GOPATH/bin"
+export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$PATH"
 export EDITOR=vim
 export LANG=en_US.UTF-8
 
 [ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
+[ ! -d "$GOBIN"  ] && mkdir -p "$GOBIN"
 
 # Source bashrc if bash is running and file exists
 {
@@ -17,3 +19,4 @@ export LANG=en_US.UTF-8
         pgrep 'dwm' || startx "$HOME/.config/X11/xinitrc"
     fi
 }
+

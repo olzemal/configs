@@ -114,6 +114,10 @@ do
 
             # Run PlugInstall
             vim +PlugInstall +qall
+
+            # Install go binaries if go is installed
+            [ -n "$(command -v go)" ] && \
+                vim +GoInstallBinaries
 	    ;;
 
         zsh)
