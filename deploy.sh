@@ -121,7 +121,9 @@ do
 	    ;;
 
         zsh)
-            [ ! -d "$HOME/.scripts" ] && git clone https://gitlab.com/olzemal/scripts.git "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
+            [ ! -d "$HOME/.scripts" ] && \
+                git clone https://gitlab.com/olzemal/scripts.git \
+                    "$HOME/.scripts" && chmod -R +x "$HOME/.scripts/"
             link "$PWD/shell/zshrc" "$HOME/.zshrc"
             ;;
 
