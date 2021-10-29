@@ -100,7 +100,7 @@ do
             [ ! -e "$HOME/.vim/autoload/plug.vim" ] && \
                 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
                     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-            
+
             # Deploy vimrc
             if versionge \
                 "$(vim --version | head -1 | grep -oP '\d\.\d')" \
@@ -118,6 +118,14 @@ do
             # Install go binaries if go is installed
             [ -n "$(command -v go)" ] && \
                 vim +GoInstallBinaries
+
+            # Link filters into place
+            [ ! -d "$HOME/.vim/filters" ] && mkdir -p "$HOME/.vim/filters"
+            for i in ./vim/filters/*; do
+                link \
+                    "$PWD/vim/filters/${i##.*\/}" \
+                    "$HOME/.vim/filters/${i##.*\/}"
+            done
 	    ;;
 
         zsh)
