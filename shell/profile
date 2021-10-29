@@ -4,6 +4,7 @@ export GOBIN="$GOPATH/bin"
 export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$PATH"
 export EDITOR=vim
 export LANG=en_US.UTF-8
+export LC_ALL=C
 
 [ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
 [ ! -d "$GOBIN"  ] && mkdir -p "$GOBIN"
