@@ -99,6 +99,9 @@ endif
 " Keep buffers in background
 set hidden
 
+" Save .viminfo in .vim to keep home clean
+set viminfo+=n~/.vim/viminfo
+
 " Better command-line completion
 set wildmenu
 
