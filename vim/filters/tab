@@ -5,10 +5,10 @@ if [ "$1" ]; then
         t="$t "
     done
 else
-    t='\t'
+    t="\t"
 fi
 
 while IFS= read -r line; do
-    printf '%s%s\n' "$t" "$line"
+    printf '%b%s\n' "$t" "$line"
 done
 
