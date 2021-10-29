@@ -1,4 +1,9 @@
-#!/bin/bash
+#!/bin/sh
+# shellcheck disable=SC2086
+
+first() {
+    [ -n "$1" ] && printf '%s' "$1" || printf '%s' "$1"
+}
 
 link() {
     [ -e "$2" ] && printf 'found existing file %s\n' "$2" && rm -i "$2"
@@ -14,36 +19,22 @@ versionge() {
     # Run as `versionge "$(mycommand -v)" "<required version>"`
     # Return 0 if version requirement is satisfied
     # Return 1 if version requirement is not satisfied
+    current="$(printf '%s' "$1" | sed -e 's/\./\ /g' -e 's/[^0-9\ ]//g')"
+	desired="$(printf '%s' "$2" | sed -e 's/\./\ /g' -e 's/[^0-9\ ]//g')"
 
-    current="${1//[!0-9\.]/}"
-    desired="${2//[!0-9\.]/}"
-    
-    IFS="." read -r -a c <<< "${current}"
-    IFS="." read -r -a d <<< "${desired}"
-
-    lc="${#c[*]}"
-    ld="${#d[*]}"
-
-    [ "$lc" -gt "$ld" ] && {
-        for i in $(seq "$ld" $((lc-1)))
-        do
-            d[$i]=0
-        done
-    }
-
-    [ "$ld" -gt "$lc" ] && {
-        for i in $(seq "$lc" $((ld-1)))
-        do
-            c[$i]=0
-        done
-    }
-
-    for i in $(seq 0 $((lc-1)))
-    do
-        [ ${d[$i]} -gt ${c[$i]} ] && return 1
-        [ ${d[$i]} -lt ${c[$i]} ] && return 0
+	while [ -n "$current" ]; do
+	    # Return 1 if not satisfied
+		[ "$(first $current)" -lt "$(first $desired)" ] && return 1
+		# Return 0 if satisfied
+		[ "$(first $current)" -gt "$(first $desired)" ] && return 0
+		# Therefore continue if eqal
+		# Delete First element (and leading space) of $current and $desired
+		current=${current#$(first $current)}
+		current=${current#${current%%[![:space:]]*}}
+        desired=${desired#$(first $desired)}
+        desired=${desired#${desired%%[![:space:]]*}}
     done
-    return 0
+    return 0 
 }
 
 [ $# -eq 0 ] && help
