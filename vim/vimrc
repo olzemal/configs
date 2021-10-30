@@ -216,3 +216,14 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap <leader>k :m .-2<CR>==
 nnoremap <leader>j :m .+1<CR>==
 
+" Disable Arrow keys
+" noremap <up> <NOP>
+" noremap <down> <NOP>
+" noremap <left> <NOP>
+" noremap <right> <NOP>
+
+" inoremap <up> <NOP>
+" inoremap <down> <NOP>
+" inoremap <left> <NOP>
+" inoremap <right> <NOP>
+
