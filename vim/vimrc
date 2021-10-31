@@ -11,6 +11,7 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
     Plug 'morhetz/gruvbox'
     " Autocomplete
     Plug 'lifepillar/vim-mucomplete'
+    Plug 'sheerun/vim-polyglot'
     " Vim-go
     Plug 'fatih/vim-go'
     call plug#end()
