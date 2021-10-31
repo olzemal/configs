@@ -52,6 +52,25 @@ if !empty(glob("~/.vim/plugged/vim-mucomplete/plugin/mucomplete.vim"))
     let g:mucomplete#enable_auto_at_startup = 1
 endif
 
+" vim-go options
+if !empty(glob("~/.vim/plugged/vim-go/plugin/go.vim"))
+    let g:go_fmt_fail_silently = 0
+    let g:go_fmt_command = 'goimports'
+    let g:go_fmt_autosave = 1
+    let g:go_gopls_enabled = 1
+    let g:go_highlight_types = 1
+    let g:go_highlight_fields = 1
+    let g:go_highlight_functions = 1
+    let g:go_highlight_function_calls = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_extra_types = 1
+    let g:go_highlight_variable_declarations = 1
+    let g:go_highlight_variable_assignments = 1
+    let g:go_highlight_build_constraints = 1
+    let g:go_highlight_diagnostic_errors = 1
+    let g:go_highlight_diagnostic_warnings = 1
+endif
+
 " When editing a markdown file, enable spellcheck
 augroup markdownSpell
     au!
@@ -216,6 +235,14 @@ vnoremap K :m '<-2<CR>gv=gv
 
 nnoremap <leader>k :m .-2<CR>==
 nnoremap <leader>j :m .+1<CR>==
+
+au FileType go nmap <leader>r :GoRun!<CR>
+au FileType go nmap <leader>t :GoTest!<CR>
+au FileType go nmap <leader>v :GoVet!<CR>
+au FileType go nmap <leader>b :GoBuild!<CR>
+au FileType go nmap <leader>c :GoCoverageToggle<CR>
+au FileType go nmap <leader>i :GoInfo<CR>
+au FileType go nmap <leader>l :GoMetaLinter!<CR>
 
 " Disable Arrow keys
 " noremap <up> <NOP>
