@@ -111,7 +111,7 @@ tput smkx
 
 # source other system specific autorun scripts
 [ -e "$HOME/.localrc" ] && source "$HOME/.localrc"
-[ -e "$HOME/.config/localrc" ] && source "$HOME/.config/localrc"
+[ -e "$HOME/.local/localrc" ] && source "$HOME/.local/localrc"
 
 # pfetch
 [ -n "$(command -v pfetch)" ] \
