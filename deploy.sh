@@ -67,6 +67,12 @@ do
             link "$PWD/shell/profile" "$HOME/.profile"
             ;;
 
+        lynx)
+            [ ! -d "$HOME/.config/lynx" ] && mkdir -p "$HOME/.config/lynx"
+            link "$PWD/lynx/lynx.lss" "$HOME/.config/lynx/lynx.lss"
+            link "$PWD/lynx/lynx.cfg" "$HOME/.config/lynx/lynx.cfg"
+            ;;
+
         ranger)
             # Deploy rc.conf
             [ ! -d "$HOME/.config/ranger" ] && mkdir -p "$HOME/.config/ranger"
@@ -127,7 +133,7 @@ do
             ;;
 
     	cli)
-            eval "$0 bash aliases tmux vim"
+            eval "$0 bash aliases tmux vim lynx"
             ;;
 
         *)
