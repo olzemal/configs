@@ -73,8 +73,8 @@ xhost +local:root > /dev/null 2>&1
 complete -cf sudo
 
 # Kubernetes
-[ -n "$(command -v kubectl)" ] && source <(kubectl completion bash)
-[ -n "$(command -v helm)" ] && source <(helm completion bash)
+[ -n "$(command -v kubectl)" ] && . <(kubectl completion bash) && complete -F __start_kubectl k
+[ -n "$(command -v helm)" ] && . <(helm completion bash)
 
 _kube_namespaces()
 {
@@ -107,11 +107,11 @@ shopt -s histappend         # Enable history appending instead of overwriting.
 tput smkx
 
 # enable some aliases
-[ -e "$HOME/.config/aliases" ] && source "$HOME/.config/aliases"
+[ -e "$HOME/.config/aliases" ] && . "$HOME/.config/aliases"
 
 # source other system specific autorun scripts
 [ -e "$HOME/.localrc" ] && source "$HOME/.localrc"
-[ -e "$HOME/.local/localrc" ] && source "$HOME/.local/localrc"
+[ -e "$HOME/.local/localrc" ] && . "$HOME/.local/localrc"
 
 # pfetch
 [ -n "$(command -v pfetch)" ] \
