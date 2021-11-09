@@ -178,6 +178,7 @@ augroup yaml
     au!
     autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd FileType yaml set foldmethod=indent
+    autocmd FileType yaml set nofoldenable
     autocmd BufRead,BufNewFile *.yml setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufRead,BufNewFile *.yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
