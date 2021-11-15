@@ -113,7 +113,7 @@ do
             vim +PlugInstall +qall
 
             # Install go binaries if go is installed
-            [ -n "$(command -v go)" ] && \
+            [ -n "$(command -v go)" ] && [ ! -f "$GOBIN/golint" ] \
                 vim +GoInstallBinaries
 
             # Link filters into place
