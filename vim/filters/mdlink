@@ -1,7 +1,0 @@
-#!/bin/sh
-
-while IFS=" " read -r link; do
-    title=${link#*://}
-    title=${title%%/*}
-    printf '[%s](%s)\n' "$title" "$link"
-done

@@ -197,9 +197,6 @@ set scrolloff=4
 " Search down in subfolders
 set path+=**
 
-" Add filters to PATH
-let $PATH = $HOME.'/.vim/filters:'.$PATH
-
 "+---------------------------------------------------------------------------+
 "| Remaps                                                                    |
 "+---------------------------------------------------------------------------+

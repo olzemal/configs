@@ -1,5 +1,0 @@
-#!/bin/sh
-while IFS= read -r line; do
-    printf '%s%s\n' "$1" "$line"
-done
-
