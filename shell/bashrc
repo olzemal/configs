@@ -1,5 +1,9 @@
 # .bashrc by Alexander Olzem
 
+# Return if not interactive
+[[ $- != *i* ]] && return
+
+# Source bash-completion
 [ -f /usr/share/bash-completion/bash_completion ] \
     && . /usr/share/bash-completion/bash_completion
 
@@ -116,6 +120,9 @@ tput smkx
 # source other system specific autorun scripts
 [ -e "$HOME/.localrc" ] && source "$HOME/.localrc"
 [ -e "$HOME/.local/localrc" ] && . "$HOME/.local/localrc"
+
+# enable thefuck
+[ -n "$(command -v thefuck)" ] && eval $(thefuck --alias fuck)
 
 # pfetch
 [ -n "$(command -v pfetch)" ] \
