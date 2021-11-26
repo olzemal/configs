@@ -14,6 +14,8 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
     Plug 'sheerun/vim-polyglot'
     " Vim-go
     Plug 'fatih/vim-go'
+    " Nerd Tree
+    Plug 'scrooloose/nerdtree'
     call plug#end()
 endif
 
@@ -67,8 +69,9 @@ if !empty(glob("~/.vim/plugged/vim-go/plugin/go.vim"))
     let g:go_highlight_build_constraints = 1
     let g:go_highlight_diagnostic_errors = 1
     let g:go_highlight_diagnostic_warnings = 1
-
 endif
+
+let NERDTreeMinimalUI=1
 
 " When editing a markdown file, enable spellcheck
 augroup markdownSpell
@@ -236,8 +239,10 @@ nnoremap <leader>j :m .+1<CR>==
 nnoremap <leader>N :set number<CR>
 nnoremap <leader>n :set nonumber<CR>
 
+nnoremap <silent> <leader>t :NERDTreeToggle<CR>
+
 au FileType go nmap <leader>r :GoRun!<CR>
-au FileType go nmap <leader>t :GoTest!<CR>
+au FileType go nmap <leader>gt :GoTest!<CR>
 au FileType go nmap <leader>v :GoVet!<CR>
 au FileType go nmap <leader>b :GoBuild!<CR>
 au FileType go nmap <leader>c :GoCoverageToggle<CR>
