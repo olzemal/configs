@@ -2,7 +2,6 @@
 export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
 export GO111MODULE="auto"
-export GOROOT=/usr/local/go
 export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:$PATH"
 export EDITOR=vim
 export LANG=en_US.UTF-8

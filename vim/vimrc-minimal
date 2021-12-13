@@ -1,38 +1,12 @@
 " .vimrc by Alexander Olzem
 
 "+---------------------------------------------------------------------------+
-"| Plugins                                                                   |
-"+---------------------------------------------------------------------------+
-
-" Make sure plug is installed
-if !empty(glob("~/.vim/autoload/plug.vim"))
-    call plug#begin('~/.vim/plugged')
-    " Colorscheme
-    Plug 'morhetz/gruvbox'
-    " Autocomplete
-    Plug 'lifepillar/vim-mucomplete'
-    Plug 'sheerun/vim-polyglot'
-    " Vim-go
-    Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-    " Nerd Tree
-    Plug 'scrooloose/nerdtree'
-    call plug#end()
-endif
-
-"+---------------------------------------------------------------------------+
 "| Settings                                                                  |
 "+---------------------------------------------------------------------------+
 
 " Colors
-if !empty(glob("~/.vim/plugged/gruvbox/colors/gruvbox.vim"))
-    set bg=dark
-    colorscheme gruvbox
-    autocmd colorscheme * hi clear SpellBad
-    autocmd colorscheme * hi SpellBad cterm=underline ctermfg=NONE ctermbg=NONE
-else
-    highlight LineNr ctermfg=darkgrey
-    highlight ColorColumn ctermbg=darkgrey 
-endif
+highlight LineNr ctermfg=darkgrey
+highlight ColorColumn ctermbg=darkgrey 
     
 highlight Pmenu ctermbg=darkgrey ctermfg=white
 highlight PmenuSel ctermbg=blue ctermfg=black
@@ -46,32 +20,6 @@ endif
 if has('syntax')
     syntax on
 endif
-
-" Enable vim-µcomplete
-if !empty(glob("~/.vim/plugged/vim-mucomplete/plugin/mucomplete.vim"))
-    let g:mucomplete#enable_auto_at_startup = 1
-endif
-
-" vim-go options
-if !empty(glob("~/.vim/plugged/vim-go/plugin/go.vim"))
-    let g:go_fmt_fail_silently = 0
-    let g:go_fmt_command = 'goimports'
-    let g:go_fmt_autosave = 1           " :GoFmt on save
-    let g:go_gopls_enabled = 1          " Needed for completion
-    let g:go_highlight_types = 1
-    let g:go_highlight_fields = 1
-    let g:go_highlight_functions = 1
-    let g:go_highlight_function_calls = 1
-    let g:go_highlight_operators = 1
-    let g:go_highlight_extra_types = 1
-    let g:go_highlight_variable_declarations = 1
-    let g:go_highlight_variable_assignments = 1
-    let g:go_highlight_build_constraints = 1
-    let g:go_highlight_diagnostic_errors = 1
-    let g:go_highlight_diagnostic_warnings = 1
-endif
-
-let NERDTreeMinimalUI=1
 
 " When editing a markdown file, enable spellcheck
 augroup markdownSpell
@@ -135,10 +83,6 @@ set showcmd
 " coming from other editors would expect.
 set nostartofline
 
-" Display the cursor position on the last line of the screen or in the status
-" line of a window
-set ruler
-
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 
@@ -153,14 +97,8 @@ set visualbell t_vb=
 " "press <Enter> to continue"
 set cmdheight=2
 
-" Display line numbers on the left
-set number
-
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F11>
-
-" Set ruler at the right
-set colorcolumn=80
 
 " Indentation settings for using 4 spaces instead of tabs.
 set tabstop=4 softtabstop=4 shiftwidth=4
@@ -216,15 +154,6 @@ nnoremap N Nzzzv
 " Keep the cursor where it was after line concatination
 nnoremap J mzJ`z 
 
-" Undo break points at end of sentences
-inoremap , ,<c-g>u
-inoremap . .<c-g>u
-inoremap : :<c-g>u
-inoremap ; ;<c-g>u
-inoremap - -<c-g>u
-inoremap ! !<c-g>u
-inoremap ? ?<c-g>u
-
 " Jumplist mutations
 nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
 nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
@@ -238,25 +167,4 @@ nnoremap <leader>j :m .+1<CR>==
 
 nnoremap <leader>N :set number<CR>
 nnoremap <leader>n :set nonumber<CR>
-
-nnoremap <silent> <leader>t :NERDTreeToggle<CR>
-
-au FileType go nmap <leader>r :GoRun!<CR>
-au FileType go nmap <leader>gt :GoTest!<CR>
-au FileType go nmap <leader>v :GoVet!<CR>
-au FileType go nmap <leader>b :GoBuild!<CR>
-au FileType go nmap <leader>c :GoCoverageToggle<CR>
-au FileType go nmap <leader>i :GoInfo<CR>
-au FileType go nmap <leader>l :GoMetaLinter!<CR>
-
-" Disable Arrow keys
-" noremap <up> <NOP>
-" noremap <down> <NOP>
-" noremap <left> <NOP>
-" noremap <right> <NOP>
-
-" inoremap <up> <NOP>
-" inoremap <down> <NOP>
-" inoremap <left> <NOP>
-" inoremap <right> <NOP>
 

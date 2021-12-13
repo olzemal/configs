@@ -92,6 +92,19 @@ do
             fi
             ;;
 
+        minivim)
+            # Deploy vimrc
+            if versionge \
+                "$(vim --version | head -1 | grep -oP '\d\.\d')" \
+                "7.3"
+            then
+                [ ! -d "$HOME/.vim" ] && mkdir -p "$HOME/.vim"
+                link "$PWD/vim/vimrc-minimal" "$HOME/.vim/vimrc"
+            else
+                link "$PWD/vim/vimrc-minimal" "$HOME/.vimrc"
+            fi
+            ;;
+
         vim)
             # Install Plug
             [ ! -e "$HOME/.vim/autoload/plug.vim" ] && \
@@ -115,15 +128,7 @@ do
             # Install go binaries if go is installed
             [ -n "$(command -v go)" ] && [ ! -f "$GOBIN/golint" ] \
                 vim +GoInstallBinaries
-
-            # Link filters into place
-            [ ! -d "$HOME/.vim/filters" ] && mkdir -p "$HOME/.vim/filters"
-            for i in ./vim/filters/*; do
-                link \
-                    "$PWD/vim/filters/${i##.*\/}" \
-                    "$HOME/.vim/filters/${i##.*\/}"
-            done
-	    ;;
+            ;;
 
         zsh)
             [ ! -d "$HOME/.scripts" ] && \
