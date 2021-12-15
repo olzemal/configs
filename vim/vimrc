@@ -14,6 +14,9 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
     Plug 'sheerun/vim-polyglot'
     " Vim-go
     Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+    if has('python3')
+        Plug 'SirVer/ultisnips'
+    endif
     " Nerd Tree
     Plug 'scrooloose/nerdtree'
     call plug#end()
@@ -241,7 +244,7 @@ nnoremap <leader>n :set nonumber<CR>
 
 nnoremap <silent> <leader>t :NERDTreeToggle<CR>
 
-autocmd FileType go NERDTree
+"autocmd FileType go NERDTree
 
 au FileType go nmap <leader>r :GoRun!<CR>
 au FileType go nmap <leader>gt :GoTest!<CR>
