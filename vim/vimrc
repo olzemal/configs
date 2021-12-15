@@ -54,7 +54,7 @@ endif
 
 " vim-go options
 if !empty(glob("~/.vim/plugged/vim-go/plugin/go.vim"))
-    let g:go_fmt_fail_silently = 0
+    let g:go_fmt_fail_silently = 1
     let g:go_fmt_command = 'goimports'
     let g:go_fmt_autosave = 1           " :GoFmt on save
     let g:go_gopls_enabled = 1          " Needed for completion
@@ -240,6 +240,8 @@ nnoremap <leader>N :set number<CR>
 nnoremap <leader>n :set nonumber<CR>
 
 nnoremap <silent> <leader>t :NERDTreeToggle<CR>
+
+autocmd FileType go NERDTree
 
 au FileType go nmap <leader>r :GoRun!<CR>
 au FileType go nmap <leader>gt :GoTest!<CR>
