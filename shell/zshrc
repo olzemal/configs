@@ -1,22 +1,40 @@
-# Use powerline
-USE_POWERLINE="true"
+# .zshrc by Alexander Olzem
 
-# enable colors
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-fi
+# Plugins
+plugins=(
+    git
+    kubectl
+)
+
+# Return if not interactive
+[[ $- != *i* ]] && return
+
+# vi mode
+# bindkey -v
+
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT=\$vcs_info_msg_0_
+zstyle ':vcs_info:git:*' formats '%F{white}(%b)%f'
+zstyle ':vcs_info:*' enable git
+
+# Prompt
+PROMPT='%F{blue}%n@%m %F{white}%~ %F{blue}$ %f'
 
 # enable some aliases
-source ~/.aliases
+[ -e "$HOME/.config/aliases" ] && . "$HOME/.config/aliases"
 
-# enable vim mode
-bindkey -v
+# source other system specific autorun scripts
+[ -e "$HOME/.localrc" ] && . "$HOME/.localrc"
+[ -e "$HOME/.local/localrc" ] && . "$HOME/.local/localrc"
+
+# enable thefuck
+[ -n "$(command -v thefuck)" ] && eval $(thefuck --alias fuck)
 
 # pfetch
 if [ -e /bin/pfetch ] ; then
     PF_INFO="ascii title os kernel uptime wm shell memory" PF_COL2=2 pfetch
 fi
-
-# start the starship prompt
-eval "$(starship init zsh)"
 
