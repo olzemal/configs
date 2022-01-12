@@ -79,6 +79,7 @@ complete -cf sudo
 # Kubernetes
 [ -n "$(command -v kubectl)" ] && . <(kubectl completion bash) && complete -F __start_kubectl k
 [ -n "$(command -v helm)" ] && . <(helm completion bash)
+[ -n "$(command -v minikube)" ] && . <(minikube completion bash)
 
 _kube_namespaces()
 {
