@@ -34,11 +34,15 @@ if !empty(glob("~/.vim/plugged/gruvbox/colors/gruvbox.vim"))
     autocmd colorscheme * hi SpellBad cterm=underline ctermfg=NONE ctermbg=NONE
 else
     highlight LineNr ctermfg=darkgrey
-    highlight ColorColumn ctermbg=darkgrey 
+    highlight ColorColumn ctermbg=darkgrey
 endif
-    
+
 highlight Pmenu ctermbg=darkgrey ctermfg=white
 highlight PmenuSel ctermbg=blue ctermfg=black
+
+" Highlight trailing whitespace
+hi TrailingWhitespace ctermbg=red guibg=red
+call matchadd("TrailingWhitespace", '\v\s+$')
 
 " Enable auto indenting
 if has('filetype')
@@ -149,7 +153,7 @@ set laststatus=2
 " dialogue asking if you wish to save changed files.
 set confirm
 
-" Don't annoy me pls 
+" Don't annoy me pls
 set visualbell t_vb=
 
 " Set the command window height to 2 lines, to avoid many cases of having to
@@ -224,7 +228,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " Keep the cursor where it was after line concatination
-nnoremap J mzJ`z 
+nnoremap J mzJ`z
 
 " Undo break points at end of sentences
 inoremap , ,<c-g>u
