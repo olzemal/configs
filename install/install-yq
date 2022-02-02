@@ -1,0 +1,10 @@
+#!/bin/sh
+
+installdir="$HOME/.local/bin"
+
+version="$(curl https://github.com/mikefarah/yq/releases/latest \
+  | grep -oP 'v[\d\.]+')"
+curl -sLo "$installdir/yq" \
+  "https://github.com/mikefarah/yq/releases/download/$version/yq_linux_amd64"
+chmod +x "$installdir/yq"
+

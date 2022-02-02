@@ -1,0 +1,9 @@
+#!/bin/sh
+
+installdir="$HOME/.local/bin"
+
+version="$(curl -L -s https://dl.k8s.io/release/stable.txt)"
+curl -sLo "$installdir/kubectl" \
+  "https://dl.k8s.io/release/$version/bin/linux/amd64/kubectl"
+chmod +x "$installdir/kubectl"
+
