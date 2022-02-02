@@ -1,11 +1,10 @@
 #!/bin/sh
 
-curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/golang/go/tags
-
+installdir="/usr/local"
 version="1.17.6"
 
 wget "https://go.dev/dl/go$version.linux-amd64.tar.gz"
 tar -xzf "./go$version.linux-amd64.tar.gz" && \
     rm "./go$version.linux-amd64.tar.gz"
+sudo mv go/ "$installdir/go"
 
-ls && echo "sudo mv go/ /usr/local/go"
