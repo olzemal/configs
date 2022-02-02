@@ -178,7 +178,6 @@ set completeopt+=noselect
 set shortmess+=c
 
 " Indentation settings for yaml (2 Spaces instead of tabs)
-" also fold yaml files at indentations
 augroup yaml
     au!
     autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
@@ -186,6 +185,14 @@ augroup yaml
     autocmd FileType yaml set nofoldenable
     autocmd BufRead,BufNewFile *.yml setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufRead,BufNewFile *.yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+" Indentation settings for shell scripts (2 Spaces instead of tabs)
+augroup bash
+    au!
+    autocmd FileType bash,sh setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.sh setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.bash setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
 augroup Makefile
