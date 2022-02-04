@@ -10,6 +10,7 @@ alias gs='git status'
 alias gp='git push'
 alias gl='git log --oneline'
 alias gu='git remote update'
+alias gap='git add -p'
 
 # Kubernetes
 alias kg='kubectl get'
