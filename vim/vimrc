@@ -33,7 +33,7 @@ if !empty(glob("~/.vim/plugged/gruvbox/colors/gruvbox.vim"))
     autocmd colorscheme * hi clear SpellBad
     autocmd colorscheme * hi SpellBad cterm=underline ctermfg=NONE ctermbg=NONE
 else
-    highlight LineNr ctermfg=darkgrey
+    highlight LineNr ctermfg=grey
     highlight ColorColumn ctermbg=darkgrey
 endif
 
