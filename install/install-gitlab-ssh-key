@@ -1,6 +1,6 @@
 #!/bin/bash
 
-server="gitlab.com"
+server="$1:-gitlab.com"
 
 ssh-keygen -t rsa -b 2048 -P "" -C "GitLab - $HOSTNAME" -f "$HOME/.ssh/${server//./_}_rsa"
 cat >> "$HOME/.ssh/config" << EOF
@@ -10,10 +10,10 @@ Host $server
 EOF
 chmod 700 "$HOME/.ssh"
 chmod 400 "$HOME/.ssh/config"
-chmod 600 "$HOME/.ssh/gitlab_com_rsa"
-chmod 644 "$HOME/.ssh/gitlab_com_rsa.pub"
+chmod 600 "$HOME/.ssh/${server//./_}_rsa"
+chmod 644 "$HOME/.ssh/${server//./_}_rsa.pub"
 
 printf 'Add the following key to your GitLab Profile:\n\n'
-cat "$HOME/.ssh/gitlab_com_rsa.pub"
+cat "$HOME/.ssh/${server//./_}_rsa.pub"
 printf '\n\n'
 
