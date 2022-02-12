@@ -5,7 +5,7 @@
 
 # Start tmux if installed and not running yet
 if [[ -n "$(command -v tmux)" ]] && [[ -z "$TMUX" ]]; then
-  tmux && return
+  tmux -u && return
 fi
 
 # Source bash-completion
