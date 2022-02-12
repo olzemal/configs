@@ -52,10 +52,12 @@ __ps1() {
     esac
 
     # Check for uncommited changes
-    [[ "$(echo "$gitstatus" | awk 'FNR==4{print $1}')" = "Changes" ]] && \
+    [[ "$(echo "$gitstatus" | grep "^Changes")" != "" ]] && \
       gitinfo="$gitinfo*"
-    [[ "$(echo "$gitstatus" | awk 'FNR==5{print $1}')" = "Changes" ]] && \
-      gitinfo="$gitinfo*"
+
+    # Check for untracked files
+    [[ "$(echo "$gitstatus" | grep "^Untracked")" != "" ]] && \
+      gitinfo="$gitinfo?"
 
     # Display Branch indicating red when on master/main or else green
     case "$branch" in
