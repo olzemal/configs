@@ -1,6 +1,9 @@
 #!/bin/bash
 
-server="$1:-gitlab.com"
+server="${1:-gitlab.com}"
+
+echo $server
+exit
 
 ssh-keygen -t rsa -b 4096 -P "" -C "GitLab - $HOSTNAME" -f "$HOME/.ssh/${server//./_}_rsa"
 cat >> "$HOME/.ssh/config" << EOF
