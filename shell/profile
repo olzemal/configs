@@ -2,7 +2,7 @@
 export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
 export GO111MODULE="auto"
-export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:/usr/local/go/bin:$PATH"
 export EDITOR=vim
 export LANG=en_US.UTF-8
 export LC_ALL=C
