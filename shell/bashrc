@@ -3,105 +3,111 @@
 # Return if not interactive
 [[ $- != *i* ]] && return
 
+# Start tmux if installed and not running yet
+if [[ -n "$(command -v tmux)" ]] && [[ -z "$TMUX" ]]; then
+  tmux -u && return
+fi
+
 # Source bash-completion
-[ -f /usr/share/bash-completion/bash_completion ] \
-    && . /usr/share/bash-completion/bash_completion
+[[ -f /usr/share/bash-completion/bash_completion ]] && \
+  . /usr/share/bash-completion/bash_completion
 
 __ps1() {
-    #colors
-    local x='\[\017\]'       # reset
-    local n='\[\033[0m\]'    # normal
-    local r='\[\033[0;91m\]' # red
-    local g='\[\033[0;92m\]' # green
-    local b='\[\033[0;94m\]' # blue
-    local w='\[\033[0;97m\]' # white
-    
-    # check if user is root
-    local U
-    [ "$(id -u)" -eq 0 ] && U='#' && b=$r || U='$'
+  #colors
+  local x='\[\017\]'     # reset
+  local n='\[\033[0m\]'  # normal
+  local r='\[\033[0;91m\]' # red
+  local g='\[\033[0;92m\]' # green
+  local b='\[\033[0;94m\]' # blue
+  local w='\[\033[0;97m\]' # white
 
-    # K8s info
-    local k8sinfo
+  # check if user is root
+  local U
+  [[ "$(id -u)" -eq 0 ]] && U='#' && b=$r || U='$'
 
-    # Check if k8sinfo is desired
-    if [ -n "$PS1_K8S_INFO" ]; then
-        context=$(kubectl config current-context 2>/dev/null)
-        namespace=$(kubens -c 2>/dev/null)
-        [ -n "$context" ] && k8sinfo="$k8sinfo$b""Context: $w$context "
-        [ -n "$namespace" ] && k8sinfo="$k8sinfo$b""Namespace: $w$namespace"
-        [ -n "$k8sinfo" ] && k8sinfo="$w╔ $k8sinfo $w\n╚ "
-    fi
+  # K8s info
+  local k8sinfo
 
-    ## Git info
-    local gitinfo
-    
-    # Check if current dir is a git repo
-    local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
-    if [ -n "$branch" ]; then
-        # Get state of local repo
-        local gitstatus="$(git status 2>/dev/null)"
-        case "$(echo "$gitstatus" | awk 'FNR==2{print $4}')" in
-            behind) gitinfo='-' ;;
-            ahead) gitinfo='+' ;;
-            *) gitinfo='' ;;
-        esac
-    
-        # Check for uncommited changes
-        [ "$(echo "$gitstatus" | awk 'FNR==4{print $1}')" = "Changes" ] \
-            && gitinfo="$gitinfo*"
-        [ "$(echo "$gitstatus" | awk 'FNR==5{print $1}')" = "Changes" ] \
-            && gitinfo="$gitinfo*"
-       
-        # Display Branch indicating red when on master/main or else green
-        case "$branch" in
-            master|main)
-                [ -z "$gitinfo" ] && gitinfo="$r$branch" \
-                    || gitinfo="$r$branch $gitinfo" ;;
-            *)
-                [ -z "$gitinfo" ] && gitinfo="$g$branch" \
-                    || gitinfo="$g$branch $gitinfo" ;;
-        esac
-        gitinfo="$b($gitinfo$b) "
-    fi
+  # Check if k8sinfo is desired
+  if [[ -n "$PS1_K8S_INFO" ]]; then
+    context=$(kubectl config current-context 2>/dev/null)
+    namespace=$(kubens -c 2>/dev/null)
+    [[ -n "$context" ]] && k8sinfo="$k8sinfo$b""Context: $w$context "
+    [[ -n "$namespace" ]] && k8sinfo="$k8sinfo$b""Namespace: $w$namespace"
+    [[ -n "$k8sinfo" ]] && k8sinfo="$w╔ $k8sinfo $w\n╚ "
+  fi
 
-    # Final arrangement for prompt
-    PS1="$x$k8sinfo$b\u@\h $w\w $gitinfo$b$U $n"
+  ## Git info
+  local gitinfo
+
+  # Check if current dir is a git repo
+  local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
+  if [[ -n "$branch" ]]; then
+    # Get state of local repo
+    local gitstatus="$(git status 2>/dev/null)"
+    case "$(echo "$gitstatus" | awk 'FNR==2{print $4}')" in
+      behind) gitinfo='-' ;;
+      ahead) gitinfo='+' ;;
+      *) gitinfo='' ;;
+    esac
+
+    # Check for uncommited changes
+    [[ "$(echo "$gitstatus" | grep "^Changes")" != "" ]] && \
+      gitinfo="$gitinfo*"
+
+    # Check for untracked files
+    [[ "$(echo "$gitstatus" | grep "^Untracked")" != "" ]] && \
+      gitinfo="$gitinfo?"
+
+    # Display Branch indicating red when on master/main or else green
+    case "$branch" in
+      master|main)
+        [[ -z "$gitinfo" ]] && gitinfo="$r$branch" || \
+          gitinfo="$r$branch $gitinfo" ;;
+      *)
+        [[ -z "$gitinfo" ]] && gitinfo="$g$branch" || \
+          gitinfo="$g$branch $gitinfo" ;;
+    esac
+    gitinfo="$b($gitinfo$b) "
+  fi
+
+  # Final arrangement for prompt
+  PS1="$x$k8sinfo$b\u@\h $w\w $gitinfo$b$U $n"
 }
 
 PROMPT_COMMAND="__ps1"
-
-xhost +local:root > /dev/null 2>&1
 
 ## Completion
 # sudo
 complete -cf sudo
 
 # Kubernetes
-[ -n "$(command -v kubectl)" ] && . <(kubectl completion bash) && complete -F __start_kubectl k
-[ -n "$(command -v helm)" ] && . <(helm completion bash)
-[ -n "$(command -v minikube)" ] && . <(minikube completion bash)
+[[ -n "$(command -v kubectl)" ]] && \
+    . <(kubectl completion bash) && complete -F __start_kubectl k
+[[ -n "$(command -v helm)" ]] && . <(helm completion bash)
+[[ -n "$(command -v minikube)" ]] && . <(minikube completion bash)
 
-_kube_namespaces()
-{
+_kube_namespaces() {
   local curr_arg;
   curr_arg=${COMP_WORDS[COMP_CWORD]}
   COMPREPLY=( $(compgen -W "- $(kubectl get namespaces -o=jsonpath='{range .items[*].metadata.name}{@}{"\n"}{end}')" -- $curr_arg ) );
 }
-[ -n "$(command -v kubens)" ] && complete -F _kube_namespaces kubens
 
-_kube_contexts()
-{
+[[ -n "$(command -v kubens)" ]] && complete -F _kube_namespaces kubens
+
+_kube_contexts() {
   local curr_arg;
   curr_arg=${COMP_WORDS[COMP_CWORD]}
   COMPREPLY=( $(compgen -W "- $(kubectl config get-contexts --output='name')" -- $curr_arg ) );
 }
-[ -n "$(command -v kubectx)" ] && complete -F _kube_contexts kubectx
+
+[[ -n "$(command -v kubectx)" ]] && complete -F _kube_contexts kubectx
 
 ## Options
 shopt -s checkwinsize
-shopt -s expand_aliases     # Aliases in scripts 
-shopt -s autocd             # '..' -> 'cd ..'
-shopt -s histappend         # Enable history appending instead of overwriting.
+shopt -s expand_aliases   # Aliases in scripts
+shopt -s autocd       # '..' -> 'cd ..'
+shopt -s histappend     # Enable history appending instead of overwriting.
 
 # VI mode with ctrl-l
 #set -o vi
@@ -112,20 +118,17 @@ shopt -s histappend         # Enable history appending instead of overwriting.
 #bind 'set vi-cmd-mode-string \1\e[5 q\2'
 #bind -m vi-insert 'RETURN: "\e\n"'
 
-# Enable Del-key
-tput smkx
-
 # enable some aliases
-[ -e "$HOME/.config/aliases" ] && . "$HOME/.config/aliases"
+[[ -e "$HOME/.config/aliases" ]] && . "$HOME/.config/aliases"
 
 # source other system specific autorun scripts
-[ -e "$HOME/.localrc" ] && source "$HOME/.localrc"
-[ -e "$HOME/.local/localrc" ] && . "$HOME/.local/localrc"
+[[ -e "$HOME/.localrc" ]] && source "$HOME/.localrc"
+[[ -e "$HOME/.local/localrc" ]] && . "$HOME/.local/localrc"
 
 # enable thefuck
-[ -n "$(command -v thefuck)" ] && eval $(thefuck --alias fuck)
+[[ -n "$(command -v thefuck)" ]] && eval $(thefuck --alias fuck)
 
 # pfetch
-[ -n "$(command -v pfetch)" ] \
-    && PF_INFO="ascii title os kernel uptime wm shell memory" pfetch
+[[ -n "$(command -v pfetch)" ]] && \
+  PF_INFO="ascii title os kernel uptime wm shell memory" pfetch
 

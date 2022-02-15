@@ -1,6 +1,7 @@
 #!/bin/sh
 export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
+export GOROOT="/usr/local/go"
 export GO111MODULE="auto"
 export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:/usr/local/go/bin:$PATH"
 export EDITOR=vim
@@ -11,14 +12,5 @@ export LC_ALL=C
 [ ! -d "$GOBIN"  ] && mkdir -p "$GOBIN"
 
 # Source bashrc if bash is running and file exists
-{
-[ -n "$BASH_VERSION" ] && \
-[ -f "$HOME/.bashrc" ] && \
-    . "$HOME/.bashrc" 
-} && {
-    # Start X Server when on /dev/tty1
-    if [ "$(tty)" = "/dev/tty1" ]; then
-        pgrep 'dwm' || startx "$HOME/.config/X11/xinitrc"
-    fi
-}
+[ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
 

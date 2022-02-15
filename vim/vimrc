@@ -33,10 +33,10 @@ if !empty(glob("~/.vim/plugged/gruvbox/colors/gruvbox.vim"))
     autocmd colorscheme * hi clear SpellBad
     autocmd colorscheme * hi SpellBad cterm=underline ctermfg=NONE ctermbg=NONE
 else
-    highlight LineNr ctermfg=darkgrey
-    highlight ColorColumn ctermbg=darkgrey 
+    highlight LineNr ctermfg=grey
+    highlight ColorColumn ctermbg=darkgrey
 endif
-    
+
 highlight Pmenu ctermbg=darkgrey ctermfg=white
 highlight PmenuSel ctermbg=blue ctermfg=black
 
@@ -99,6 +99,10 @@ augroup END
 " Spellchecking for git commit messages
 autocmd FileType gitcommit setlocal spell
 
+" Highlight trailing whitespace
+highlight TrailingWhitespace ctermbg=red guibg=red
+call matchadd("TrailingWhitespace", '\v\s+$')
+
 " store backup, undo and swap files in temp directory
 set undofile
 set undolevels=1000
@@ -149,7 +153,7 @@ set laststatus=2
 " dialogue asking if you wish to save changed files.
 set confirm
 
-" Don't annoy me pls 
+" Don't annoy me pls
 set visualbell t_vb=
 
 " Set the command window height to 2 lines, to avoid many cases of having to
@@ -178,7 +182,6 @@ set completeopt+=noselect
 set shortmess+=c
 
 " Indentation settings for yaml (2 Spaces instead of tabs)
-" also fold yaml files at indentations
 augroup yaml
     au!
     autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
@@ -186,6 +189,15 @@ augroup yaml
     autocmd FileType yaml set nofoldenable
     autocmd BufRead,BufNewFile *.yml setlocal tabstop=2 softtabstop=2 shiftwidth=2
     autocmd BufRead,BufNewFile *.yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+" Indentation settings for shell scripts (2 Spaces instead of tabs)
+augroup bash
+    au!
+    autocmd FileType bash,sh setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.sh setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.bash setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile ?bashrc setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
 augroup Makefile
@@ -217,7 +229,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " Keep the cursor where it was after line concatination
-nnoremap J mzJ`z 
+nnoremap J mzJ`z
 
 " Undo break points at end of sentences
 inoremap , ,<c-g>u
