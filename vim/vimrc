@@ -235,12 +235,10 @@ nnoremap <leader>j :m .+1<CR>==
 nnoremap <leader>N :set number<CR>
 nnoremap <leader>n :set nonumber<CR>
 
-nnoremap <silent> <leader>t :NERDTreeToggle<CR>
-
-"autocmd FileType go NERDTree
+nnoremap <silent> <leader>e :NERDTreeToggle<CR>
 
 au FileType go nmap <leader>r :GoRun!<CR>
-au FileType go nmap <leader>gt :GoTest!<CR>
+au FileType go nmap <leader>t :!go test<CR>
 au FileType go nmap <leader>v :GoVet!<CR>
 au FileType go nmap <leader>b :GoBuild!<CR>
 au FileType go nmap <leader>c :GoCoverageToggle<CR>
