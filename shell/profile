@@ -3,7 +3,8 @@ export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
 export GOROOT="/usr/local/go"
 export GO111MODULE="auto"
-export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:/usr/local/go/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin:/sbin:$PATH"
+
 export EDITOR=vim
 export LANG=en_US.UTF-8
 export LC_ALL=C
