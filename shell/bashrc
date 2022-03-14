@@ -86,6 +86,7 @@ complete -cf sudo
     . <(kubectl completion bash) && complete -F __start_kubectl k
 [[ -n "$(command -v helm)" ]] && . <(helm completion bash)
 [[ -n "$(command -v minikube)" ]] && . <(minikube completion bash)
+[[ -n "$(command -v kind)" ]] && . <(kind completion bash)
 
 _kube_namespaces() {
   local curr_arg;
