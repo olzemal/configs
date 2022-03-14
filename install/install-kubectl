@@ -2,6 +2,8 @@
 
 installdir="$HOME/.local/bin"
 
+[ ! -d "$installdir" ] && mkdir -p "$installdir"
+
 version="$(curl -L -s https://dl.k8s.io/release/stable.txt)"
 curl -sLo "$installdir/kubectl" \
   "https://dl.k8s.io/release/$version/bin/linux/amd64/kubectl"

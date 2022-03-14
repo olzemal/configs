@@ -1,6 +1,7 @@
 #!/bin/sh
 
 installdir="$HOME/.local/bin"
+[ ! -d "$installdir" ] && mkdir -p "$installdir"
 
 version="$(curl https://github.com/mikefarah/yq/releases/latest \
   | grep -oP 'v[\d\.]+')"
