@@ -6,7 +6,7 @@ ssh-keygen \
   -t rsa \
   -b 4096 \
   -P "" \
-  -C "{$HOSTNAME:-$USER}" \
+  -C "${HOSTNAME:-$USER}" \
   -f "$HOME/.ssh/${server//./_}_rsa"
 
 cat >> "$HOME/.ssh/config" << EOF
@@ -20,7 +20,7 @@ chmod 600 "$HOME/.ssh/config"
 chmod 600 "$HOME/.ssh/${server//./_}_rsa"
 chmod 644 "$HOME/.ssh/${server//./_}_rsa.pub"
 
-printf 'Add the following key to your Git Profile:\n\n'
+printf 'Add the following key to your %s Profile:\n\n' "$server"
 cat "$HOME/.ssh/${server//./_}_rsa.pub"
 printf '\n\n'
 
