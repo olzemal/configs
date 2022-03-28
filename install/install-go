@@ -1,7 +1,7 @@
 #!/bin/sh
 
 installdir="/usr/local"
-version="1.17.8"
+version="1.18"
 
 wget "https://go.dev/dl/go$version.linux-amd64.tar.gz"
 tar -xzf "./go$version.linux-amd64.tar.gz" && \
