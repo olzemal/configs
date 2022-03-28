@@ -1,0 +1,13 @@
+#!/bin/sh
+case "$1" in
+  -v)
+    lsemoji | grep -i "$2"
+    ;;
+  -u)
+    lsemoji | grep -i "$2" | cut -d '=' -f2 | head -n 1
+    ;;
+  *)
+    lsemoji | grep -i "$1" | cut -d '=' -f2
+    ;;
+esac
+

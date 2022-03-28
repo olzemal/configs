@@ -1,0 +1,12 @@
+#!/bin/bash
+
+url="ix.io"
+
+if [[ -t 0 ]]; then
+  # Get file from arg
+  [[ -f "$1" ]] && curl -F f:1=@"$1" "$url"
+else
+  # Read from stdin
+  curl -F f:1="<-" "$url"
+fi
+

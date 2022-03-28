@@ -1,0 +1,19 @@
+#!/bin/sh
+
+maxlen="${1-80}"
+
+while IFS= read -r line; do
+  words="$words $line"
+done
+
+lenline=0
+for word in $words; do
+  lenline=$((lenline + ${#word} + 1))
+  if [ "$lenline" -ge "$maxlen" ]; then
+    printf '\n%s ' "$word"
+    lenline=$((${#word}+1))
+  else
+    printf '%s ' "$word"
+  fi
+done
+

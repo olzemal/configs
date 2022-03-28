@@ -1,0 +1,35 @@
+#!/bin/bash
+
+query=""
+result=""
+IFS=""
+
+while true ; do
+  clear -x 1>&2
+  if [[ "${#query}" -lt 2 ]]; then
+    result=""
+  else
+    result="$(grep -inr "$query")"
+    result="$result$(find "$PWD" "$@" -wholename "*$query*")"
+  fi
+  printf '%s\n' "$result" 1>&2
+  printf 'Search: %s' "$query" 1>&2
+  read -r -n1 input
+  case "$input" in
+    $'\177')
+      query="${query%?}"
+      ;;
+    ?)
+      # Escape space
+      [[ "$input" = " " ]] && [[ ! "${query#${query%?}}" = "\\" ]] && \
+        input="\\ "
+      query="$query$input"
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+printf '%s\n' "$result"
+

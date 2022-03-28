@@ -1,0 +1,26 @@
+#!/bin/bash
+
+humanize() {
+  power=1024
+  size=$1
+  for unit in "" K M G T P E Z Y; do
+    if [[ $size -lt $power ]]; then
+      printf '%s%s' "$size" "$unit"
+      return 0
+    fi
+    size=$((size/power))
+  done
+  return 1
+}
+
+re='^[0-9]+$'
+while IFS= read -r line; do
+  for word in $line; do
+    if [[ $word =~ $re ]]; then
+      human="$(humanize "$word")"
+      line="${line//$word/$human}"
+    fi
+  done
+  printf '%s\n' "$line"
+done
+

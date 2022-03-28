@@ -1,0 +1,19 @@
+#!/bin/bash
+toemoji() {
+  while read -r line; do
+    for emoji in $(lsemoji); do
+      line=${line//:${emoji%%=*}:/${emoji##*=}}
+    done
+    printf '%s\n' "$line"
+  done
+}
+
+case $# in
+  0)
+    toemoji ;;
+  *)
+    for i in "$@"; do
+      [[ -f "$i" ]] && toemoji < "$i"
+    done ;;
+esac
+

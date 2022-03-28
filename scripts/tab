@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ "$1" ]; then
+  for _ in $(seq 1 "$1"); do
+    t="$t "
+  done
+else
+  t="\t"
+fi
+
+while IFS= read -r line; do
+  printf '%b%s\n' "$t" "$line"
+done
+

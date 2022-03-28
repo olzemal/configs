@@ -1,0 +1,44 @@
+#!/bin/sh
+
+two2pow() {
+  base=2
+  pow=$(($1))
+  [ $pow -eq 0 ] && printf '1' && return 0
+  [ $pow -lt 0 ] && return 1
+  for _ in $(seq 1 "$((pow-1))"); do
+    base=$((base*2))
+  done
+  printf '%d' "$base"
+}
+
+## Check if argument is valid
+printf '%d' "$1" >/dev/null 2>&1 || exit 1
+[ -z "$1" ] && exit 1
+[ "$1" -le 0 ] || [ "$1" -gt 32 ] && exit 1
+
+## Calculate
+# Number of total addresses is 2 to power of 32-prefix
+addrs="$(two2pow $((32-$1)))"
+
+# Number of total usable addresses
+hosts="$((addrs-2))"
+[ $hosts -lt 0 ] && hosts=0
+
+# Subnetmask
+bin=$(($((0xffffffff<<$((32-$1))))&0xffffffff))
+smask="\
+$(($((bin>>24))&0xff)).$(($((bin>>16))&0xff)).\
+$(($((bin>>8 ))&0xff)).$(($((bin  ))&0xff))"
+
+# Determine the class
+case "$(($1/8))" in
+  1) class=A ;;
+  2) class=B ;;
+  *) class=C ;;
+esac
+
+## Output
+printf '%-12s %s\n' \
+  "Subnetmask:" "$smask" "Addresses:" "$addrs" \
+  "Hosts:" "$hosts" "Class:" "$class"
+

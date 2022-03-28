@@ -1,0 +1,14 @@
+---
+default:
+  image: alpine:latest
+
+shellcheck:
+  script:
+    - apk add shellcheck
+    - scripts=$(find . -type f -perm /u=x,g=x,o=x | sed 's#^./.git/.*##' |  grep .)
+    - echo $scripts
+    - shellcheck $scripts | tee shellcheck.log
+  artifacts:
+    when: always
+    paths:
+    - shellcheck.log
