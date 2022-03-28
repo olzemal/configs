@@ -21,7 +21,7 @@ while true ; do
       ;;
     ?)
       # Escape space
-      [[ "$input" = " " ]] && [[ ! "${query#${query%?}}" = "\\" ]] && \
+      [[ "$input" = " " ]] && [[ ! "${query#"${query%?}"}" = "\\" ]] && \
         input="\\ "
       query="$query$input"
       ;;
