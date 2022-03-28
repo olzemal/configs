@@ -100,7 +100,7 @@ augroup END
 autocmd FileType gitcommit setlocal spell
 
 " Highlight trailing whitespace
-highlight TrailingWhitespace ctermbg=red guibg=red
+highlight TrailingWhitespace ctermbg=darkgrey guibg=darkgrey
 call matchadd("TrailingWhitespace", '\v\s+$')
 
 " store backup, undo and swap files in temp directory
