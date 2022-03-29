@@ -103,6 +103,9 @@ autocmd FileType gitcommit setlocal spell
 highlight TrailingWhitespace ctermbg=darkgrey guibg=darkgrey
 call matchadd("TrailingWhitespace", '\v\s+$')
 
+set listchars=tab:>>,trail:·
+set list
+
 " store backup, undo and swap files in temp directory
 set undofile
 set undolevels=1000
