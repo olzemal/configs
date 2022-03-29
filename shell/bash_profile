@@ -1,0 +1,23 @@
+# Go
+export GOPATH="$HOME/.local/go"
+export GOBIN="$GOPATH/bin"
+export GOROOT="/usr/local/go"
+export GO111MODULE="auto"
+[[ ! -d "$GOPATH" ]] && mkdir -p "$GOPATH"
+[[ ! -d "$GOBIN"  ]] && mkdir -p "$GOBIN"
+
+# Editor
+export EDITOR=vim
+
+# Locale
+export LANG=en_US.UTF-8
+export LC_ALL=C
+
+# Path
+OLDPATH=$PATH
+export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:/usr/local/go/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/snap/bin:/sbin:/bin:$OLDPATH"
+export CDPATH=".:$HOME/repos"
+
+# Source bashrc if bash is running and file exists
+[ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
+

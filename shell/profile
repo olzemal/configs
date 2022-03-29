@@ -1,17 +1,5 @@
-#!/bin/sh
-export GOPATH="$HOME/.local/go"
-export GOBIN="$GOPATH/bin"
-export GOROOT="/usr/local/go"
-export GO111MODULE="auto"
-export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin:/sbin:$PATH"
-
-export EDITOR=vim
-export LANG=en_US.UTF-8
-export LC_ALL=C
-
-[ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
-[ ! -d "$GOBIN"  ] && mkdir -p "$GOBIN"
-
-# Source bashrc if bash is running and file exists
-[ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
-
+# use bash
+if [ -n "$BASH_VERSION" ]; then
+  [ -f "$HOME/.bash_profile" ] && source "$HOME/.bash_profile"
+  [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
+fi
