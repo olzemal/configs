@@ -30,6 +30,7 @@ alias rm='rm -I --preserve-root'
 # Other
 alias chmox='chmod +x'
 alias vi='vim'
+alias tmux='tmux -u'
 alias ports='netstat -atulpn'
 alias S='sudo systemctl'
 alias '?'='duck'
