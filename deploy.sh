@@ -63,6 +63,9 @@ for option in "$@"; do
       # Deploy bash_profile
       link "$PWD/shell/profile" "$HOME/.profile"
       ;;
+    git)
+      link "$PWD/git/gitconfig" "$HOME/.gitconfig"
+      ;;
 
     lynx)
       [ ! -d "$HOME/.config/lynx" ] && mkdir -p "$HOME/.config/lynx"
@@ -127,7 +130,7 @@ for option in "$@"; do
       ;;
 
     cli)
-      eval "$0 bash aliases tmux vim lynx"
+      eval "$0 bash aliases tmux vim lynx git"
       ;;
 
     *)

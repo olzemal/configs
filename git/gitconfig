@@ -1,0 +1,7 @@
+[user]
+  name = Alex Olzem
+  email = olzemal@pm.me
+[core]
+  editor = vim
+[pull]
+  rebase = false
