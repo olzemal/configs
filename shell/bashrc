@@ -1,5 +1,9 @@
 # .bashrc by Alexander Olzem
 
+# Disable infos relating sourcing of external files
+# shellcheck disable=SC1091
+# shellcheck disable=SC1090
+
 # Return if not interactive
 [[ $- != *i* ]] && return
 
@@ -86,7 +90,7 @@ complete -cf sudo
 _kube_namespaces() {
   local curr_arg;
   curr_arg=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "- $(kubectl get namespaces -o=jsonpath='{range .items[*].metadata.name}{@}{"\n"}{end}')" -- $curr_arg ) );
+  COMPREPLY=( "$(compgen -W "- $(kubectl get namespaces -o=jsonpath='{range .items[*].metadata.name}{@}{"\n"}{end}')" -- "$curr_arg" )" );
 }
 
 [[ -n "$(command -v kubens)" ]] && complete -F _kube_namespaces kubens
@@ -94,7 +98,7 @@ _kube_namespaces() {
 _kube_contexts() {
   local curr_arg;
   curr_arg=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $(compgen -W "- $(kubectl config get-contexts --output='name')" -- $curr_arg ) );
+  COMPREPLY=( "$(compgen -W "- $(kubectl config get-contexts --output='name')" -- "$curr_arg" )" );
 }
 
 [[ -n "$(command -v kubectx)" ]] && complete -F _kube_contexts kubectx
@@ -127,11 +131,11 @@ export LESS_TERMCAP_us=$'\E[1;32m'
 [[ -e "$HOME/.config/aliases" ]] && . "$HOME/.config/aliases"
 
 # source other system specific autorun scripts
-[[ -e "$HOME/.localrc" ]] && source "$HOME/.localrc"
+[[ -e "$HOME/.localrc" ]] && . "$HOME/.localrc"
 [[ -e "$HOME/.local/localrc" ]] && . "$HOME/.local/localrc"
 
 # enable thefuck
-[[ -n "$(command -v thefuck)" ]] && eval $(thefuck --alias fuck)
+[[ -n "$(command -v thefuck)" ]] && eval "$(thefuck --alias fuck)"
 
 # pfetch
 [[ -n "$(command -v pfetch)" ]] && \
