@@ -61,6 +61,7 @@ for option in "$@"; do
       link "$PWD/shell/bashrc" "$HOME/.bashrc"
 
       # Deploy bash_profile
+      link "$PWD/shell/bash_profile" "$HOME/.bash_profile"
       link "$PWD/shell/profile" "$HOME/.profile"
       ;;
     git)
