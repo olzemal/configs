@@ -42,6 +42,18 @@ __ps1() {
   # Check if current dir is a git repo
   local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
   if [[ -n "$branch" ]]; then
+    # check if pre-commit is installed
+    while [[ -z "$(find "." -name '.git' -type d 2>/dev/null)" ]]; do
+      cd .. || break
+      [[ "$PWD" == "/" ]] && break
+    done
+
+    if [[ -n "$(find "$PWD" -name ".pre-commit-config.yaml")" ]]; then
+      [[ -f "$PWD/.git/hooks/pre-commit" ]] || printf "\033[0;91m%s\017\n" \
+        "⚠ '.pre-commit-config.yaml' found but hooks are not yet installed" \
+        "consider running 'pre-commit install'"
+    fi
+
     # Get state of local repo
     local gitstatus="$(git status 2>/dev/null)"
     case "$(echo "$gitstatus" | awk 'FNR==2{print $4}')" in
