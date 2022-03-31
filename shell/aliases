@@ -1,3 +1,6 @@
+# Get rid of default aliases
+unalias -a
+
 # Grepping
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
