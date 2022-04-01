@@ -12,7 +12,7 @@
   . /usr/share/bash-completion/bash_completion
 
 __ps1() {
-  #colors
+  # colors
   local x='\[\017\]'     # reset
   local n='\[\033[0m\]'  # normal
   local r='\[\033[0;91m\]' # red
@@ -43,6 +43,7 @@ __ps1() {
   local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
   if [[ -n "$branch" ]]; then
     # check if pre-commit is installed
+    OLD_PWD="$PWD"
     while [[ -z "$(find "." -name '.git' -type d 2>/dev/null)" ]]; do
       cd .. || break
       [[ "$PWD" == "/" ]] && break
@@ -53,6 +54,7 @@ __ps1() {
         "⚠ '.pre-commit-config.yaml' found but hooks are not yet installed" \
         "consider running 'pre-commit install'"
     fi
+    cd "$OLD_PWD"
 
     # Get state of local repo
     local gitstatus="$(git status 2>/dev/null)"
