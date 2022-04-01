@@ -6,20 +6,49 @@
 
 " Make sure plug is installed
 if !empty(glob("~/.vim/autoload/plug.vim"))
+  "" Install Plugins
   call plug#begin('~/.vim/plugged')
-  " Colorscheme
-  Plug 'morhetz/gruvbox'
-  " Autocomplete
-  Plug 'lifepillar/vim-mucomplete'
-  Plug 'sheerun/vim-polyglot'
-  " Vim-go
-  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+  Plug 'morhetz/gruvbox'                                    " Colorscheme
+  Plug 'lifepillar/vim-mucomplete'                          " Autocomplete
+  Plug 'sheerun/vim-polyglot'                               " Language Support
+  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }       " Vim-go
   if has('python3')
-      Plug 'SirVer/ultisnips'
+    Plug 'SirVer/ultisnips'                                 " Snippets
   endif
-  " Nerd Tree
-  Plug 'scrooloose/nerdtree'
+  Plug 'scrooloose/nerdtree'                                " Nerd Tree
+  Plug 'vim-pandoc/vim-pandoc'                              " Pandoc
+  Plug 'vim-pandoc/vim-pandoc-syntax'
+  Plug 'airblade/vim-gitgutter'                             " Git Diff
   call plug#end()
+
+  "" Configure Options
+  " vim-µcomplete
+  let g:mucomplete#enable_auto_at_startup = 1
+
+  " vim-go options
+  let g:go_fmt_fail_silently = 1
+  let g:go_fmt_command = 'goimports'
+  let g:go_fmt_autosave = 1           " :GoFmt on save
+  let g:go_gopls_enabled = 1          " Needed for completion
+  let g:go_highlight_types = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_functions = 1
+  let g:go_highlight_function_calls = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_extra_types = 1
+  let g:go_highlight_variable_declarations = 1
+  let g:go_highlight_variable_assignments = 1
+  let g:go_highlight_build_constraints = 1
+  let g:go_highlight_diagnostic_errors = 1
+  let g:go_highlight_diagnostic_warnings = 1
+
+  " pandoc
+  let g:pandoc#formatting#mode = 'h' " A'
+  let g:pandoc#formatting#textwidth = 72
+  let g:pandoc#modules#disabled = ["folding"]
+
+  " NerdTree
+  let NERDTreeMinimalUI=1
 endif
 
 "+---------------------------------------------------------------------------+
@@ -50,32 +79,6 @@ if has('syntax')
   syntax on
 endif
 
-" Enable vim-µcomplete
-if !empty(glob("~/.vim/plugged/vim-mucomplete/plugin/mucomplete.vim"))
-  let g:mucomplete#enable_auto_at_startup = 1
-endif
-
-" vim-go options
-if !empty(glob("~/.vim/plugged/vim-go/plugin/go.vim"))
-  let g:go_fmt_fail_silently = 1
-  let g:go_fmt_command = 'goimports'
-  let g:go_fmt_autosave = 1           " :GoFmt on save
-  let g:go_gopls_enabled = 1          " Needed for completion
-  let g:go_highlight_types = 1
-  let g:go_highlight_fields = 1
-  let g:go_highlight_functions = 1
-  let g:go_highlight_function_calls = 1
-  let g:go_highlight_operators = 1
-  let g:go_highlight_extra_types = 1
-  let g:go_highlight_variable_declarations = 1
-  let g:go_highlight_variable_assignments = 1
-  let g:go_highlight_build_constraints = 1
-  let g:go_highlight_diagnostic_errors = 1
-  let g:go_highlight_diagnostic_warnings = 1
-endif
-
-let NERDTreeMinimalUI=1
-
 " When editing a markdown file, enable spellcheck
 augroup markdownSpell
   au!
@@ -102,7 +105,6 @@ autocmd FileType gitcommit setlocal spell
 " Highlight trailing whitespace
 highlight TrailingWhitespace ctermbg=darkgrey guibg=darkgrey
 call matchadd("TrailingWhitespace", '\v\s+$')
-
 set listchars=tab:>>,trail:·
 set list
 
@@ -185,6 +187,7 @@ set completeopt+=noselect
 " Shut off completion messages
 set shortmess+=c
 
+" Use literal \t in Makefiles
 augroup Makefile
   au!
   autocmd FileType Makefile set noexpandtab
@@ -248,15 +251,4 @@ au FileType go nmap <leader>b :GoBuild!<CR>
 au FileType go nmap <leader>c :GoCoverageToggle<CR>
 au FileType go nmap <leader>i :GoInfo<CR>
 au FileType go nmap <leader>l :GoMetaLinter!<CR>
-
-" Disable Arrow keys
-" noremap <up> <NOP>
-" noremap <down> <NOP>
-" noremap <left> <NOP>
-" noremap <right> <NOP>
-
-" inoremap <up> <NOP>
-" inoremap <down> <NOP>
-" inoremap <left> <NOP>
-" inoremap <right> <NOP>
 
