@@ -64,8 +64,13 @@ for option in "$@"; do
       link "$PWD/shell/bash_profile" "$HOME/.bash_profile"
       link "$PWD/shell/profile" "$HOME/.profile"
       ;;
+
     git)
       link "$PWD/git/gitconfig" "$HOME/.gitconfig"
+      ;;
+
+    gnome-terminal)
+      dconf load /org/gnome/terminal/ < gnome/gruvbox.ini
       ;;
 
     lynx)
