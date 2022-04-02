@@ -12,7 +12,7 @@ link() {
 
 help() {
   printf 'Choose one or more options from the following list\nto add as an argument to the script:\n'
-  grep -P '^\s+[a-z]+\)' "$0" | sed 's/)//' | xargs printf ' - %s\n'
+  grep -P '^\s+[a-z\-]+\)' "$0" | sed 's/)//' | xargs printf ' - %s\n'
 }
 
 versionge() {
