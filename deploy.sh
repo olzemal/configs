@@ -66,6 +66,12 @@ for option in "$@"; do
       ;;
 
     git)
+      if [[ -z "$EMAIL" ]]; then
+        printf 'Please enter your email adress: '
+        read -r email
+        echo "export EMAIL=$email" >> ~/.local/localrc
+        printf 'Remember to restart bash\n'
+      fi
       link "$PWD/git/gitconfig" "$HOME/.gitconfig"
       ;;
 
