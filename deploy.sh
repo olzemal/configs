@@ -76,6 +76,7 @@ for option in "$@"; do
       ;;
 
     gnome-terminal)
+      gsettings set org.gnome.desktop.interface text-scaling-factor 1.3
       dconf load /org/gnome/terminal/ < gnome/gruvbox.ini
       ;;
 
