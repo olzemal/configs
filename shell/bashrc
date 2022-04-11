@@ -124,14 +124,13 @@ shopt -s autocd       # '..' -> 'cd ..'
 shopt -s histappend     # Enable history appending instead of overwriting.
 
 # Pretty-print man(1) pages.
-export LESS_TERMCAP_mb=$(printf '\33[1;30;44m')
-export LESS_TERMCAP_md=$(printf '\33[1;34m')
-export LESS_TERMCAP_so=$(printf '\33[1;30;43m')
-export LESS_TERMCAP_us=$(printf '\33[1;32m')
-export LESS_TERMCAP_me=$(printf '\33[0m')
-export LESS_TERMCAP_se=$(printf '\33[0m')
-export LESS_TERMCAP_ue=$(printf '\33[0m')
-export LESS=-j.5
+export LESS_TERMCAP_md=$(printf '\33[1;34m')    # start bold      (blue)
+export LESS_TERMCAP_me=$(printf '\33[0m')       # end bold
+export LESS_TERMCAP_so=$(printf '\33[1;30;43m') # start standout  (yellow)
+export LESS_TERMCAP_se=$(printf '\33[0m')       # end standout
+export LESS_TERMCAP_us=$(printf '\33[1;32m')    # start underline (green)
+export LESS_TERMCAP_ue=$(printf '\33[0m')       # end underline
+export LESS=-j.5                                # center search hits
 
 # VI mode with ctrl-l
 #set -o vi
