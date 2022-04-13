@@ -122,7 +122,7 @@ export LESS_TERMCAP_so=$(printf '\33[1;30;43m') # start standout  (yellow)
 export LESS_TERMCAP_se=$(printf '\33[0m')       # end standout
 export LESS_TERMCAP_us=$(printf '\33[1;32m')    # start underline (green)
 export LESS_TERMCAP_ue=$(printf '\33[0m')       # end underline
-export LESS=-j.5                                # center search hits
+export LESS="-j.5 -R"                           # center search hits
 
 # VI mode with ctrl-l
 #set -o vi
