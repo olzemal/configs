@@ -6,10 +6,10 @@ git_dirs=$(find . -type d -name .git 2>/dev/null | grep '^\.\/.*\/.git' | sed 's
 
 for dir in $git_dirs
 do
-    cd "$current_dir" || exit
-    cd "$dir" || exit
-    printf '\033[0;34m\n%s:\n\033[0m' "$dir"
-    git status --short -b
+  cd "$current_dir" || exit
+  cd "$dir" || exit
+  printf '\033[0;34m\n%s:\n\033[0m' "$dir"
+  git status --short -b
 done
 
 cd "$current_dir" || exit
