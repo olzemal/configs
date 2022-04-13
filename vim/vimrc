@@ -252,3 +252,4 @@ au FileType go nmap <leader>c :GoCoverageToggle<CR>
 au FileType go nmap <leader>i :GoInfo<CR>
 au FileType go nmap <leader>l :GoMetaLinter!<CR>
 
+au FileType sh nmap <leader>t :!shellcheck %<CR>
