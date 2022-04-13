@@ -14,7 +14,7 @@ if [ -f "$1" ] ; then
     *.zip)    unzip "$1"    ;;
     *.Z)    uncompress "$1" ;;
     *.7z)     7z x "$1"     ;;
-    *)      printf "'%s' cannot be extracted via ex()\n" "$1" ;;
+    *)      printf "'%s' cannot be extracted via ex\n" "$1" ;;
   esac
 else
   printf "'%s' is not a valid file\n" "$1"
