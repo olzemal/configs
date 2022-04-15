@@ -1,0 +1,6 @@
+#!/bin/bash
+
+installdir="$HOME/.local/bin"
+
+wget -O "$installdir/gh" 'https://gitlab.com/olzemal/gh-bin/-/jobs/artifacts/main/raw/gh-linux-amd64?job=build'
+chmod +x "$installdir/gh"
