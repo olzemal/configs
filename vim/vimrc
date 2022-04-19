@@ -19,6 +19,7 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
   Plug 'vim-pandoc/vim-pandoc'                              " Pandoc
   Plug 'vim-pandoc/vim-pandoc-syntax'
   Plug 'airblade/vim-gitgutter'                             " Git Diff
+  Plug 'mg979/vim-visual-multi', {'branch': 'master'}       " Multi cursor
   call plug#end()
 
   "" Configure Options
