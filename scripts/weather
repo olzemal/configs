@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -q "wttr.in/$1?format=4"
