@@ -21,10 +21,10 @@ alias kgc='kubectl config get-contexts'
 alias kuc='kubectl config use-context'
 
 # ls
+alias ls='ls --color=auto --group-directories-first'
 alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -laH'
-alias ls='ls --color=auto'
 
 # confirmation
 alias mv='mv -i'
