@@ -80,6 +80,13 @@ for option in "$@"; do
       dconf load /org/gnome/terminal/ < gnome/gruvbox.ini
       ;;
 
+    kitty)
+      [ ! -d "$HOME/.config/kitty" ] && \
+        mkdir -p "$HOME/.config/kitty"
+      link "$PWD/kitty/kitty.conf" \
+        "$HOME/.config/kitty/kitty.conf"
+      ;;
+
     lynx)
       [ ! -d "$HOME/.config/lynx" ] && mkdir -p "$HOME/.config/lynx"
       link "$PWD/lynx/lynx.lss" "$HOME/.config/lynx/lynx.lss"
