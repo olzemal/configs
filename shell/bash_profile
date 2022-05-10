@@ -17,6 +17,7 @@ export LC_ALL=en_US.UTF-8
 OLDPATH=$PATH
 export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:/usr/local/go/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/snap/bin:/sbin:/bin:$OLDPATH"
 export CDPATH=":$HOME/repos"
+export NOTESPATH="$HOME/repos/notes"
 
 # Source bashrc if bash is running and file exists
 [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
