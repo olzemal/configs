@@ -42,6 +42,7 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
   let g:go_highlight_build_constraints = 1
   let g:go_highlight_diagnostic_errors = 1
   let g:go_highlight_diagnostic_warnings = 1
+  let g:go_auto_type_info = 1
 
   " pandoc
   let g:pandoc#formatting#mode = 'h' " A'
@@ -252,6 +253,7 @@ au FileType go nmap <leader>b :GoBuild!<CR>
 au FileType go nmap <leader>c :GoCoverageToggle<CR>
 au FileType go nmap <leader>i :GoInfo<CR>
 au FileType go nmap <leader>l :GoMetaLinter!<CR>
+au BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 au FileType sh nmap <leader>r :!./%<CR>
 au FileType sh nmap <leader>t :!shellcheck %<CR>
