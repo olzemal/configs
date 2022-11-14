@@ -1,12 +1,27 @@
 #!/bin/sh
+
+tmpdir="/tmp/watcher"
+
 [ ! -f "$1" ] || [ $# != 1 ] && exit 1
-[ ! -d /tmp/watcher ] && mkdir -p /tmp/watcher
+[ ! -d "$tmpdir" ] && mkdir -p "$tmpdir"
 
-pandoc -o "/tmp/watcher/index.html" -f markdown_mmd -t html "$1"
+pandoc -o "$tmpdir/content.html" -f markdown_mmd -t html "$1"
 
-cd /tmp/watcher || exit 1
+[ ! -f "$tmpdir/style.css" ] && cp ./watcher-ghmd.min.css "$tmpdir/style.css"
+
+printf '
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<article class="markdown-body">' > "$tmpdir/index.html"
+cat "$tmpdir/content.html" >> "$tmpdir/index.html"
+printf '</article>' >> $tmpdir/index.html
+
+cd "$tmpdir" || exit 1
 echo "http://$(hostname):8000"
 python3 -m http.server > /dev/null
 
-[ -f "/tmp/watcher/index.html" ] && rm -v "/tmp/watcher/index.html"
+[ -f "$tmpdir/index.html" ] && rm -v "$tmpdir/index.html"
+[ -f "$tmpdir/content.html" ] && rm -v "$tmpdir/content.html"
 
