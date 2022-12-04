@@ -21,6 +21,7 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
   Plug 'vim-pandoc/vim-pandoc'                              " Pandoc
   Plug 'vim-pandoc/vim-pandoc-syntax'
   Plug 'airblade/vim-gitgutter'                             " Git Diff
+  Plug 'zivyangll/git-blame.vim'                            " Git Blame
   Plug 'mg979/vim-visual-multi', {'branch': 'master'}       " Multi cursor
   call plug#end()
 
@@ -266,3 +267,6 @@ au FileType sh nmap <leader>r :!./%<CR>
 au FileType sh nmap <leader>t :!shellcheck %<CR>
 
 au FileType c nmap <leader>r :!gcc -o /tmp/%.o % && /tmp/%.o<CR>
+
+" Git
+nnoremap <Leader>gb :<C-u>call gitblame#echo()<CR>
