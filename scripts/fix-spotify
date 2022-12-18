@@ -1,0 +1,2 @@
+#!/bin/sh
+sed -i "/\b\(app.window.position\)\b/d" -- $HOME/.config/spotify/prefs
