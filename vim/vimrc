@@ -268,5 +268,7 @@ au FileType sh nmap <leader>t :!shellcheck %<CR>
 
 au FileType c nmap <leader>r :!gcc -o /tmp/%.o % && /tmp/%.o<CR>
 
+au FileType python nmap <leader>r :!python3 %<CR>
+
 " Git
 nnoremap <Leader>gb :Git blame<CR>
