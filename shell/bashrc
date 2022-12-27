@@ -144,6 +144,7 @@ export LESS="-j.5 -R"                           # center search hits
 [[ -n "$(command -v thefuck)" ]] && eval "$(thefuck --alias fuck)"
 
 # pfetch
-[[ -n "$(command -v pfetch)" ]] && \
+if [[ -n "$(command -v pfetch)" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
   PF_INFO="ascii title os kernel uptime wm shell memory" pfetch
+fi
 
