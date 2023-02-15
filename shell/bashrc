@@ -102,9 +102,11 @@ complete -cf sudo
 [[ -n "$(command -v kind)" ]] && . <(kind completion bash)
 
 _kube_contexts() {
-  local curr_arg;
-  curr_arg=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( "$(compgen -W "$(kubectl config get-contexts --output='name')" -- "$curr_arg" )" );
+  local cur;
+  cur=${COMP_WORDS[COMP_CWORD]}
+  if kubectl_out=$(__kubectl_debug_out "kubectl config $(__kubectl_override_flags) -o template --template=\"{{ range .contexts  }}{{ .name }} {{ end }}\" view"); then
+    COMPREPLY=( $( compgen -W "${kubectl_out[*]}" -- "$cur" ) )
+  fi
 }
 
 complete -F _kube_contexts kuc
