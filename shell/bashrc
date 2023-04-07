@@ -104,7 +104,7 @@ complete -cf sudo
 _kube_contexts() {
   local cur;
   cur=${COMP_WORDS[COMP_CWORD]}
-  if kubectl_out=$(__kubectl_debug_out "kubectl config $(__kubectl_override_flags) -o template --template=\"{{ range .contexts  }}{{ .name }} {{ end }}\" view"); then
+  if kubectl_out=$(kubectl config view -o template --template="{{ range .contexts  }}{{ .name }} {{ end }}"); then
     COMPREPLY=( $( compgen -W "${kubectl_out[*]}" -- "$cur" ) )
   fi
 }
