@@ -111,6 +111,10 @@ _kube_contexts() {
 
 complete -F _kube_contexts kuc
 
+# Terraform
+complete -C /usr/bin/terraform terraform
+complete -C /usr/bin/terraform tf
+
 ## Options
 shopt -s checkwinsize
 shopt -s expand_aliases   # Aliases in scripts
