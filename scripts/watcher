@@ -8,7 +8,7 @@ tmpdir="/tmp/watcher"
 pandoc -o "$tmpdir/content.html" -f markdown_mmd -t html "$1"
 
 csspath="$(which watcher)-ghmd.min.css"
-[ ! -f "$tmpdir/style.css" ] && cp $csspath "$tmpdir/style.css"
+[ ! -f "$tmpdir/style.css" ] && cp "$csspath" "$tmpdir/style.css"
 
 printf '
 <head>
