@@ -100,7 +100,7 @@ complete -cf sudo
 [[ -n "$(command -v helm)" ]] && . <(helm completion bash)
 [[ -n "$(command -v minikube)" ]] && . <(minikube completion bash)
 [[ -n "$(command -v kind)" ]] && . <(kind completion bash)
-[[ -n "$(command -v zarf)" ]] && . <(zarf completion bash)
+[[ -n "$(command -v zarf)" ]] && . <(zarf completion bash 2> /dev/null)
 
 _kube_contexts() {
   local cur;
