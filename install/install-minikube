@@ -1,8 +1,0 @@
-#!/bin/sh
-
-installdir="$HOME/.local/bin"
-[ ! -d "$installdir" ] && mkdir -p "$installdir"
-
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-install minikube-linux-amd64 "$installdir/minikube" && rm minikube-linux-amd64
-

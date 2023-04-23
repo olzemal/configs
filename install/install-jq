@@ -1,8 +1,0 @@
-#!/bin/sh
-
-installdir="$HOME/.local/bin"
-[ ! -d "$installdir" ] && mkdir -p "$installdir"
-
-curl -sLo "$installdir/jq" "https://stedolan.github.io/jq/download/linux64/jq"
-chmod +x "$installdir/jq"
-
