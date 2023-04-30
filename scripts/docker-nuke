@@ -1,0 +1,11 @@
+#!/bin/sh
+
+printf 'Delete all containers and images (y/N)? '
+read -r ANSWER
+if [ "$ANSWER" = "y" ]; then
+  docker rm -f "$(docker ps -aq)" > /dev/null 2>&1
+  docker rmi "$(docker images -q)" > /dev/null 2>&1
+  exit
+fi
+
+printf 'Aborted\n'
