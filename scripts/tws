@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# tws - trim trailing whitespace
+# intended to be used as a filter
+
+while IFS= read -r line; do
+  echo "$line" | sed -e 's/[[:space:]]*$//'
+done
