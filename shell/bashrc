@@ -101,6 +101,7 @@ complete -cf sudo
 [[ -n "$(command -v minikube)" ]] && . <(minikube completion bash)
 [[ -n "$(command -v kind)" ]] && . <(kind completion bash)
 [[ -n "$(command -v zarf)" ]] && . <(zarf completion bash 2> /dev/null)
+[[ -n "$(command -v cilium)" ]] && . <(cilium completion bash 2> /dev/null)
 
 _kube_contexts() {
   local cur;
