@@ -49,7 +49,7 @@ __ps1() {
       [[ "$PWD" == "/" ]] && break
     done
 
-    if [[ -n "$(find "$PWD" -name ".pre-commit-config.yaml")" ]]; then
+    if [[ -n "$(find "$PWD" -name ".pre-commit-config.yaml" 2>/dev/null)" ]]; then
       [[ -f "$PWD/.git/hooks/pre-commit" ]] || printf "\033[0;91m%s\017\n" \
         "⚠ '.pre-commit-config.yaml' found but hooks are not yet installed" \
         "consider running 'pre-commit install'"
