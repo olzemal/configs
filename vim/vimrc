@@ -23,6 +23,7 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
   Plug 'airblade/vim-gitgutter'                             " Git Diff
   Plug 'tpope/vim-fugitive'                                 " Git Blame
   Plug 'mg979/vim-visual-multi', {'branch': 'master'}       " Multi cursor
+  Plug 'dense-analysis/ale'                                 " Linter
   call plug#end()
 
   "" Configure Options
@@ -86,6 +87,12 @@ endif
 
 " Default to static completion for SQL
 let g:omni_sql_default_compl_type = 'syntax'
+
+" Linter settings
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\}
+let g:ale_fix_on_save = 1
 
 " When editing a markdown file, enable spellcheck
 augroup markdownSpell
