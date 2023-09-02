@@ -1,8 +1,14 @@
 #!/bin/sh
 # shellcheck disable=SC2086
 
+# Check if deploy is in current dir
+if [ $0 != "./deploy.sh" ]; then
+  printf 'Not executing from config repo dir, this will mess up symlinks... exiting\n'
+  exit 1
+fi
+
 first() {
-  [ -n "$1" ] && printf '%s' "$1" || printf '%s' "$1"
+  printf '%s' "$1"
 }
 
 link() {
@@ -37,23 +43,28 @@ versionge() {
   return 0
 }
 
+isinstalled() {
+  # return 1 if $1 is not installed
+  # return 0 if $1 is installed
+  if [ -z "$(which $1)" ]; then
+    printf 'Looks like %s is not installed... exiting\n' "$1" >&2
+    return 1
+  fi
+  return 0
+}
+
 [ $# -eq 0 ] && help
 
 for option in "$@"; do
   case $option in
-    alacritty)
-      [ ! -d "$HOME/.config/alacritty" ] && \
-        mkdir -p "$HOME/.config/alacritty"
-      link "$PWD/alacritty/alacritty.yml" \
-        "$HOME/.config/alacritty/alacritty.yml"
-      ;;
-
     aliases)
       [ ! -d "$HOME/.config" ] && mkdir -p "$HOME/.config"
       link "$PWD/shell/aliases" "$HOME/.config/aliases"
       ;;
 
     bash)
+      if ! isinstalled "bash"; then exit 5; fi
+
       # Deploy scripts
       eval "$0 scripts"
 
@@ -66,6 +77,8 @@ for option in "$@"; do
       ;;
 
     git)
+      if ! isinstalled "git"; then exit 5; fi
+
       if [ -z "$EMAIL" ]; then
         printf 'Please enter your email adress: '
         read -r email
@@ -75,51 +88,22 @@ for option in "$@"; do
       link "$PWD/git/gitconfig" "$HOME/.gitconfig"
       ;;
 
-    gnome-terminal)
-      gsettings set org.gnome.desktop.interface text-scaling-factor 1.2
-      dconf load /org/gnome/terminal/ < gnome/gruvbox.ini
-      ;;
-
     kitty)
+      if ! isinstalled "kitty"; then exit 5; fi
+
       [ ! -d "$HOME/.config/kitty" ] && \
         mkdir -p "$HOME/.config/kitty"
       link "$PWD/kitty/kitty.conf" \
         "$HOME/.config/kitty/kitty.conf"
       ;;
 
-    lynx)
-      [ ! -d "$HOME/.config/lynx" ] && mkdir -p "$HOME/.config/lynx"
-      link "$PWD/lynx/lynx.lss" "$HOME/.config/lynx/lynx.lss"
-      link "$PWD/lynx/lynx.cfg" "$HOME/.config/lynx/lynx.cfg"
-      ;;
-
     scripts)
       link "$PWD/scripts" "$HOME/.scripts"
       ;;
 
-    tmux)
-      # Deploy tmux.conf
-      if versionge "$(tmux -V)" "3.1"; then
-        [ ! -d "$HOME/.config/tmux" ] && mkdir -p "$HOME/.config/tmux"
-        link "$PWD/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
-      else
-        link "$PWD/tmux/tmux.conf" "$HOME/.tmux.conf"
-      fi
-      ;;
-
-    minivim)
-      # Deploy vimrc
-      if versionge \
-        "$(vim --version | head -1 | grep -oP '\d\.\d')" "7.3"
-      then
-        [ ! -d "$HOME/.vim" ] && mkdir -p "$HOME/.vim"
-        link "$PWD/vim/vimrc-minimal" "$HOME/.vim/vimrc"
-      else
-        link "$PWD/vim/vimrc-minimal" "$HOME/.vimrc"
-      fi
-      ;;
-
     vim)
+      if ! isinstalled "vim"; then exit 5; fi
+
       # Install Plug
       [ ! -e "$HOME/.vim/autoload/plug.vim" ] && \
         curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -143,14 +127,29 @@ for option in "$@"; do
         vim +GoInstallBinaries
       ;;
 
+    zellij)
+      # Install zellij
+      if [ -z "$(which zellij)" ]; then
+        curl -LO https://github.com/zellij-org/zellij/releases/download/v0.38.1/zellij-x86_64-unknown-linux-musl.tar.gz
+        tar -xvf zellij*.tar.gz
+        chmod +x zellij
+        mv zellij "$HOME/.local/bin/"
+        rm zellij*.tar.gz
+      fi
+      ;;
+
     zsh)
+      if ! isinstalled "zsh"; then exit 5; fi
+
       # Deploy scripts
       eval "$0 scripts"
+
+      # Deploy zshrc
       link "$PWD/shell/zshrc" "$HOME/.zshrc"
       ;;
 
     cli)
-      eval "$0 bash aliases tmux vim lynx git"
+      eval "$0 bash aliases zellij vim git"
       ;;
 
     *)
@@ -161,4 +160,3 @@ for option in "$@"; do
   esac
   printf '\033[0;32mDeployed configs for %s\033[0m\n' "$option"
 done
-
