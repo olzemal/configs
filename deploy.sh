@@ -127,17 +127,6 @@ for option in "$@"; do
         vim +GoInstallBinaries
       ;;
 
-    zellij)
-      # Install zellij
-      if [ -z "$(which zellij)" ]; then
-        curl -LO https://github.com/zellij-org/zellij/releases/download/v0.38.1/zellij-x86_64-unknown-linux-musl.tar.gz
-        tar -xvf zellij*.tar.gz
-        chmod +x zellij
-        mv zellij "$HOME/.local/bin/"
-        rm zellij*.tar.gz
-      fi
-      ;;
-
     zsh)
       if ! isinstalled "zsh"; then exit 5; fi
 

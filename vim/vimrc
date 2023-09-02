@@ -14,6 +14,7 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
   Plug 'lifepillar/vim-mucomplete'                          " Autocomplete
   Plug 'sheerun/vim-polyglot'                               " Language Support
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }       " Vim-go
+  Plug 'imsnif/kdl.vim'                                     " KDL Support
   if has('python3')
     Plug 'SirVer/ultisnips'                                 " Snippets
   endif
