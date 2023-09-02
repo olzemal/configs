@@ -101,6 +101,14 @@ for option in "$@"; do
       link "$PWD/scripts" "$HOME/.scripts"
       ;;
 
+    tmux)
+      if ! isinstalled "tmux"; then exit 5; fi
+      [ ! -d "$HOME/.config/tmux" ] && \
+        mkdir -p "$HOME/.config/tmux"
+
+      link "$PWD/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
+      ;;
+
     vim)
       if ! isinstalled "vim"; then exit 5; fi
 
@@ -138,7 +146,7 @@ for option in "$@"; do
       ;;
 
     cli)
-      eval "$0 bash aliases zellij vim git"
+      eval "$0 bash aliases tmux vim git"
       ;;
 
     *)
