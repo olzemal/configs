@@ -139,6 +139,9 @@ export LESS="-j.5 -R"                           # center search hits
 # Set GPG_TTY for GPG
 export GPG_TTY="$(tty)"
 
+# LS_COLORS
+export LS_COLORS="$LS_COLORS:di=00;94"
+
 # VI mode with ctrl-l
 #set -o vi
 #bind -m vi-command 'Control-l: clear-screen'
