@@ -15,9 +15,7 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
   Plug 'sheerun/vim-polyglot'                               " Language Support
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }       " Vim-go
   Plug 'imsnif/kdl.vim'                                     " KDL Support
-  if has('python3')
-    Plug 'SirVer/ultisnips'                                 " Snippets
-  endif
+  Plug 'kien/ctrlp.vim'                                     " Fuzzyfinder
   Plug 'scrooloose/nerdtree'                                " Nerd Tree
   Plug 'vim-pandoc/vim-pandoc'                              " Pandoc
   Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -111,12 +109,10 @@ augroup END
 " (happens when dropping a file on gvim) and for a commit message (it's
 " likely a different one than last time).
 augroup vimStartup
-  au!
   autocmd BufReadPost *
       \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
       \ |   exe "normal! g`\""
       \ | endif
-augroup END
 
 " Spellchecking for git commit messages
 autocmd FileType gitcommit setlocal spell
@@ -285,4 +281,4 @@ au FileType c nmap <leader>r :!gcc -o /tmp/%.o % && /tmp/%.o<CR>
 au FileType python nmap <leader>r :!python3 %<CR>
 
 " Git
-nnoremap <Leader>gb :Git blame<CR>
+nnoremap gb :Git blame<CR>
