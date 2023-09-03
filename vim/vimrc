@@ -74,7 +74,7 @@ else
 endif
 
 set t_Co=256
-set term=screen-256color
+set term=xterm-256color
 
 highlight Pmenu ctermbg=darkgrey ctermfg=white
 highlight PmenuSel ctermbg=blue ctermfg=black

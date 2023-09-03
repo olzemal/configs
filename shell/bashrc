@@ -21,7 +21,7 @@ __ps1() {
   local n='\[\033[0m\]'  # normal
   local r='\[\033[0;91m\]' # red
   local g='\[\033[0;92m\]' # green
-  local b='\[\033[0;34m\]' # blue
+  local b='\[\033[0;94m\]' # blue
   local w='\[\033[0;97m\]' # white
 
   # check if user is root
