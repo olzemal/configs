@@ -1,8 +1,12 @@
+#!/bin/bash
+
 # .bashrc by Alexander Olzem
 
 # Disable infos relating sourcing of external files
 # shellcheck disable=SC1091
 # shellcheck disable=SC1090
+# Disable declare and assign separately
+# shellcheck disable=SC2155
 
 # Return if not interactive
 [[ $- != *i* ]] && return
@@ -17,7 +21,7 @@ __ps1() {
   local n='\[\033[0m\]'  # normal
   local r='\[\033[0;91m\]' # red
   local g='\[\033[0;92m\]' # green
-  local b='\[\033[0;94m\]' # blue
+  local b='\[\033[0;34m\]' # blue
   local w='\[\033[0;97m\]' # white
 
   # check if user is root
@@ -54,7 +58,7 @@ __ps1() {
         "⚠ '.pre-commit-config.yaml' found but hooks are not yet installed" \
         "consider running 'pre-commit install'"
     fi
-    cd "$OLD_PWD"
+    cd "$OLD_PWD" || return
 
     # Get state of local repo
     local gitstatus="$(git status 2>/dev/null)"
@@ -158,4 +162,3 @@ export GPG_TTY="$(tty)"
 if [[ -n "$(command -v pfetch)" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
   PF_INFO="ascii title os kernel uptime wm shell memory" pfetch
 fi
-
