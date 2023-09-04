@@ -197,9 +197,10 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 
-" Mandatory for vim-µcomplete
+" Completion options
 set completeopt+=menuone
 set completeopt+=noselect
+set previewheight=5
 
 " Shut off completion messages
 set shortmess+=c
