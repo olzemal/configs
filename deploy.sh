@@ -97,6 +97,25 @@ for option in "$@"; do
         "$HOME/.config/kitty/kitty.conf"
       ;;
 
+    nvim)
+      if ! isinstalled "nvim"; then exit 5; fi
+
+      # Install Plug
+      [ ! -d "$HOME/.local/share/nvim/site/autoload" ] && mkdir -p "$HOME/.local/share/nvim/site/autoload"
+      curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+      [ ! -d "$HOME/.config/nvim" ] && mkdir -p "$HOME/.config/nvim"
+      link "$PWD/vim/vimrc" "$HOME/.config/nvim/init.vim"
+
+      # Run PlugInstall
+      nvim +PlugInstall +qall
+
+      # Install go binaries if go is installed
+      [ -n "$(command -v go)" ] && [ ! -f "$GOBIN/golint" ] && \
+        nvim +GoInstallBinaries
+      ;;
+
     scripts)
       link "$PWD/scripts" "$HOME/.scripts"
       ;;

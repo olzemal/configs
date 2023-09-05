@@ -72,7 +72,9 @@ else
 endif
 
 set t_Co=256
-set term=xterm-256color
+if !has('nvim')
+  set term=xterm-256color
+endif
 
 highlight Pmenu ctermbg=darkgrey ctermfg=white
 highlight PmenuSel ctermbg=blue ctermfg=black
@@ -149,7 +151,9 @@ endif
 set hidden
 
 " Save .viminfo in .vim to keep home clean
-set viminfo+=n~/.vim/viminfo
+if !has('nvim')
+  set viminfo+=n~/.vim/viminfo
+endif
 
 " Better command-line completion
 set wildmenu
@@ -176,7 +180,9 @@ set confirm
 " Don't annoy me pls
 set visualbell t_vb=
 set mouse=
-set ttymouse=
+if !has('nvim')
+  set ttymouse=
+endif
 
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
