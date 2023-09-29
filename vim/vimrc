@@ -54,6 +54,7 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
 
   " NerdTree
   let NERDTreeMinimalUI=1
+  let NERDTreeQuitOnOpen=1
 endif
 
 "+---------------------------------------------------------------------------+

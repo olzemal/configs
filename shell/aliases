@@ -1,3 +1,6 @@
+#!/bin/bash
+# shellcheck disable=SC2139
+
 # Get rid of default aliases
 unalias -a
 
@@ -33,7 +36,11 @@ alias rm='rm -I --preserve-root'
 # Other
 alias tf='terraform'
 alias chmox='chmod +x'
-alias vi='vim'
 alias ports='netstat -atulpn'
 alias S='sudo systemctl'
 alias watch='watch -n 1'
+
+vimcmd=vim
+[ -n "$(command -v nvim)" ] && vimcmd=nvim
+alias vi="${vimcmd}"
+alias vim="${vimcmd}"
