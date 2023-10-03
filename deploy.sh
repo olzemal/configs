@@ -99,6 +99,8 @@ for option in "$@"; do
 
     nvim)
       if ! isinstalled "nvim"; then exit 5; fi
+      if ! isinstalled "rg"; then exit 5; fi
+      if ! isinstalled "npm"; then exit 5; fi
 
       # Install Plug
       [ ! -d "$HOME/.local/share/nvim/site/autoload" ] && mkdir -p "$HOME/.local/share/nvim/site/autoload"
@@ -110,6 +112,27 @@ for option in "$@"; do
 
       # Run PlugInstall
       nvim +PlugInstall +qall
+
+      # Install Mason Packages
+      nvim -c "MasonInstall \
+        bash-language-server \
+        gopls \
+        docker-compose-language-service \
+        dockerfile-language-server \
+        helm-ls \
+        jq \
+        jq-lsp \
+        json-lsp \
+        yq \
+        yaml-language-server \
+        awk-language-server\
+        marksman \
+        nginx-language-server \
+        python-lsp-server \
+        biome \
+        sqlls \
+        terraform-ls \
+        vim-language-server"
 
       # Install go binaries if go is installed
       [ -n "$(command -v go)" ] && [ ! -f "$GOBIN/golint" ] && \
