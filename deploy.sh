@@ -136,7 +136,8 @@ for option in "$@"; do
         biome \
         sqlls \
         terraform-ls \
-        vim-language-server"
+        vim-language-server \
+        taplo"
 
       # Install go binaries if go is installed
       [ -n "$(command -v go)" ] && [ ! -f "$GOBIN/golint" ] && \

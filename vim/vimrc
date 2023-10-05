@@ -84,6 +84,7 @@ let NERDTreeQuitOnOpen=1
 
 " LSP & Completion
 if has('nvim')
+  if has('filetype')
 lua <<EOF
   local lspconfig = require('lspconfig')
   require('mason').setup()
@@ -93,8 +94,10 @@ lua <<EOF
       lspconfig[server].setup({})
     end,
   })
+EOF
+  endif
+lua <<EOF
   local cmp = require'cmp'
-
   -- Buffer Completion
   cmp.register_source('emoji', require'cmp_emoji'.new())
 
@@ -115,6 +118,7 @@ lua <<EOF
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'ultisnips' },
+      { name = 'path' },
       { name = 'emoji' },
       { name = 'dictionary', keyword_length = 5 }
     }, {
