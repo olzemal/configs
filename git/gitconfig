@@ -1,7 +1,5 @@
 [user]
 	name = Alexander Olzem
-[core]
-	editor = vim
 [pull]
 	rebase = false
 [init]

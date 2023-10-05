@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Go
 export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
@@ -7,7 +9,8 @@ export GO111MODULE="auto"
 [[ ! -d "$GOBIN"  ]] && mkdir -p "$GOBIN"
 
 # Editor
-export EDITOR=vim
+[[ $(command -v vim) ]] && export EDITOR=vim
+[[ $(command -v nvim) ]] && export EDITOR=nvim
 
 # Locale
 export LANG=en_US.UTF-8
@@ -21,4 +24,3 @@ export NOTESPATH="$HOME/repos/notes"
 
 # Source bashrc if bash is running and file exists
 [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
-
