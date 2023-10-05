@@ -88,6 +88,10 @@ for option in "$@"; do
       link "$PWD/git/gitconfig" "$HOME/.gitconfig"
       ;;
 
+    gnome)
+      dconf load / < ./gnome/dconf-dump.txt
+      ;;
+
     kitty)
       if ! isinstalled "kitty"; then exit 5; fi
 
