@@ -11,6 +11,7 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.vim/plugged')
   "" Vim only plugins
   if !has('nvim')
+    Plug 'sheerun/vim-polyglot'                              " Language Support
     Plug 'lifepillar/vim-mucomplete'                         " Completion
     Plug 'kien/ctrlp.vim'                                    " Fuzzyfinder
   endif
@@ -35,7 +36,6 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
 
   "" General plugins
   Plug 'morhetz/gruvbox'                                     " Colorscheme
-  Plug 'sheerun/vim-polyglot'                                " Language Support
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }        " Vim-go
   Plug 'imsnif/kdl.vim'                                      " KDL Support
   Plug 'scrooloose/nerdtree'                                 " Nerd Tree
@@ -84,7 +84,6 @@ let NERDTreeQuitOnOpen=1
 
 " LSP & Completion
 if has('nvim')
-  if has('filetype')
 lua <<EOF
   local lspconfig = require('lspconfig')
   require('mason').setup()
@@ -94,9 +93,7 @@ lua <<EOF
       lspconfig[server].setup({})
     end,
   })
-EOF
-  endif
-lua <<EOF
+
   local cmp = require'cmp'
   -- Buffer Completion
   cmp.register_source('emoji', require'cmp_emoji'.new())
@@ -360,6 +357,8 @@ nnoremap <leader>N :set number<CR>
 nnoremap <leader>n :set nonumber<CR>
 
 nnoremap <c-p> <cmd>lua require('telescope.builtin').live_grep()<cr>
+
+nnoremap <leader>f gqip
 
 nnoremap <silent> <leader>e :NERDTreeToggle<CR>
 
