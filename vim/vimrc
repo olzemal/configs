@@ -110,6 +110,7 @@ lua <<EOF
     },
     mapping = cmp.mapping.preset.insert({
       ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+      ['<CR>'] = cmp.mapping.confirm({ select = false }),
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
@@ -177,9 +178,17 @@ let g:omni_sql_default_compl_type = 'syntax'
 
 " Linter settings
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\ '*':    ['remove_trailing_lines', 'trim_whitespace'],
+\ 'sh':   ['shfmt'],
+\ 'go':   ['gofmt'],
 \}
 let g:ale_fix_on_save = 1
+
+let g:ale_linters = {
+\ 'sh':   ['shellcheck'],
+\ 'go':   ['gofmt'],
+\ 'yaml': ['yamllint'],
+\ }
 
 " When editing a markdown file, enable spellcheck
 augroup markdownSpell
