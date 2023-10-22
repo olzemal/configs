@@ -76,6 +76,12 @@ for option in "$@"; do
       link "$PWD/shell/profile" "$HOME/.profile"
       ;;
 
+    brew)
+      if ! isinstalled "bash"; then exit 5; fi
+      if ! isinstalled "curl"; then exit 5; fi
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      ;;
+
     git)
       if ! isinstalled "git"; then exit 5; fi
 
