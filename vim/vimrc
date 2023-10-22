@@ -99,6 +99,8 @@ lua <<EOF
   cmp.register_source('emoji', require'cmp_emoji'.new())
 
   cmp.setup({
+    enabled = true,
+    preselect = cmp.PreselectMode.None,
     snippet = {
       expand = function(args)
         vim.fn["UltiSnips#Anon"](args.body)
