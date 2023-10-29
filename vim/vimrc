@@ -75,7 +75,7 @@ let g:go_highlight_diagnostic_warnings = 1
 let g:go_auto_type_info = 1
 
 " pandoc
-let g:pandoc#formatting#mode = 'h' " A'
+let g:pandoc#formatting#mode = 'hA'
 let g:pandoc#formatting#textwidth = 72
 let g:pandoc#modules#disabled = ["folding"]
 
