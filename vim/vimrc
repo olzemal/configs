@@ -45,6 +45,7 @@ if !empty(glob("~/.vim/autoload/plug.vim"))
   Plug 'tpope/vim-fugitive'                                  " Git Blame
   Plug 'mg979/vim-visual-multi', {'branch': 'master'}        " Multi cursor
   Plug 'dense-analysis/ale'                                  " Linter
+  Plug 'Konfekt/vim-DetectSpellLang'                         " Detect language
   call plug#end()
 endif
 
@@ -81,6 +82,14 @@ let g:pandoc#modules#disabled = ["folding"]
 " NerdTree
 let NERDTreeMinimalUI=1
 let NERDTreeQuitOnOpen=1
+
+" Languages
+let g:detectspelllang_langs = {
+\ 'aspell'   : [ 'en', 'de' ],
+\ 'hunspell' : [ 'en', 'de' ],
+\}
+let g:detectspelllang_lines = 20 " Evaluate the first 20 lines of a file
+let g:detectspelllang_threshold = 20 " Allow a maximum of 20% misspelled words
 
 " LSP & Completion
 if has('nvim')
@@ -131,6 +140,7 @@ lua <<EOF
   dict.switcher({
     spelllang = {
       en = "/usr/share/dict/words",
+      de = "/usr/share/dict/ngerman",
     },
   })
 
