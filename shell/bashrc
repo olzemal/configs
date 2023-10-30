@@ -15,6 +15,10 @@
 [[ -f /usr/share/bash-completion/bash_completion ]] && \
   . /usr/share/bash-completion/bash_completion
 
+__emoji_supported() {
+  [ "$(echo -ne '\xE0\xA5\xA5' | wc -m)" -eq 1 ]
+}
+
 __ps1() {
   last_exit_code="$?"
   # colors
@@ -37,9 +41,9 @@ __ps1() {
   # check exit code
   local R
   if [[ $last_exit_code -eq 0 ]]; then
-    R='✅'
+    if __emoji_supported; then R='✅'; else R="$g✓$x"; fi
   else
-    R='❌'
+    if __emoji_supported; then R='❌'; else R="$r"'x'"$x"; fi
   fi
 
   ## Git info
