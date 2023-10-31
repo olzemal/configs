@@ -196,11 +196,19 @@ let g:ale_fixers = {
 \}
 let g:ale_fix_on_save = 1
 
-let g:ale_linters = {
-\ 'sh':   ['shellcheck'],
-\ 'go':   ['gofmt'],
-\ 'yaml': ['yamllint'],
-\ }
+if has('nvim')
+  let g:ale_linters = {
+  \ 'sh':   [''],
+  \ 'go':   ['gofmt'],
+  \ 'yaml': ['yamllint'],
+  \ }
+else
+  let g:ale_linters = {
+  \ 'sh':   ['shellcheck'],
+  \ 'go':   ['gofmt'],
+  \ 'yaml': ['yamllint'],
+  \ }
+endif
 
 " When editing a markdown file, enable spellcheck
 augroup markdownSpell
