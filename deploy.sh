@@ -134,7 +134,6 @@ for option in "$@"; do
         jq-lsp \
         json-lsp \
         yq \
-        yaml-language-server \
         awk-language-server\
         marksman \
         nginx-language-server \
