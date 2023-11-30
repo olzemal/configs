@@ -1,10 +1,11 @@
 #!/bin/sh
+# shellcheck disable=SC2046
 
 printf 'Delete all containers and images (y/N)? '
 read -r ANSWER
 if [ "$ANSWER" = "y" ]; then
-  docker rm -f "$(docker ps -aq)" > /dev/null 2>&1
-  docker rmi "$(docker images -q)" > /dev/null 2>&1
+  docker rm -f $(docker ps -aq) 2>/dev/null
+  docker rmi -f $(docker images -q) 2>/dev/null
   exit
 fi
 
