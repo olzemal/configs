@@ -167,5 +167,3 @@ export LS_COLORS="$LS_COLORS:di=00;94"
 if [[ -n "$(command -v pfetch)" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
   PF_INFO="ascii title os kernel uptime wm shell memory" pfetch
 fi
-
-[[ -e /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

@@ -1,5 +1,24 @@
-# use bash
-if [ -n "$BASH_VERSION" ]; then
-  [ -f "$HOME/.bash_profile" ] && source "$HOME/.bash_profile"
-  [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
+# Go
+export GOPATH="$HOME/.local/go"
+export GOBIN="$GOPATH/bin"
+export GOROOT="/usr/local/go"
+export GO111MODULE="auto"
+if [ ! -d "$GOPATH" ]; then mkdir -p "$GOPATH"; fi
+if [ ! -d "$GOBIN"  ]; then mkdir -p "$GOBIN"; fi
+
+# Editor
+if command -V vim >/dev/null 2>&1; then export EDITOR=vim; fi
+if command -V nvim >/dev/null 2>&1 ; then export EDITOR=nvim; fi
+
+# Locale
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Path
+export PATH="$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:/usr/local/go/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/snap/bin:/sbin:/bin:$PATH"
+export CDPATH=":$HOME/repos"
+
+# Source bashrc if bash is running and file exists
+if [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ]; then
+  . "$HOME/.bashrc"
 fi

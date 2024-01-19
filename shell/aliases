@@ -41,6 +41,6 @@ alias S='sudo systemctl'
 alias watch='watch -n 1'
 
 vimcmd=vim
-[ -n "$(command -v nvim)" ] && vimcmd=nvim
-alias vi="${vimcmd}"
-alias vim="${vimcmd}"
+if [ -n "$(command -v nvim)" ]; then vimcmd=nvim; fi
+alias vi="$vimcmd"
+alias vim="$vimcmd"
