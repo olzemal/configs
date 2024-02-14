@@ -57,6 +57,11 @@ isinstalled() {
 
 for option in "$@"; do
   case $option in
+    alacritty)
+      [ ! -d "$HOME/.config/alacritty" ] && mkdir -p "$HOME/.config/alacritty"
+      link "$PWD/alacritty/alacritty.yaml" "$HOME/.config/alacritty/alacritty.yml"
+      ;;
+
     aliases)
       [ ! -d "$HOME/.config" ] && mkdir -p "$HOME/.config"
       link "$PWD/shell/aliases" "$HOME/.config/aliases"
