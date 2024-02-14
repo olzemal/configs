@@ -93,6 +93,7 @@ let g:pandoc#modules#disabled = ["folding"]
 " NerdTree
 let NERDTreeMinimalUI=1
 let NERDTreeQuitOnOpen=1
+let NERDTreeCustomOpenArgs={'file':{'where': 't'}}
 
 " Languages
 let g:detectspelllang_langs = {
@@ -279,6 +280,7 @@ endif
 
 " Keep buffers in background
 set hidden
+set showtabline=2
 
 " Save .viminfo in .vim to keep home clean
 if !has('nvim')
