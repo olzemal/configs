@@ -406,6 +406,16 @@ get_kernel() {
     log kernel "$kernel" >&6
 }
 
+get_cache() {
+    # show how old apt package cache is
+    if [ -f /var/cache/apt/pkgcache.bin ]; then
+      cachedate="$(date --date "$(stat /var/cache/apt/pkgcache.bin | \
+        awk '/Change:/ {print $2 " " $3}')" +%s)"
+      age="$(( ($(date +%s) - cachedate ) / 86400 ))"
+      log "cache" "$(printf "%s day" $age; [ $age -ne 1 ] && printf 's'; echo " old")" >&6
+    fi
+}
+
 get_host() {
     case $os in
         (Linux*)

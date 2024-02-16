@@ -165,5 +165,5 @@ export LS_COLORS="$LS_COLORS:di=00;94"
 
 # pfetch
 if [[ -n "$(command -v pfetch)" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
-  PF_INFO="ascii title os kernel uptime wm shell memory" pfetch
+  PF_INFO="ascii title os kernel uptime wm shell memory cache" pfetch
 fi
