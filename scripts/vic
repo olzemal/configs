@@ -1,3 +1,3 @@
 #!/bin/sh
-exec vim "$(command -v "$1")"
+exec "$EDITOR" "$(command -v "$1")"
 
