@@ -87,6 +87,11 @@ for option in "$@"; do
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       ;;
 
+    code)
+      [ ! -d "$HOME/.config/Code/User" ] && mkdir -p "$HOME/.config/Code/User"
+      link "$PWD/code/settings.json" "$HOME/.config/Code/User/settings.json"
+      ;;
+
     git)
       if ! isinstalled "git"; then exit 5; fi
 

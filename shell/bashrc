@@ -91,6 +91,7 @@ __ps1() {
   fi
 
   # Final arrangement for prompt
+  [[ $TERM_PROGRAM == "vscode" ]] && U="\n$U"
   PS1="$x$R $b\u@\h $w\w $gitinfo$b$U $n"
 }
 

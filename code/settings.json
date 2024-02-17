@@ -1,0 +1,19 @@
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    "go.toolsManagement.autoUpdate": true,
+    "workbench.startupEditor": "none",
+    "workbench.colorTheme": "Gruvbox Mix Dark",
+    "redhat.telemetry.enabled": false,
+    "vs-kubernetes": {
+        "vscode-kubernetes.minikube-path.linux": "/home/alex/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube"
+    },
+    "explorer.confirmDelete": false,
+    "extensions.ignoreRecommendations": true,
+    "window.density.editorTabHeight": "compact",
+    "window.menuBarVisibility": "visible",
+    "window.titleBarStyle": "custom",
+    "editor.fontSize": 16,
+    "editor.rulers": [
+        120
+    ]
+}
