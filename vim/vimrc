@@ -327,7 +327,7 @@ set number
 set pastetoggle=<F11>
 
 " Set ruler at the right
-set colorcolumn=80
+set colorcolumn=120
 
 " Indentation settings for using 2 spaces instead of tabs.
 set expandtab
