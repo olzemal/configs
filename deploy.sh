@@ -7,11 +7,8 @@ if [ $0 != "./deploy.sh" ]; then
   exit 1
 fi
 
-first() {
-  printf '%s' "$1"
-}
-
 link() {
+  [ ! -d "$(dirname "$2")" ] && mkdir -p "$(dirname "$2")"
   [ -e "$2" ] && printf 'found existing file %s\n' "$2" && rm -i "$2"
   ln -s "$1" "$2" 2>/dev/null
 }
@@ -24,23 +21,9 @@ help() {
 versionge() {
   # Run as `versionge "$(mycommand -v)" "<required version>"`
   # Return 0 if version requirement is satisfied
+  [ "$(printf '%s\n' "$1" "$2" | sort -V | head -n1 )" = "$2" ] && return 0
   # Return 1 if version requirement is not satisfied
-  current="$(printf '%s' "$1" | sed -e 's/\./\ /g' -e 's/[^0-9\ ]//g')"
-  desired="$(printf '%s' "$2" | sed -e 's/\./\ /g' -e 's/[^0-9\ ]//g')"
-
-  while [ -n "$current" ]; do
-    # Return 1 if not satisfied
-    [ "$(first $current)" -lt "$(first $desired)" ] && return 1
-    # Return 0 if satisfied
-    [ "$(first $current)" -gt "$(first $desired)" ] && return 0
-    # Therefore continue if eqal
-    # Delete First element (and leading space) of $current and $desired
-    current=${current#"$(first $current)"}
-    current=${current#"${current%%[![:space:]]*}"}
-    desired=${desired#"$(first $desired)"}
-    desired=${desired#"${desired%%[![:space:]]*}"}
-  done
-  return 0
+  return 1
 }
 
 isinstalled() {
@@ -58,12 +41,10 @@ isinstalled() {
 for option in "$@"; do
   case $option in
     alacritty)
-      [ ! -d "$HOME/.config/alacritty" ] && mkdir -p "$HOME/.config/alacritty"
       link "$PWD/alacritty/alacritty.yaml" "$HOME/.config/alacritty/alacritty.yml"
       ;;
 
     aliases)
-      [ ! -d "$HOME/.config" ] && mkdir -p "$HOME/.config"
       link "$PWD/shell/aliases" "$HOME/.config/aliases"
       ;;
 
@@ -88,7 +69,6 @@ for option in "$@"; do
       ;;
 
     code)
-      [ ! -d "$HOME/.config/Code/User" ] && mkdir -p "$HOME/.config/Code/User"
       link "$PWD/code/settings.json" "$HOME/.config/Code/User/settings.json"
       ;;
 
@@ -110,11 +90,7 @@ for option in "$@"; do
 
     kitty)
       if ! isinstalled "kitty"; then exit 5; fi
-
-      [ ! -d "$HOME/.config/kitty" ] && \
-        mkdir -p "$HOME/.config/kitty"
-      link "$PWD/kitty/kitty.conf" \
-        "$HOME/.config/kitty/kitty.conf"
+      link "$PWD/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
       ;;
 
     nvim)
@@ -127,7 +103,6 @@ for option in "$@"; do
       curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-      [ ! -d "$HOME/.config/nvim" ] && mkdir -p "$HOME/.config/nvim"
       link "$PWD/vim/vimrc" "$HOME/.config/nvim/init.vim"
 
       # Run PlugInstall
@@ -155,7 +130,7 @@ for option in "$@"; do
         taplo"
 
       # Install go binaries if go is installed
-      [ -n "$(command -v go)" ] && [ ! -f "$GOBIN/golint" ] && \
+      isinstalled go && [ ! -f "$GOBIN/golint" ] && \
         nvim +GoInstallBinaries
       ;;
 
@@ -165,9 +140,6 @@ for option in "$@"; do
 
     tmux)
       if ! isinstalled "tmux"; then exit 5; fi
-      [ ! -d "$HOME/.config/tmux" ] && \
-        mkdir -p "$HOME/.config/tmux"
-
       link "$PWD/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
       ;;
 
@@ -183,7 +155,6 @@ for option in "$@"; do
       if versionge \
         "$(vim --version | head -1 | grep -oP '\d\.\d')" "7.3"
       then
-        [ ! -d "$HOME/.vim" ] && mkdir -p "$HOME/.vim"
         link "$PWD/vim/vimrc" "$HOME/.vim/vimrc"
       else
         link "$PWD/vim/vimrc" "$HOME/.vimrc"
