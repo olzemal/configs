@@ -9,19 +9,13 @@ set nocompatible
 " Create autoload dir
 let autoload_dir = has('nvim') ?
   \ stdpath('data') . '/site/autoload' :
-  \ '~/.vim/autload'
+  \ $HOME.'/.vim/autload'
 
 if !isdirectory(autoload_dir)
   call mkdir(autoload_dir, "p")
 endif
 
-" Make sure Plug is installed
-if empty(glob(autoload_dir.'/plug.vim'))
-  execute '!curl -fLo '.autoload_dir.'/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  quitall
-endif
-
-call plug#begin('~/.vim/plugged')
+call plug#begin($HOME.'/.vim/plugged')
 "" General plugins
 Plug 'morhetz/gruvbox'                                     " Colorscheme
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }        " Vim-go
@@ -169,7 +163,7 @@ EOF
 endif
 
 " Colors
-if !empty(glob("~/.vim/plugged/gruvbox/colors/gruvbox.vim"))
+if !empty(glob($HOME."/.vim/plugged/gruvbox/colors/gruvbox.vim"))
   set bg=dark
   colorscheme gruvbox
   autocmd colorscheme * hi clear SpellBad
@@ -284,7 +278,7 @@ set showtabline=2
 
 " Save .viminfo in .vim to keep home clean
 if !has('nvim')
-  set viminfo+=n~/.vim/viminfo
+  set viminfo+=n$HOME/.vim/viminfo
 endif
 
 " Better command-line completion

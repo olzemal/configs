@@ -62,12 +62,6 @@ for option in "$@"; do
       link "$PWD/shell/profile" "$HOME/.profile"
       ;;
 
-    brew)
-      if ! isinstalled "bash"; then exit 5; fi
-      if ! isinstalled "curl"; then exit 5; fi
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-      ;;
-
     code)
       link "$PWD/code/settings.json" "$HOME/.config/Code/User/settings.json"
       ;;
@@ -148,7 +142,7 @@ for option in "$@"; do
 
       # Install Plug
       [ ! -e "$HOME/.vim/autoload/plug.vim" ] && \
-        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
       # Deploy vimrc
@@ -179,7 +173,7 @@ for option in "$@"; do
       ;;
 
     cli)
-      eval "$0 bash aliases tmux vim git"
+      eval "$0 bash aliases scripts git vim nvim"
       ;;
 
     *)
