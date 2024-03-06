@@ -1,6 +1,8 @@
 #!/bin/sh
 # shellcheck disable=SC2086
 
+set -eu
+
 # Check if deploy is in current dir
 if [ $0 != "./deploy.sh" ]; then
   printf 'Not executing from config repo dir, this will mess up symlinks... exiting\n'
@@ -44,6 +46,10 @@ for option in "$@"; do
       link "$PWD/alacritty/alacritty.yaml" "$HOME/.config/alacritty/alacritty.yml"
       ;;
 
+    asdf)
+      git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.14.0
+      ;;
+
     aliases)
       link "$PWD/shell/aliases" "$HOME/.config/aliases"
       ;;
@@ -82,13 +88,20 @@ for option in "$@"; do
       dconf load / < ./gnome/dconf-dump.txt
       ;;
 
+    image)
+      docker build -t workspace:latest .
+      ;;
+
     kitty)
       if ! isinstalled "kitty"; then exit 5; fi
       link "$PWD/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
       ;;
 
     nvim)
-      if ! isinstalled "nvim"; then exit 5; fi
+      if ! isinstalled "nvim"; then
+        asdf install neovim stable
+        asdf global neovim stable
+      fi
       if ! isinstalled "rg"; then exit 5; fi
       if ! isinstalled "npm"; then exit 5; fi
 
@@ -97,13 +110,13 @@ for option in "$@"; do
       curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-      link "$PWD/vim/vimrc" "$HOME/.config/nvim/init.vim"
+      link "$PWD/vim/init.lua" "$HOME/.config/nvim/init.lua"
 
       # Run PlugInstall
-      nvim +PlugInstall +qall
+      nvim --headless -c PlugInstall +qall
 
       # Install Mason Packages
-      nvim -c "MasonInstall \
+      nvim --headless -c "MasonInstall \
         bash-language-server \
         gopls \
         docker-compose-language-service \
@@ -121,11 +134,11 @@ for option in "$@"; do
         sqlls \
         terraform-ls \
         vim-language-server \
-        taplo"
+        taplo" +qall
 
       # Install go binaries if go is installed
       isinstalled go && [ ! -f "$GOBIN/golint" ] && \
-        nvim +GoInstallBinaries
+        nvim --headless -c GoInstallBinaries
       ;;
 
     scripts)
@@ -173,7 +186,7 @@ for option in "$@"; do
       ;;
 
     cli)
-      eval "$0 bash aliases scripts git vim nvim"
+      eval "$0 asdf bash aliases scripts git vim nvim"
       ;;
 
     *)

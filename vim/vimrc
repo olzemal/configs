@@ -3,181 +3,15 @@
 set nocompatible
 
 "+---------------------------------------------------------------------------+
-"| Plugins                                                                   |
-"+---------------------------------------------------------------------------+
-
-" Create autoload dir
-let autoload_dir = has('nvim') ?
-  \ stdpath('data') . '/site/autoload' :
-  \ $HOME.'/.vim/autload'
-
-if !isdirectory(autoload_dir)
-  call mkdir(autoload_dir, "p")
-endif
-
-call plug#begin($HOME.'/.vim/plugged')
-"" General plugins
-Plug 'morhetz/gruvbox'                                     " Colorscheme
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }        " Vim-go
-Plug 'imsnif/kdl.vim'                                      " KDL Support
-Plug 'scrooloose/nerdtree'                                 " Nerd Tree
-Plug 'vim-pandoc/vim-pandoc'                               " Pandoc
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'airblade/vim-gitgutter'                              " Git Diff
-Plug 'tpope/vim-fugitive'                                  " Git Blame
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}        " Multi cursor
-Plug 'dense-analysis/ale'                                  " Linter
-Plug 'Konfekt/vim-DetectSpellLang'                         " Detect language
-
-"" Vim only plugins
-if !has('nvim')
-  Plug 'sheerun/vim-polyglot'                              " Language Support
-  Plug 'lifepillar/vim-mucomplete'                         " Completion
-  Plug 'kien/ctrlp.vim'                                    " Fuzzyfinder
-"" NVim only plugins
-elseif has('nvim')
-  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' } " Fuzzyfinder
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-tree/nvim-web-devicons'                       " Icons
-  Plug 'williamboman/mason.nvim'                           " LSP
-  Plug 'williamboman/mason-lspconfig.nvim'
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'hrsh7th/cmp-nvim-lsp'                              " Completion
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/cmp-emoji'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'uga-rosa/cmp-dictionary'
-  Plug 'SirVer/ultisnips'                                  " Snippets
-  Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-endif
-call plug#end()
-
-"+---------------------------------------------------------------------------+
 "| Settings                                                                  |
 "+---------------------------------------------------------------------------+
 
-" vim-µcomplete
-let g:mucomplete#enable_auto_at_startup = 1
-
-" vim-go options
-let g:go_fmt_fail_silently = 1
-let g:go_fmt_command = 'goimports'
-let g:go_fmt_autosave = 1           " :GoFmt on save
-let g:go_gopls_enabled = 1          " Needed for completion
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_diagnostic_errors = 1
-let g:go_highlight_diagnostic_warnings = 1
-let g:go_auto_type_info = 1
-
-" pandoc
-let g:pandoc#formatting#mode = 'h'
-let g:pandoc#formatting#textwidth = 72
-let g:pandoc#modules#disabled = ["folding"]
-
-" NerdTree
-let NERDTreeMinimalUI=1
-let NERDTreeQuitOnOpen=1
-let NERDTreeCustomOpenArgs={'file':{'where': 't'}}
-
-" Languages
-let g:detectspelllang_langs = {
-\ 'aspell'   : [ 'en', 'de' ],
-\ 'hunspell' : [ 'en', 'de' ],
-\}
-let g:detectspelllang_lines = 20 " Evaluate the first 20 lines of a file
-let g:detectspelllang_threshold = 20 " Allow a maximum of 20% misspelled words
-
-" LSP & Completion
-if has('nvim') && !empty(glob(plug_home.'/nvim-lspconfig/lua/lspconfig.lua'))
-lua <<EOF
-  local lspconfig = require('lspconfig')
-  require('mason').setup()
-  require('mason-lspconfig').setup({ automatic_installation = true })
-  require('mason-lspconfig').setup_handlers({
-    function(server)
-      lspconfig[server].setup({})
-    end,
-  })
-
-  local cmp = require'cmp'
-  -- Buffer Completion
-  cmp.register_source('emoji', require'cmp_emoji'.new())
-
-  cmp.setup({
-    enabled = true,
-    preselect = cmp.PreselectMode.None,
-    snippet = {
-      expand = function(args)
-        vim.fn["UltiSnips#Anon"](args.body)
-      end,
-    },
-    window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-      ['<CR>'] = cmp.mapping.confirm({ select = false }),
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'ultisnips' },
-      { name = 'path' },
-      { name = 'emoji' },
-      { name = 'dictionary', keyword_length = 5 }
-    }, {
-      { name = 'buffer' },
-    })
-  })
-
-  -- Dictionary
-  local dict = require("cmp_dictionary")
-
-  dict.switcher({
-    spelllang = {
-      en = "/usr/share/dict/words",
-      de = "/usr/share/dict/ngerman",
-    },
-  })
-
-  -- cmdline completion
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
-EOF
-endif
-
 " Colors
-if !empty(glob($HOME."/.vim/plugged/gruvbox/colors/gruvbox.vim"))
-  set bg=dark
-  colorscheme gruvbox
-  autocmd colorscheme * hi clear SpellBad
-  autocmd colorscheme * hi SpellBad cterm=underline ctermfg=NONE ctermbg=NONE
-else
-  highlight LineNr ctermfg=grey
-  highlight ColorColumn ctermbg=darkgrey
-endif
-
-set t_Co=256
-if !has('nvim')
-  set term=xterm-256color
-endif
-
+set bg=dark
+autocmd colorscheme * hi clear SpellBad
+autocmd colorscheme * hi SpellBad cterm=underline ctermfg=NONE ctermbg=NONE
+highlight LineNr ctermfg=grey
+highlight ColorColumn ctermbg=darkgrey
 highlight Pmenu ctermbg=darkgrey ctermfg=white
 highlight PmenuSel ctermbg=blue ctermfg=black
 
@@ -191,51 +25,22 @@ if has('syntax')
   syntax on
 endif
 
-" Default to static completion for SQL
-let g:omni_sql_default_compl_type = 'syntax'
-
-" Linter settings
-let g:ale_fixers = {
-\ '*':    ['remove_trailing_lines', 'trim_whitespace'],
-\ 'sh':   ['shfmt'],
-\ 'go':   ['gofmt'],
-\}
-let g:ale_fix_on_save = 1
-
-if has('nvim')
-  let g:ale_linters = {
-  \ 'sh':   [''],
-  \ 'go':   ['gofmt'],
-  \ 'yaml': ['yamllint'],
-  \ }
-else
-  let g:ale_linters = {
-  \ 'sh':   ['shellcheck'],
-  \ 'go':   ['gofmt'],
-  \ 'yaml': ['yamllint'],
-  \ }
-endif
-
-" When editing a markdown file, enable spellcheck
-augroup markdownSpell
+" spellcheck
+augroup spellchecking
   au!
   autocmd FileType markdown setlocal spell
   autocmd BufRead,BufNewFile *.md setlocal spell
   autocmd BufRead,BufNewFile *.MD setlocal spell
+  autocmd FileType gitcommit setlocal spell
 augroup END
 
 " When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid, when inside an event handler
-" (happens when dropping a file on gvim) and for a commit message (it's
-" likely a different one than last time).
 augroup vimStartup
   autocmd BufReadPost *
       \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
       \ |   exe "normal! g`\""
       \ | endif
 
-" Spellchecking for git commit messages
-autocmd FileType gitcommit setlocal spell
 
 " Highlight trailing whitespace
 highlight TrailingWhitespace ctermbg=darkgrey guibg=darkgrey
@@ -243,38 +48,11 @@ call matchadd("TrailingWhitespace", '\v\s+$')
 set listchars=tab:>>,trail:·
 set list
 
-" store backup, undo and swap files in temp directory
-set undofile
 set undolevels=1000
 set undoreload=10000
 
-set backup
-set swapfile
-
-if !has('nvim')
-  set undodir=$HOME/.vim/tmp/undo
-  set backupdir=$HOME/.vim/tmp/backup
-  set directory=$HOME/.vim/tmp/swap
-else
-  set undodir=$HOME/.vim/tmp/undo_nvim
-  set backupdir=$HOME/.vim/tmp/backup_nvim
-  set directory=$HOME/.vim/tmp/swap_nvim
-endif
-
-" Make those folders automatically if they don't already exist.
-if !isdirectory(expand(&undodir))
-  call mkdir(expand(&undodir), "p")
-endif
-if !isdirectory(expand(&backupdir))
-  call mkdir(expand(&backupdir), "p")
-endif
-if !isdirectory(expand(&directory))
-  call mkdir(expand(&directory), "p")
-endif
-
 " Keep buffers in background
 set hidden
-set showtabline=2
 
 " Save .viminfo in .vim to keep home clean
 if !has('nvim')
@@ -288,30 +66,25 @@ set wildmenu
 set showcmd
 
 " Stop certain movements from always going to the first character of a line.
-" While this behaviour deviates from that of Vi, it does what most users
-" coming from other editors would expect.
 set nostartofline
 
-" Display the cursor position on the last line of the screen or in the status
-" line of a window
+" Display the cursor position on the last line of the screen or in the status line of a window
 set ruler
 
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 
-" Instead of failing a command because of unsaved changes, instead raise a
-" dialogue asking if you wish to save changed files.
+" Instead of failing a command because of unsaved changes, raise a dialogue asking if you wish to save changed files.
 set confirm
 
-" Don't annoy me pls
+" Disable mouse and bell
 set visualbell t_vb=
 set mouse=
 if !has('nvim')
   set ttymouse=
 endif
 
-" Set the command window height to 2 lines, to avoid many cases of having to
-" "press <Enter> to continue"
+" Set the command window height to 2 lines
 set cmdheight=2
 
 " Display line numbers on the left
@@ -323,12 +96,6 @@ set pastetoggle=<F11>
 " Set ruler at the right
 set colorcolumn=120
 
-" Indentation settings for using 2 spaces instead of tabs.
-set expandtab
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-
 " Completion options
 set completeopt+=menuone
 set completeopt+=noselect
@@ -337,10 +104,14 @@ set previewheight=5
 " Shut off completion messages
 set shortmess+=c
 
-" Use literal \t in Makefiles
-augroup Makefile
-  au!
+" Indentation
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+augroup tabs
   autocmd FileType Makefile set noexpandtab
+  autocmd BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4
 augroup END
 
 " Search options
@@ -349,8 +120,6 @@ set incsearch
 set ignorecase
 set smartcase
 set scrolloff=4
-
-" Search down in subfolders
 set path+=**
 
 "+---------------------------------------------------------------------------+
@@ -359,7 +128,6 @@ set path+=**
 
 let mapleader=" "
 
-" Behave Y!
 nnoremap Y y$
 
 " Center next / previous
@@ -378,10 +146,6 @@ inoremap - -<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
-" Jumplist mutations
-nnoremap <expr> k (v:count > 5 ? "m'" . v:count : "") . 'k'
-nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
-
 " Moving Text
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
@@ -392,20 +156,10 @@ nnoremap <leader>j :m .+1<CR>==
 nnoremap <leader>N :set number<CR>
 nnoremap <leader>n :set nonumber<CR>
 
-nnoremap <c-p> <cmd>lua require('telescope.builtin').live_grep()<cr>
-
 nnoremap <leader>f gqip
 
-nnoremap <silent> <leader>e :NERDTreeToggle<CR>
-
-au FileType go nmap <leader>r :GoRun!<CR>
+au FileType go nmap <leader>r :!go run %<CR>
 au FileType go nmap <leader>t :!go test<CR>
-au FileType go nmap <leader>v :GoVet!<CR>
-au FileType go nmap <leader>b :GoBuild!<CR>
-au FileType go nmap <leader>c :GoCoverageToggle<CR>
-au FileType go nmap <leader>i :GoInfo<CR>
-au FileType go nmap <leader>l :GoMetaLinter!<CR>
-au BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 au FileType sh nmap <leader>r :!./%<CR>
 au FileType sh nmap <leader>t :!shellcheck %<CR>
@@ -416,6 +170,3 @@ au FileType terraform nmap <leader>t :!terraform validate<CR>
 au FileType c nmap <leader>r :!gcc -o /tmp/%.o % && /tmp/%.o<CR>
 
 au FileType python nmap <leader>r :!python3 %<CR>
-
-" Git
-nnoremap gb :Git blame<CR>

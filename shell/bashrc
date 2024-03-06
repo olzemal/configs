@@ -154,6 +154,10 @@ export LS_COLORS="$LS_COLORS:di=00;94"
 #bind 'set vi-cmd-mode-string \1\e[5 q\2'
 #bind -m vi-insert 'RETURN: "\e\n"'
 
+# asdf
+[[ -e "$HOME/.asdf" ]] && . "$HOME/.asdf/asdf.sh"
+[[ -e "$HOME/.asdf" ]] && . "$HOME/.asdf/completions/asdf.bash"
+
 # enable some aliases
 [[ -e "$HOME/.config/aliases" ]] && . "$HOME/.config/aliases"
 
