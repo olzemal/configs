@@ -1,22 +1,27 @@
 # Go
 export GOPATH="$HOME/.local/go"
 export GOBIN="$GOPATH/bin"
-export GOROOT="/usr/local/go"
 export GO111MODULE="auto"
 if [ ! -d "$GOPATH" ]; then mkdir -p "$GOPATH"; fi
 if [ ! -d "$GOBIN"  ]; then mkdir -p "$GOBIN"; fi
 
-# Locale
 export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 
 # Path
-export PATH="$HOME/.asdf/shims:$HOME/.local/bin:$HOME/.scripts:$GOBIN:$GOROOT/bin:/usr/local/go/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/snap/bin:/sbin:/bin:$PATH"
+PATH="$HOME/.local/bin:$HOME/.scripts:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/snap/bin:/sbin:/bin:$PATH"
+if command -V go >/dev/null 2>&1; then PATH="$GOBIN:$PATH"; fi
+if [ -f "$HOME/.pyenv/bin/pyenv" ]; then PATH="$HOME/.pyenv/bin:$PATH"; fi
+if [ -f "$HOME/.asdf/asdf.sh" ]; then PATH="$HOME/.asdf/shims:$PATH"; unset GOROOT; fi
+export PATH
+
+if [ -f "$HOME/.pyenv/bin/pyenv" ]; then eval "$(pyenv init -)"; fi
+
 export CDPATH=":$HOME/repos"
 
 # Editor
-if command -V vim >/dev/null 2>&1; then export EDITOR=vim; fi
-if command -V nvim >/dev/null 2>&1 ; then export EDITOR=nvim; fi
+if command -V vim >/dev/null 2>&1;  then export EDITOR=vim; fi
+if command -V nvim >/dev/null 2>&1; then export EDITOR=nvim; fi
 
 # Source bashrc if bash is running and file exists
 if [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ]; then
