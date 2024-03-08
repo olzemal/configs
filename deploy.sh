@@ -1,22 +1,31 @@
 #!/bin/sh
-# shellcheck disable=SC2086
+# shellcheck disable=SC1091 # source files
+# shellcheck disable=SC2059 # variables in printf format string
 
-set -eu
+set -e
+
+DEPLOY='./deploy.sh'
+TOOLS='./tools.txt'
+ASDF_VERSION='v0.14.0'
+PYTHON_VERSION='3.12'
+
+info()    { printf "\033[0;34mINFO:\033[0m $1" "$2"; }
+success() { printf "\033[0;32mSUCC:\033[0m $1" "$2"; }
+warn()    { printf "\033[1;33mWARN:\033[0m $1" "$2"; }
+fatal()   { printf "\033[0;31mFATA:\033[0m $1" "$2"; exit 1; }
+
 
 # Check if deploy is in current dir
-if [ $0 != "./deploy.sh" ]; then
-  printf 'Not executing from config repo dir, this will mess up symlinks... exiting\n'
-  exit 1
-fi
+[ "$(dirname "$0")" = "." ] || fatal 'Not executing from configs repo dir, this will probably mess up symlinks\n' ''
 
 link() {
   [ ! -d "$(dirname "$2")" ] && mkdir -p "$(dirname "$2")"
-  [ -e "$2" ] && printf 'found existing file %s\n' "$2" && rm -i "$2"
+  [ -e "$2" ] && warn 'found existing file %s\n' "$2" && rm -i "$2"
   ln -s "$1" "$2" 2>/dev/null
 }
 
 help() {
-  printf 'Choose one or more options from the following list\nto add as an argument to the script:\n'
+  info 'Choose one or more options from the following list\nto add as an argument to the script:\n' ''
   grep -P '^\s+[a-z\-]+\)' "$0" | sed 's/)//' | xargs printf ' - %s\n'
 }
 
@@ -31,23 +40,37 @@ versionge() {
 isinstalled() {
   # return 1 if $1 is not installed
   # return 0 if $1 is installed
-  if [ -z "$(which $1)" ]; then
-    printf 'Looks like %s is not installed... exiting\n' "$1" >&2
+  if [ -z "$(which "$1")" ]; then
+    info 'Looks like %s is not installed\n' "$1"
     return 1
   fi
   return 0
+}
+
+asdf_install() {
+  export ASDF_DIR="$HOME/.asdf"
+  [ -f "$ASDF_DIR/asdf.sh" ] || "$DEPLOY" asdf
+  . "$HOME/.asdf/asdf.sh"
+
+  if isinstalled "$1"; then
+    warn '%s is already installed. Install anyways? (y/N) ' "$1"
+    read -r confirm
+    case "$confirm" in y|Y) ;; *) return 0 ;; esac
+  fi
+
+  info 'Trying to install %s with asdf...\n' "$1"
+  asdf plugin-add "$1"
+  latest=$(asdf latest "$1")
+  asdf install "$1" "$latest"
+  asdf global "$1" "$latest"
 }
 
 [ $# -eq 0 ] && help
 
 for option in "$@"; do
   case $option in
-    alacritty)
-      link "$PWD/alacritty/alacritty.yaml" "$HOME/.config/alacritty/alacritty.yml"
-      ;;
-
     asdf)
-      git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.14.0
+      git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch "$ASDF_VERSION"
       ;;
 
     aliases)
@@ -55,10 +78,9 @@ for option in "$@"; do
       ;;
 
     bash)
-      if ! isinstalled "bash"; then exit 5; fi
-
-      # Deploy scripts
-      eval "$0 scripts"
+      isinstalled bash || asdf_install bash
+      "$DEPLOY" scripts
+      "$DEPLOY" aliases
 
       # Deploy bashrc
       link "$PWD/shell/bashrc" "$HOME/.bashrc"
@@ -68,19 +90,12 @@ for option in "$@"; do
       link "$PWD/shell/profile" "$HOME/.profile"
       ;;
 
-    code)
+    vscode)
       link "$PWD/code/settings.json" "$HOME/.config/Code/User/settings.json"
       ;;
 
     git)
-      if ! isinstalled "git"; then exit 5; fi
-
-      if [ -z "$EMAIL" ]; then
-        printf 'Please enter your email adress: '
-        read -r email
-        echo "export EMAIL=$email" >> ~/.local/localrc
-        printf 'Remember to restart bash\n'
-      fi
+      isinstalled git || asdf_install git
       link "$PWD/git/gitconfig" "$HOME/.gitconfig"
       ;;
 
@@ -98,12 +113,18 @@ for option in "$@"; do
       ;;
 
     nvim)
-      if ! isinstalled "nvim"; then
-        asdf install neovim stable
-        asdf global neovim stable
-      fi
-      if ! isinstalled "rg"; then exit 5; fi
-      if ! isinstalled "npm"; then exit 5; fi
+      isinstalled "nvim"    || asdf_install neovim
+      isinstalled "go"      || asdf_install golang
+      isinstalled "rg"      || asdf_install ripgrep
+      isinstalled "npm"     || asdf_install nodejs
+      isinstalled "python3" || "$DEPLOY" pyenv
+
+      # Install python module for nvim
+      . ./shell/profile
+      python3 -m pip install neovim
+
+      # Install npm module for nvim
+      npm install -g neovim
 
       # Install Plug
       [ ! -d "$HOME/.local/share/nvim/site/autoload" ] && mkdir -p "$HOME/.local/share/nvim/site/autoload"
@@ -126,9 +147,7 @@ for option in "$@"; do
         jq-lsp \
         json-lsp \
         yq \
-        awk-language-server\
         marksman \
-        nginx-language-server \
         python-lsp-server \
         biome \
         sqlls \
@@ -137,8 +156,14 @@ for option in "$@"; do
         taplo" +qall
 
       # Install go binaries if go is installed
-      isinstalled go && [ ! -f "$GOBIN/golint" ] && \
-        nvim --headless -c GoInstallBinaries
+      isinstalled go && [ ! -f "$(go env GOBIN)/golint" ] && \
+        nvim --headless -c GoInstallBinaries +qall
+      ;;
+
+    pyenv)
+      git clone https://github.com/pyenv/pyenv.git "$HOME/.pyenv"
+      "$HOME/.pyenv/bin/pyenv" install "$PYTHON_VERSION"
+      "$HOME/.pyenv/bin/pyenv" global "$PYTHON_VERSION"
       ;;
 
     scripts)
@@ -146,54 +171,44 @@ for option in "$@"; do
       ;;
 
     tmux)
-      if ! isinstalled "tmux"; then exit 5; fi
+      isinstalled tmux || asdf_install tmux
       link "$PWD/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
       ;;
 
+    tools)
+      tools=""
+      while read -r tool; do tools="$tools $tool"; done < "$TOOLS"
+      for tool in $tools; do
+        asdf_install "$tool"
+      done
+      ;;
+
     vim)
-      if ! isinstalled "vim"; then exit 5; fi
-
-      # Install Plug
-      [ ! -e "$HOME/.vim/autoload/plug.vim" ] && \
-        curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
-          https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
+      isinstalled vim || asdf_install vim
       # Deploy vimrc
-      if versionge \
-        "$(vim --version | head -1 | grep -oP '\d\.\d')" "7.3"
+      if versionge "$(vim --version | head -1 | grep -oP '\d\.\d')" "7.3"
       then
         link "$PWD/vim/vimrc" "$HOME/.vim/vimrc"
       else
         link "$PWD/vim/vimrc" "$HOME/.vimrc"
       fi
-
-      # Run PlugInstall
-      vim +PlugInstall +qall
-
-      # Install go binaries if go is installed
-      [ -n "$(command -v go)" ] && [ ! -f "$GOBIN/golint" ] && \
-        vim +GoInstallBinaries
       ;;
 
     zsh)
-      if ! isinstalled "zsh"; then exit 5; fi
-
-      # Deploy scripts
-      eval "$0 scripts"
-
-      # Deploy zshrc
+      isinstalled zsh || asdf_install zsh
+      "$DEPLOY" scripts
       link "$PWD/shell/zshrc" "$HOME/.zshrc"
       ;;
 
     cli)
-      eval "$0 asdf bash aliases scripts git vim nvim"
+      "$DEPLOY" bash git vim nvim
       ;;
 
     *)
-      printf '\033[0;31mno config file found for "%s"\033[0m\n' "$option"
+      warn 'no config file found for "%s"\n' "$option"
       help
       exit 1
       ;;
   esac
-  printf '\033[0;32mDeployed configs for %s\033[0m\n' "$option"
+  success 'deployed target %s\n' "$option"
 done
