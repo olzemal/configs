@@ -45,7 +45,7 @@ augroup vimStartup
 " Highlight trailing whitespace
 highlight TrailingWhitespace ctermbg=darkgrey guibg=darkgrey
 call matchadd("TrailingWhitespace", '\v\s+$')
-set listchars=tab:>>,trail:·
+set listchars=tab:>>,trail:.
 set list
 
 set undolevels=1000
@@ -55,9 +55,7 @@ set undoreload=10000
 set hidden
 
 " Save .viminfo in .vim to keep home clean
-if !has('nvim')
-  set viminfo+=n$HOME/.vim/viminfo
-endif
+set viminfo+=n$HOME/.vim/viminfo
 
 " Better command-line completion
 set wildmenu
