@@ -13,37 +13,8 @@
 [[ -f /usr/share/bash-completion/bash_completion ]] && \
   . /usr/share/bash-completion/bash_completion
 
-__ps1() {
-  last_exit_code="$?"
-  # colors
-  local x='\[\017\]'     # reset
-  local n='\[\033[0m\]'  # normal
-  local r='\[\033[0;91m\]' # red
-  local g='\[\033[0;92m\]' # green
-  local b='\[\033[0;94m\]' # blue
-  local w='\[\033[0;97m\]' # white
-
-  # check if user is root
-  local U
-  if [[ "$(id -u)" -eq 0 ]]; then
-    U='#'
-    b=$r
-  else
-    U='$'
-  fi
-  U="$b$U"
-
-  # check exit code
-  local R
-  if [[ $last_exit_code -eq 0 ]]; then
-    R="$g✔"
-  else
-    R="$r✖"
-  fi
-
-  ## Git info
+__git_info() {
   local gitinfo
-
   # Check if current dir is a git repo
   local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
   if [[ -n "$branch" ]]; then
@@ -72,18 +43,56 @@ __ps1() {
         [[ -z "$gitinfo" ]] && gitinfo="$g$branch" || \
           gitinfo="$g$branch $gitinfo" ;;
     esac
-    gitinfo="$b($gitinfo$b) "
+    gitinfo="$b($gitinfo$b)"
+  fi
+  printf '%s ' "$gitinfo"
+}
+
+__kube_info() {
+  local kubeinfo
+  local kubeconfig="${KUBECONFIG:=$HOME/.kube/config}"
+  if [[ -f $kubeconfig ]]; then
+    local ctx="$(awk '/^current-context:/ {print $2}' "$kubeconfig" 2>/dev/null)"
+    [[ "XX$ctx"      != "XX" ]] && kubeinfo="${kubeinfo}ctx:${ctx}"
+    [[ "XX$kubeinfo" != "XX" ]] && kubeinfo="${b}[${w}${kubeinfo}${b}]"
+  fi
+  printf '%s ' "$kubeinfo"
+}
+
+__ps1() {
+  # colors
+  local x='\[\017\]'     # reset
+  local n='\[\033[0m\]'  # normal
+  local r='\[\033[0;91m\]' # red
+  local g='\[\033[0;92m\]' # green
+  local b='\[\033[0;94m\]' # blue
+  local w='\[\033[0;97m\]' # white
+
+  last_exit_code="$?"
+  # check if user is root
+  local U
+  if [[ "$(id -u)" -eq 0 ]]; then
+    U='#'
+    b=$r
+  else
+    U='$'
+  fi
+  U="$b$U"
+
+  # check exit code
+  local R
+  if [[ $last_exit_code -eq 0 ]]; then
+    R="$g✔"
+  else
+    R="$r✖"
   fi
 
-  local kubeinfo
-  if [[ -f "$KUBECONFIG" || -f "$HOME/.kube/config" ]] && [[ -n $(command -v kubectl) ]]; then
-    local ctx="$(kubectl config current-context 2>/dev/null)"
-    [[ "XX$ctx"      != "XX" ]] && kubeinfo="${kubeinfo}ctx:${ctx}"
-    [[ "XX$kubeinfo" != "XX" ]] && kubeinfo="${b}[${w}${kubeinfo}${b}] "
-  fi
+  ## infos
+  local G=$(__git_info)
+  local K=$(__kube_info)
 
   # Final arrangement for prompt
-  PS1="$x$b╭ \u@\h $w\w ${gitinfo}${kubeinfo}$b\n$x╰ $R $U $x$n"
+  PS1="$x$b╭ \u@\h $w\w $G$K$b\n$x╰ $R $U $x$n"
 }
 
 PROMPT_COMMAND="__ps1"
