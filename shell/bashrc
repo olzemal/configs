@@ -2,11 +2,9 @@
 
 # .bashrc by Alexander Olzem
 
-# Disable infos relating sourcing of external files
-# shellcheck disable=SC1091
+# shellcheck disable=SC1091 # Disable infos relating sourcing of external files
 # shellcheck disable=SC1090
-# Disable declare and assign separately
-# shellcheck disable=SC2155
+# shellcheck disable=SC2155 # Disable declare and assign separately
 
 # Return if not interactive
 [[ $- != *i* ]] && return
@@ -33,13 +31,14 @@ __ps1() {
   else
     U='$'
   fi
+  U="$b$U"
 
   # check exit code
   local R
   if [[ $last_exit_code -eq 0 ]]; then
-    R='✅'
+    R="$g✔"
   else
-    R='❌'
+    R="$r✖"
   fi
 
   ## Git info
@@ -48,20 +47,6 @@ __ps1() {
   # Check if current dir is a git repo
   local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
   if [[ -n "$branch" ]]; then
-    # check if pre-commit is installed
-    OLD_PWD="$PWD"
-    while [[ -z "$(find "." -name '.git' -type d 2>/dev/null)" ]]; do
-      cd .. || break
-      [[ "$PWD" == "/" ]] && break
-    done
-
-    if [[ -n "$(find "$PWD" -name ".pre-commit-config.yaml" 2>/dev/null)" ]]; then
-      [[ -f "$PWD/.git/hooks/pre-commit" ]] || printf "\033[0;91m%s\017\n" \
-        "⚠ '.pre-commit-config.yaml' found but hooks are not yet installed" \
-        "consider running 'pre-commit install'"
-    fi
-    cd "$OLD_PWD" || return
-
     # Get state of local repo
     local gitstatus="$(git status 2>/dev/null)"
     case "$(echo "$gitstatus" | awk 'FNR==2{print $4}')" in
@@ -90,9 +75,15 @@ __ps1() {
     gitinfo="$b($gitinfo$b) "
   fi
 
+  local kubeinfo
+  if [[ -f "$KUBECONFIG" || -f "$HOME/.kube/config" ]] && [[ -n $(command -v kubectl) ]]; then
+    local ctx="$(kubectl config current-context 2>/dev/null)"
+    [[ "XX$ctx"      != "XX" ]] && kubeinfo="${kubeinfo}ctx:${ctx}"
+    [[ "XX$kubeinfo" != "XX" ]] && kubeinfo="${b}[${w}${kubeinfo}${b}] "
+  fi
+
   # Final arrangement for prompt
-  [[ $TERM_PROGRAM == "vscode" ]] && U="\n$U"
-  PS1="$x$R $b\u@\h $w\w $gitinfo$b$U $n"
+  PS1="$x$b╭ \u@\h $w\w ${gitinfo}${kubeinfo}$b\n$x╰ $R $U $x$n"
 }
 
 PROMPT_COMMAND="__ps1"
@@ -103,18 +94,19 @@ complete -cf sudo
 
 # Kubernetes
 [[ -n "$(command -v kubectl)" ]] && \
-    . <(kubectl completion bash) && complete -F __start_kubectl k
-[[ -n "$(command -v helm)" ]] && . <(helm completion bash)
-[[ -n "$(command -v minikube)" ]] && . <(minikube completion bash)
-[[ -n "$(command -v kind)" ]] && . <(kind completion bash)
-[[ -n "$(command -v zarf)" ]] && . <(zarf completion bash 2> /dev/null)
-[[ -n "$(command -v cilium)" ]] && . <(cilium completion bash 2> /dev/null)
+    . <(kubectl completion bash 2>/dev/null) && \
+    complete -F __start_kubectl k
+[[ -n "$(command -v helm)"     ]] && . <(helm completion bash 2>/dev/null)
+[[ -n "$(command -v minikube)" ]] && . <(minikube completion bash 2>/dev/null)
+[[ -n "$(command -v kind)"     ]] && . <(kind completion bash 2>/dev/null)
+[[ -n "$(command -v zarf)"     ]] && . <(zarf completion bash 2>/dev/null)
+[[ -n "$(command -v cilium)"   ]] && . <(cilium completion bash 2>/dev/null)
 
 _kube_contexts() {
   local cur;
   cur=${COMP_WORDS[COMP_CWORD]}
   if kubectl_out=$(kubectl config view -o template --template="{{ range .contexts  }}{{ .name }} {{ end }}"); then
-    COMPREPLY=( $( compgen -W "${kubectl_out[*]}" -- "$cur" ) )
+    mapfile -t COMPREPLY < <(compgen -W "${kubectl_out[*]}" -- "$cur")
   fi
 }
 
@@ -126,8 +118,8 @@ complete -C /usr/bin/terraform tf
 
 ## Options
 shopt -s checkwinsize
-shopt -s expand_aliases   # Aliases in scripts
-shopt -s autocd       # '..' -> 'cd ..'
+shopt -s expand_aliases # Aliases in scripts
+shopt -s autocd         # '..' -> 'cd ..'
 shopt -s histappend     # Enable history appending instead of overwriting.
 
 # Pretty-print man(1) pages.
@@ -144,15 +136,6 @@ export GPG_TTY="$(tty)"
 
 # LS_COLORS
 export LS_COLORS="$LS_COLORS:di=00;94"
-
-# VI mode with ctrl-l
-#set -o vi
-#bind -m vi-command 'Control-l: clear-screen'
-#bind -m vi-insert 'Control-l: clear-screen'
-#bind 'set show-mode-in-prompt on'
-#bind 'set vi-ins-mode-string \1\e[6 q\2'
-#bind 'set vi-cmd-mode-string \1\e[5 q\2'
-#bind -m vi-insert 'RETURN: "\e\n"'
 
 # asdf
 [[ -e "$HOME/.asdf" ]] && . "$HOME/.asdf/asdf.sh"
