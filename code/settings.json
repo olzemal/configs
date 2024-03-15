@@ -5,7 +5,8 @@
     "workbench.colorTheme": "Gruvbox Mix Dark",
     "redhat.telemetry.enabled": false,
     "vs-kubernetes": {
-        "vscode-kubernetes.minikube-path.linux": "/home/alex/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube"
+        "vscode-kubernetes.minikube-path.linux": "/home/alex/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube",
+        "vs-kubernetes.minikube-show-information-expiration": "2024-03-16T14:22:12.383Z"
     },
     "explorer.confirmDelete": false,
     "extensions.ignoreRecommendations": true,
