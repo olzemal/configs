@@ -1,0 +1,30 @@
+#!/bin/sh
+pad() {
+  input=$1
+  while [ $((${#input} % 4)) -ne 0 ]; do
+    input="${input}="
+  done
+  echo "$input"
+}
+
+decode() {
+  if [ -n "$(command -v jq)" ]; then
+    pad "$1" | base64 -d | jq
+  else
+    pad "$1" | base64 -d; echo
+  fi
+}
+
+process() {
+  echo "$1" | sed -e 's#-#_#g' -e 's#+#/#g' | {
+    IFS=. read -r h p _
+    decode "$h"
+    decode "$p"
+  }
+}
+
+if [ -n "$1" ]; then
+  for arg in "$@"; do process "$arg"; done
+else
+  while read -r arg; do process "$arg"; done
+fi
