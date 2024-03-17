@@ -44,3 +44,8 @@ vimcmd=vim
 if [ -n "$(command -v nvim)" ]; then vimcmd=nvim; fi
 alias vi="$vimcmd"
 alias vim="$vimcmd"
+
+if [ -n "$(command -v zoxide)" ]; then
+  eval "$(zoxide init bash)"
+  alias cd="z"
+fi

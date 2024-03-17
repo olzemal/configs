@@ -74,6 +74,8 @@ for option in "$@"; do
       ;;
 
     aliases)
+      isinstalled fzf    || asdf_install fzf
+      isinstalled zoxide || asdf_install zoxide
       link "$PWD/shell/aliases" "$HOME/.config/aliases"
       ;;
 

@@ -17,8 +17,6 @@ export PATH
 
 if [ -f "$HOME/.pyenv/bin/pyenv" ]; then eval "$(pyenv init -)"; fi
 
-export CDPATH=":$HOME/repos"
-
 # Editor
 if command -V vim >/dev/null 2>&1;  then export EDITOR=vim; fi
 if command -V nvim >/dev/null 2>&1; then export EDITOR=nvim; fi
