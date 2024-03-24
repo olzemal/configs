@@ -92,7 +92,7 @@ __ps1() {
   local K=$(__kube_info)
 
   # Final arrangement for prompt
-  PS1="$x$b╭ \u@\h $w\w $G$K$b\n$x╰ $R $U $x$n"
+  PS1="$x$b╭ \u@\h $w\w $G$K$b\n$x$b╰ $R $U $x$n"
 }
 
 PROMPT_COMMAND="__ps1"
