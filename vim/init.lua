@@ -52,8 +52,11 @@ vim.call('plug#end')
 
 -- Color scheme
 vim.cmd.colorscheme('gruvbox')
+autocmd('VimEnter', {
+  command = 'hi Normal ctermbg=none'
+})
 autocmd('colorscheme', {
-  command = 'hi SpellBad cterm=underline ctermfg=NONE ctermbg=NONE'
+  command = 'hi SpellBad cterm=underline ctermfg=none ctermbg=none'
 })
 vim.cmd.highlight({'Pmenu', 'ctermbg=darkgrey', 'ctermfg=white'})
 vim.cmd.highlight({'PmenuSel', 'ctermbg=blue', 'ctermfg=black'})
@@ -256,6 +259,17 @@ autocmd({'BufNewFile', 'BufRead'}, {
   end
 })
 
+-- Remember last cursor position
+autocmd('BufReadPost', {
+  pattern = {'*'},
+  command = [[if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif]]
+})
+
+-- Automatically create undo break points
+for _, symbol in ipairs({',', '.', ':', ';', '-', '!', '?'}) do
+  keymap('i', symbol, symbol .. '<c-g>u')
+end
+
 -- Completion
 vim.opt.completeopt:append('menuone')
 vim.opt.completeopt:append('noselect')
@@ -287,17 +301,6 @@ keymap('n', 'Y', 'y$')
 keymap('n', 'n', 'nzzzv')
 keymap('n', 'N', 'Nzzzv')
 keymap('n', 'J', 'mzJ`z')
-
--- Remember last cursor position
-autocmd('BufReadPost', {
-  pattern = {'*'},
-  command = [[if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit' | exe "normal! g`\"" | endif]]
-})
-
--- Automatically create undo break points
-for _, symbol in ipairs({',', '.', ':', ';', '-', '!', '?'}) do
-  keymap('i', symbol, symbol .. '<c-g>u')
-end
 
 -- Moving text
 keymap('v', 'J',         '<cmd>m >+1<CR>gv=gv')
@@ -368,3 +371,32 @@ autocmd('FileType', {
 
 -- git
 keymap('n', 'gb', '<cmd>Git blame<CR>')
+
+
+-- Markdown
+
+local telescope_actions = require 'telescope.actions'
+
+function generate_img_link()
+  local opts = {
+    attach_mappings = function(prompt_bufnr, map)
+      telescope_actions.select_default:replace(function()
+        telescope_actions.close(prompt_bufnr)
+        local selection = require('telescope.actions.state').get_selected_entry()
+        local path = selection[1]
+        local start, _ = path:find('[%w%s!-={-|]+[_%.].+')
+        local name = path:sub(start,#path)
+        vim.cmd.normal('A\n'..'!['..name..'](./'..path..')')
+      end)
+      return true
+    end
+  }
+  require('telescope.builtin').find_files(opts)
+end
+
+autocmd('FileType', {
+  pattern = 'markdown',
+  callback = function()
+    keymap('n', '<Leader>i', ":lua generate_img_link()<CR>")
+  end
+})

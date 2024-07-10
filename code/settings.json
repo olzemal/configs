@@ -6,7 +6,7 @@
     "redhat.telemetry.enabled": false,
     "vs-kubernetes": {
         "vscode-kubernetes.minikube-path.linux": "/home/alex/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube",
-        "vs-kubernetes.minikube-show-information-expiration": "2024-03-16T14:22:12.383Z"
+        "vscode-kubernetes.minikube-path-linux": "/home/alex/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube"
     },
     "explorer.confirmDelete": false,
     "extensions.ignoreRecommendations": true,
@@ -16,5 +16,6 @@
     "editor.fontSize": 16,
     "editor.rulers": [
         120
-    ]
+    ],
+    "editor.fontFamily": "'JetBrains Mono NL', 'Droid Sans Mono', 'monospace', monospace"
 }

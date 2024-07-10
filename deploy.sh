@@ -118,6 +118,7 @@ for option in "$@"; do
       isinstalled "nvim"    || asdf_install neovim
       isinstalled "go"      || asdf_install golang
       isinstalled "rg"      || asdf_install ripgrep
+      isinstalled "fd"      || asdf_install fd
       isinstalled "npm"     || asdf_install nodejs
       isinstalled "python3" || "$DEPLOY" pyenv
 
