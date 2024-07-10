@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+usage() { echo "$(basename "$0") usage:" && grep ' .)\ #' "$0"; exit 0; }
+error() { echo "$1" 1>&2; exit 1; }
+
+[[ "$#" -eq 0 ]] && usage
+
+outfile=""
+language=""
+
+while getopts "o:l:h" arg; do
+  case $arg in
+    o) # path to where the new script should be created
+      outfile=${OPTARG} ;;
+    l) # language of the new script
+      language=${OPTARG} ;;
+    h | *)
+      usage ;;
+  esac
+done
+
+[[ -z "$outfile" ]] && error "Outfile has to be specified with the \"-o\" option"
+language=${language:-bash} # default to bash
+
+case "$language" in
+  bash)
+    cat > "$outfile" <<EOF
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+EOF
+    ;;
+  sh)
+    cat > "$outfile" <<EOF
+#!/bin/sh
+
+set -eu
+
+EOF
+    ;;
+  python)
+    cat > "$outfile" <<EOF
+#!/usr/bin/env python3
+
+def main():
+  print("Hello world!")
+
+if __name__ == "__main__":
+  main()
+EOF
+    ;;
+  *)
+    error "Unsupported language \"$language\""
+    ;;
+esac
+
+chmod +x "$outfile" || exit 1
+
+eval "${EDITOR:-vi} $outfile"
