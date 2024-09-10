@@ -35,6 +35,10 @@ Plug('nvim-tree/nvim-web-devicons')                                -- Icons
 Plug('williamboman/mason.nvim')                                    -- LSP
 Plug('williamboman/mason-lspconfig.nvim')
 Plug('neovim/nvim-lspconfig')
+Plug('mfussenegger/nvim-dap')                                      -- Debugger
+Plug('rcarriga/nvim-dap-ui')
+Plug('nvim-neotest/nvim-nio')
+Plug('leoluz/nvim-dap-go')
 Plug('hrsh7th/cmp-nvim-lsp')                                       -- Completion
 Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-path')
@@ -105,6 +109,26 @@ require('mason-lspconfig').setup_handlers({
     lspconfig[server].setup({})
   end,
 })
+
+-- Debugger
+
+local dap, dapui, dapgo = require("dap"), require("dapui"), require("dap-go")
+
+dapui.setup()
+dapgo.setup()
+
+dap.listeners.before.attach.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  dapui.close()
+end
 
 -- Buffer Completion
 local cmp = require'cmp'
@@ -318,6 +342,10 @@ keymap('n', 'ga',        '<Plug>(EasyAlign)')
 
 -- ctrl-p
 keymap('n', '<c-p>', function() require('telescope.builtin').live_grep() end)
+
+keymap('n', '<Leader>db', function() require('dap').toggle_breakpoint() end)
+keymap('n', '<Leader>dc', function() require('dap').continue() end)
+keymap('n', '<Leader>dd', function() require('dapui').close() end)
 
 -- NERDTree
 keymap('n', '<Leader>e', '<cmd>NERDTreeToggle<CR>')
