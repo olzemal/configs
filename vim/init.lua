@@ -317,7 +317,6 @@ vim.opt.mouse = ''
 --------------------------------
 
 vim.g.mapleader = ' '
-vim.opt.pastetoggle = '<F11>'
 
 keymap('n', 'Y', 'y$')
 
