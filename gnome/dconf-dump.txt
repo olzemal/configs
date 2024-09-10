@@ -110,7 +110,7 @@ size=(870, 690)
 state=87168
 
 [org/gnome/control-center]
-last-panel='sound'
+last-panel='notifications'
 window-state=(1680, 930, false)
 
 [org/gnome/desktop/app-folders]
@@ -146,7 +146,7 @@ current=uint32 0
 mru-sources=[('xkb', 'us+alt-intl'), ('xkb', 'de')]
 per-window=false
 sources=[('xkb', 'de'), ('xkb', 'us+alt-intl')]
-xkb-options=['lv3:ralt_switch']
+xkb-options=['caps:swapescape', 'lv3:ralt_switch']
 
 [org/gnome/desktop/interface]
 clock-format='24h'
@@ -171,7 +171,7 @@ show-battery-percentage=true
 text-scaling-factor=1.2
 
 [org/gnome/desktop/notifications]
-application-children=['spotify', 'firefox-esr', 'org-gnome-software', 'gnome-power-panel', 'org-gnome-fileroller', 'org-gnome-settings', 'org-gnome-extensions-desktop', 'discord', 'org-gnome-nautilus', 'gnome-network-panel', 'org-gnome-totem', 'code', 'gimp', 'org-inkscape-inkscape', 'org-gnome-characters', 'org-gnome-texteditor', 'org-gnome-eog', 'kitty', 'org-keepassxc-keepassxc', 'virt-manager', 'org-gnome-terminal', 'steam', 'org-gnome-tweaks', 'com-github-gradienceteam-gradience-devel', 'org-gnome-calendar', 'signal-desktop']
+application-children=['spotify', 'firefox-esr', 'org-gnome-software', 'gnome-power-panel', 'org-gnome-fileroller', 'org-gnome-settings', 'org-gnome-extensions-desktop', 'discord', 'org-gnome-nautilus', 'gnome-network-panel', 'org-gnome-totem', 'code', 'gimp', 'org-inkscape-inkscape', 'org-gnome-characters', 'org-gnome-texteditor', 'org-gnome-eog', 'kitty', 'org-keepassxc-keepassxc', 'virt-manager', 'org-gnome-terminal', 'steam', 'org-gnome-tweaks', 'com-github-gradienceteam-gradience-devel', 'org-gnome-calendar', 'signal-desktop', 'org-gnome-systemmonitor']
 
 [org/gnome/desktop/notifications/application/code]
 application-id='code.desktop'
@@ -221,6 +221,9 @@ application-id='org.gnome.Settings.desktop'
 [org/gnome/desktop/notifications/application/org-gnome-software]
 application-id='org.gnome.Software.desktop'
 
+[org/gnome/desktop/notifications/application/org-gnome-systemmonitor]
+application-id='org.gnome.SystemMonitor.desktop'
+
 [org/gnome/desktop/notifications/application/org-gnome-terminal]
 application-id='org.gnome.Terminal.desktop'
 
@@ -257,7 +260,7 @@ repeat-interval=uint32 23
 
 [org/gnome/desktop/peripherals/mouse]
 accel-profile='flat'
-speed=0.42295081967213122
+speed=0.11186440677966103
 
 [org/gnome/desktop/peripherals/touchpad]
 click-method='areas'
@@ -418,7 +421,7 @@ state=87168
 
 [org/gnome/gnome-system-monitor]
 current-tab='processes'
-maximized=false
+maximized=true
 network-total-in-bits=false
 show-dependencies=false
 show-whose-processes='user'
@@ -473,6 +476,9 @@ ignore-phase2-ca-cert=false
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
+[org/gnome/portal/filechooser/chrome-gfekgcnmcafiipinmcngnepjgacmamca-Default]
+last-folder-path='/media/alex/9310-8CFA'
+
 [org/gnome/portal/filechooser/chromium]
 last-folder-path='/media/alex/9310-8CFA'
 
@@ -515,8 +521,8 @@ enabled-connections=@as []
 [org/gnome/shell]
 app-picker-layout=[{'org.gnome.Calendar.desktop': <{'position': <0>}>, 'org.gnome.Cheese.desktop': <{'position': <1>}>, 'org.gnome.clocks.desktop': <{'position': <2>}>, 'org.gnome.Contacts.desktop': <{'position': <3>}>, 'org.gnome.Documents.desktop': <{'position': <4>}>, 'org.gnome.Evolution.desktop': <{'position': <5>}>, 'org.gnome.Extensions.desktop': <{'position': <6>}>, 'org.gnome.Nautilus.desktop': <{'position': <7>}>, 'firefox-esr.desktop': <{'position': <8>}>, 'im-config.desktop': <{'position': <9>}>, 'org.keepassxc.KeePassXC.desktop': <{'position': <10>}>, 'libreoffice-startcenter.desktop': <{'position': <11>}>, 'libreoffice-calc.desktop': <{'position': <12>}>, 'libreoffice-draw.desktop': <{'position': <13>}>, 'libreoffice-impress.desktop': <{'position': <14>}>, 'libreoffice-writer.desktop': <{'position': <15>}>, 'org.gnome.Maps.desktop': <{'position': <16>}>, 'org.gnome.Music.desktop': <{'position': <17>}>, 'org.freedesktop.MalcontentControl.desktop': <{'position': <18>}>, 'rhythmbox.desktop': <{'position': <19>}>, 'gnome-control-center.desktop': <{'position': <20>}>, 'shotwell.desktop': <{'position': <21>}>, 'slack.desktop': <{'position': <22>}>, 'org.gnome.Weather.desktop': <{'position': <23>}>}, {'org.gnome.Software.desktop': <{'position': <0>}>, 'software-properties-gnome.desktop': <{'position': <1>}>, 'org.gnome.SoundRecorder.desktop': <{'position': <2>}>, 'spotify.desktop': <{'position': <3>}>, 'synaptic.desktop': <{'position': <4>}>, 'org.gnome.gedit.desktop': <{'position': <5>}>, 'org.gnome.Todo.desktop': <{'position': <6>}>, 'transmission-gtk.desktop': <{'position': <7>}>, 'Utilities': <{'position': <8>}>, 'org.gnome.Totem.desktop': <{'position': <9>}>, 'vim.desktop': <{'position': <10>}>, 'vlc.desktop': <{'position': <11>}>}]
 disable-user-extensions=false
-disabled-extensions=['auto-move-windows@gnome-shell-extensions.gcampax.github.com', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'window-list@gnome-shell-extensions.gcampax.github.com']
-enabled-extensions=['hide-universal-access@akiirui.github.io', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'just-perfection-desktop@just-perfection', 'Sur_Clock@medaip90.com', 'netspeed@hedayaty.gmail.com', 'just_shows_memory_usage@troizet.github.com', 'display-scale-switcher@knokelmaat.gitlab.com', 'ScaleSwitcher@jabi.irontec.com', 'temperature@xtranophilist', 'Resource_Monitor@Ory0n', 'emoji-copy@felipeftn', 'tailscale@joaophi.github.com', 'dark-style@fthx', 'compact-quick-settings@gnome-shell-extensions.mariospr.org', 'peek-top-bar-on-fullscreen@marcinjahn.com', 'noannoyance-fork@vrba.dev', 'gestureImprovements@gestures', 'useless-gaps@pimsnel.com', 'volume-mixer@evermiss.net', 'quick-settings-tweaks@qwreey', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'caffeine@patapon.info', 'dash-to-dock@micxgx.gmail.com', 'blur-my-shell@aunetx']
+disabled-extensions=['launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'window-list@gnome-shell-extensions.gcampax.github.com', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'auto-move-windows@gnome-shell-extensions.gcampax.github.com']
+enabled-extensions=['hide-universal-access@akiirui.github.io', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'just-perfection-desktop@just-perfection', 'Sur_Clock@medaip90.com', 'netspeed@hedayaty.gmail.com', 'just_shows_memory_usage@troizet.github.com', 'display-scale-switcher@knokelmaat.gitlab.com', 'ScaleSwitcher@jabi.irontec.com', 'temperature@xtranophilist', 'Resource_Monitor@Ory0n', 'emoji-copy@felipeftn', 'tailscale@joaophi.github.com', 'dark-style@fthx', 'compact-quick-settings@gnome-shell-extensions.mariospr.org', 'peek-top-bar-on-fullscreen@marcinjahn.com', 'noannoyance-fork@vrba.dev', 'gestureImprovements@gestures', 'useless-gaps@pimsnel.com', 'volume-mixer@evermiss.net', 'quick-settings-tweaks@qwreey', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'caffeine@patapon.info', 'dash-to-dock@micxgx.gmail.com', 'blur-my-shell@aunetx', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com']
 favorite-apps=['firefox-esr.desktop', 'qtpass.desktop', 'kitty.desktop', 'obsidian.desktop', 'spotify.desktop', 'org.gnome.Nautilus.desktop', 'signal-desktop.desktop', 'discord.desktop', 'slack.desktop', 'net.lutris.Lutris.desktop', 'betaflight-configurator.desktop', 'expresslrs-configurator.desktop', 'chrome-gfekgcnmcafiipinmcngnepjgacmamca-Default.desktop', 'org.gnome.Settings.desktop']
 had-bluetooth-devices-setup=true
 last-selected-power-profile='performance'
@@ -547,7 +553,9 @@ blur=true
 
 [org/gnome/shell/extensions/caffeine]
 countdown-timer=0
+enable-fullscreen=false
 indicator-position-max=1
+show-notifications=false
 
 [org/gnome/shell/extensions/dash-to-dock]
 apply-custom-theme=false
@@ -594,6 +602,7 @@ animation=3
 app-menu=false
 app-menu-icon=true
 app-menu-label=true
+background-menu=true
 calendar=true
 clock-menu=true
 clock-menu-position=0
@@ -643,17 +652,21 @@ world-clock=false
 
 [org/gnome/shell/extensions/quick-settings-tweaks]
 add-dnd-quick-toggle-enabled=false
-disable-adjust-content-border-radius=false
-input-always-show=false
-input-show-selected=false
+datemenu-remove-notifications=true
+disable-adjust-content-border-radius=true
+input-always-show=true
+input-show-selected=true
 list-buttons='[{"name":"SystemItem","label":null,"visible":true},{"name":"OutputStreamSlider","label":null,"visible":false},{"name":"InputStreamSlider","label":null,"visible":false},{"name":"St_BoxLayout","label":null,"visible":true},{"name":"BrightnessItem","label":null,"visible":true},{"name":"NMWiredToggle","label":null,"visible":true},{"name":"NMWirelessToggle","label":null,"visible":true},{"name":"NMModemToggle","label":null,"visible":true},{"name":"NMBluetoothToggle","label":null,"visible":true},{"name":"NMVpnToggle","label":null,"visible":true},{"name":"BluetoothToggle","label":"Bluetooth","visible":false},{"name":"PowerProfilesToggle","label":"Power Mode","visible":false},{"name":"NightLightToggle","label":"Night Light","visible":true},{"name":"DarkModeToggle","label":"Dark Style","visible":true},{"name":"RfkillToggle","label":"Airplane Mode","visible":false},{"name":"RotationToggle","label":"Auto Rotate","visible":false},{"name":"CaffeineToggle","label":"Caffeine","visible":true},{"name":"BackgroundAppsToggle","label":null,"visible":false},{"name":"MediaSection","label":null,"visible":false}]'
 media-control-compact-mode=true
 media-control-enabled=true
-notifications-enabled=false
+notifications-enabled=true
+notifications-hide-when-no-notifications=false
 output-show-selected=true
 user-removed-buttons=['DarkModeToggle', 'DndQuickToggle', 'RfkillToggle', 'NightLightToggle']
+volume-mixer-enabled=false
 volume-mixer-position='top'
-volume-mixer-show-icon=false
+volume-mixer-show-description=true
+volume-mixer-show-icon=true
 
 [org/gnome/shell/extensions/sur-clock]
 clock-position=1
@@ -705,11 +718,11 @@ check-timestamp=int64 1697091163
 download-updates=false
 download-updates-notify=false
 first-run=false
-install-timestamp=int64 1713523229
+install-timestamp=int64 1721125196
 online-updates-timestamp=int64 1652428105
-packagekit-historical-updates-timestamp=uint64 1713523229
-security-timestamp=int64 1720625410328002
-update-notification-timestamp=int64 1720625083
+packagekit-historical-updates-timestamp=uint64 1721125196
+security-timestamp=int64 1721107110984623
+update-notification-timestamp=int64 1721125249
 
 [org/gnome/system/location]
 enabled=false
