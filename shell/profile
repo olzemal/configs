@@ -10,9 +10,9 @@ export LANGUAGE=en_US.UTF-8
 
 # Path
 PATH="$HOME/.local/bin:$HOME/.scripts:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/snap/bin:/sbin:/bin:$PATH"
-if command -V go >/dev/null 2>&1; then PATH="$GOBIN:$PATH"; fi
+PATH="$GOBIN:$PATH"
 if [ -f "$HOME/.pyenv/bin/pyenv" ]; then PATH="$HOME/.pyenv/bin:$PATH"; fi
-if [ -f "$HOME/.asdf/asdf.sh" ]; then PATH="$HOME/.asdf/shims:$PATH"; unset GOROOT; fi
+if [ -f "$HOME/.asdf/asdf.sh" ]; then PATH="$HOME/.asdf/shims:$PATH"; fi
 export PATH
 
 if [ -f "$HOME/.pyenv/bin/pyenv" ]; then eval "$(pyenv init -)"; fi
