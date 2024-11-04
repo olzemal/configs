@@ -341,6 +341,7 @@ keymap('n', 'ga',        '<Plug>(EasyAlign)')
 
 -- ctrl-p
 keymap('n', '<c-p>', function() require('telescope.builtin').live_grep() end)
+keymap('n', '<c-f>', function() require('telescope.builtin').find_files() end)
 
 keymap('n', '<Leader>db', function() require('dap').toggle_breakpoint() end)
 keymap('n', '<Leader>dc', function() require('dap').continue() end)
