@@ -46,7 +46,7 @@
     vimAlias = true;
     vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
-      gruvbox
+      gruvbox-nvim
       nvim-web-devicons
 
       nvim-lspconfig

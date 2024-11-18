@@ -105,8 +105,14 @@ cmp.setup({
     end,
   },
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    completion = {
+      border = "rounded",
+      winhighlight = "Normal:NormalFloat",
+    },
+    documentation = {
+      border = "rounded",
+      winhighlight = "Normal:NormalFloat",
+    },
   },
   mapping = cmp.mapping.preset.insert({
     ['<Tab>'] = cmp.mapping.confirm({ select = true }),
