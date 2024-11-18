@@ -11,7 +11,6 @@
 	clean = git-lfs clean -- %f
 [commit]
 	gpgsign = true
-
 [includeIf "gitdir:~/repos/work/"]
 	path = ~/.gitconfig-work
 [push]
