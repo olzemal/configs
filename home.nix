@@ -21,7 +21,10 @@
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
+    ".bashrc".source = ./shell/bashrc;
+    ".profile".source = ./shell/profile;
 
+    ".config/kitty/kitty.conf".source = ./kitty/kitty.conf;
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
@@ -30,9 +33,61 @@
   };
 
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = false;
+    vimAlias = true;
+    vimdiffAlias = true;
+    plugins = with pkgs.vimPlugins; [
+      gruvbox
+      nvim-web-devicons
+
+      nvim-lspconfig
+      mason-nvim
+      mason-lspconfig-nvim
+
+      nvim-dap
+      nvim-dap-go
+      nvim-dap-ui
+
+      nvim-cmp
+      cmp-emoji
+      cmp-dictionary
+      cmp-buffer
+      cmp-path
+      cmp-cmdline
+      cmp-nvim-lsp
+
+      vim-easy-align
+
+      vim-fugitive
+      vim-gitgutter
+
+      ale
+      vim-go
+      markdown-nvim
+      vim-DetectSpellLang
+
+      nerdtree
+      telescope-nvim
+      plenary-nvim
+      vim-visual-multi
+
+      ultisnips
+      cmp-nvim-ultisnips
+
+    ];
+    extraLuaConfig = ''
+      -- Warning: This file is managed by home-manager
+
+      ${builtins.readFile ./vim/lua/options.lua}
+    '';
+  };
 }
