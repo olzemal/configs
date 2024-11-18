@@ -135,6 +135,7 @@ for option in "$@"; do
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
       link "$PWD/vim/init.lua" "$HOME/.config/nvim/init.lua"
+      link "$PWD/vim/lua" "$HOME/.config/nvim/lua"
 
       # Run PlugInstall
       nvim --headless -c PlugInstall +qall
