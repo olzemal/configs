@@ -23,6 +23,12 @@
     # ".screenrc".source = dotfiles/screenrc;
     ".bashrc".source = ./shell/bashrc;
     ".profile".source = ./shell/profile;
+    ".config/aliases".source = ./shell/aliases;
+
+    ".local/bin" = {
+      source = ./scripts;
+      recursive = true;
+    };
 
     ".config/kitty/kitty.conf".source = ./kitty/kitty.conf;
     # # You can also set the file content immediately.
