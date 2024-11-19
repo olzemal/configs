@@ -17,10 +17,6 @@
   ];
 
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
     ".bashrc".source = ./shell/bashrc;
     ".profile".source = ./shell/profile;
     ".config/aliases".source = ./shell/aliases;
@@ -31,11 +27,6 @@
     };
 
     ".config/kitty/kitty.conf".source = ./kitty/kitty.conf;
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
   };
 
   home.sessionVariables = {
@@ -45,17 +36,25 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  programs.neovim = {
+  programs.neovim =
+  let
+    toLua = str: "lua << EOF\n${str}\nEOF\n";
+    toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+  in {
     enable = true;
     defaultEditor = true;
     viAlias = false;
     vimAlias = true;
     vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
-      gruvbox-nvim
+      {
+        plugin = gruvbox-nvim;
+        config = toLua "vim.cmd.colorscheme('gruvbox')";
+      }
       nvim-web-devicons
 
       nvim-lspconfig
+
       mason-nvim
       mason-lspconfig-nvim
 
@@ -88,12 +87,13 @@
 
       ultisnips
       cmp-nvim-ultisnips
-
     ];
     extraLuaConfig = ''
-      -- Warning: This file is managed by home-manager
-
       ${builtins.readFile ./vim/lua/options.lua}
+      ${builtins.readFile ./vim/lua/cmp.lua}
+      ${builtins.readFile ./vim/lua/dap.lua}
+      ${builtins.readFile ./vim/lua/lsp.lua}
+      ${builtins.readFile ./vim/lua/vimgo.lua}
     '';
   };
 }
