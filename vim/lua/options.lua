@@ -11,13 +11,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 local keymap  = vim.keymap.set
 
-
---------------------------------
--- [[ Plugin Options ]]
---------------------------------
-
--- Color scheme
-vim.cmd.colorscheme('gruvbox')
+-- Colors
 autocmd('VimEnter', {
   command = 'hi Normal ctermbg=none'
 })
@@ -26,28 +20,6 @@ autocmd('colorscheme', {
 })
 vim.cmd.highlight({'Pmenu', 'ctermbg=darkgrey', 'ctermfg=white'})
 vim.cmd.highlight({'PmenuSel', 'ctermbg=blue', 'ctermfg=black'})
-
--- vim-go
-vim.g.go_fmt_fail_silently               = 1
-vim.g.go_fmt_command                     = 'goimports'
-vim.g.go_fmt_autosave                    = 1
-vim.g.go_gopls_enabled                   = 1
-vim.g.go_highlight_types                 = 1
-vim.g.go_highlight_fields                = 1
-vim.g.go_highlight_functions             = 1
-vim.g.go_highlight_function_calls        = 1
-vim.g.go_highlight_operators             = 1
-vim.g.go_highlight_extra_types           = 1
-vim.g.go_highlight_variable_declarations = 1
-vim.g.go_highlight_variable_assignments  = 1
-vim.g.go_highlight_build_constraints     = 1
-vim.g.go_highlight_diagnostic_errors     = 1
-vim.g.go_highlight_diagnostic_warnings   = 1
-vim.g.go_auto_type_info                  = 1
-
--- markdown
-vim.g.vim_markdown_frontmatter = 1
-vim.g.vim_markdown_math        = 1
 
 -- NerdTree
 NERDTreeMinimalUI      = 1
@@ -59,133 +31,12 @@ vim.g.detectspelllang_langs = {
   ['aspell']   = {'en', 'de'},
   ['hunspell'] = {'en', 'de'},
 }
-vim.gdetectspelllang_lines     = 20 -- Evaluate the first 20 lines of a file
-vim.gdetectspelllang_threshold = 20 -- Allow a maximum of 20% misspelled words
+vim.g.detectspelllang_lines     = 20 -- Evaluate the first 20 lines of a file
+vim.g.detectspelllang_threshold = 20 -- Allow a maximum of 20% misspelled words
 
--- LSP
-local lspconfig = require('lspconfig')
-require('mason').setup()
-require('mason-lspconfig').setup({ automatic_installation = true })
-require('mason-lspconfig').setup_handlers({
-  function(server)
-    lspconfig[server].setup({})
-  end,
-})
-
--- Debugger
-
-local dap, dapui, dapgo = require("dap"), require("dapui"), require("dap-go")
-
-dapui.setup()
-dapgo.setup()
-
-dap.listeners.before.attach.dapui_config = function()
-  dapui.open()
-end
-dap.listeners.before.launch.dapui_config = function()
-  dapui.open()
-end
-dap.listeners.before.event_terminated.dapui_config = function()
-  dapui.close()
-end
-dap.listeners.before.event_exited.dapui_config = function()
-  dapui.close()
-end
-
--- Buffer Completion
-local cmp = require'cmp'
-cmp.register_source('emoji', require'cmp_emoji'.new())
-
-cmp.setup({
-  enabled = true,
-  preselect = cmp.PreselectMode.None,
-  snippet = {
-    expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body)
-    end,
-  },
-  window = {
-    completion = {
-      border = "rounded",
-      winhighlight = "Normal:NormalFloat",
-    },
-    documentation = {
-      border = "rounded",
-      winhighlight = "Normal:NormalFloat",
-    },
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'ultisnips' },
-    { name = 'path' },
-    { name = 'emoji' },
-    { name = 'dictionary', keyword_length = 4 }
-  }, {
-    { name = 'buffer' },
-  })
-})
-
--- Dictionary
-local dicts = {
-  ['*'] = {'/usr/share/dict/words'},
-  ['de'] = {'/usr/share/dict/ngerman'}
-}
-
-require('cmp_dictionary').setup({
-  paths = dicts['*'],
-  exact_length = 2,
-  first_case_insensitive = true,
-  document = {
-    enable = true,
-    command = {'wn', '${label}', '-over'},
-  },
-})
-
-autocmd('BufWrite', {
-  pattern  = '*',
-  callback = function()
-    local d = dicts[vim.opt.spelllang._value] or {}
-    vim.list_extend(d, dicts['*'])
-    require('cmp_dictionary').setup({
-      paths = d,
-    })
-  end
-})
-
--- cmdline completion
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
-
--- Default to static completion for SQL
-vim.g.omni_sql_default_compl_type = 'syntax'
-
--- Linter settings
-vim.g.ale_fixers = {
-  ['*']  = {'remove_trailing_lines', 'trim_whitespace'},
-  ['sh'] = {'shfmt'},
-  ['go'] = {'gofmt'}
-}
-vim.g.ale_linters = {
-  ['sh']   = {''},
-  ['go']   = {'gofmt'},
-  ['yaml'] = {'yamllint'}
-}
-vim.g.ale_fix_on_save = 1
-
-
---------------------------------
--- [[ General Options ]]
---------------------------------
+-- markdown
+vim.g.vim_markdown_frontmatter = 1
+vim.g.vim_markdown_math        = 1
 
 -- Enable spell checking for markdown and commit messages
 autocmd('FileType', {
@@ -204,6 +55,26 @@ autocmd('FileType', {
   pattern = 'gitcommit',
   command = 'setlocal spell'
 })
+
+-- Default to static completion for SQL
+vim.g.omni_sql_default_compl_type = 'syntax'
+
+-- Linter settings
+vim.g.ale_fixers = {
+  ['*']  = {'remove_trailing_lines', 'trim_whitespace'},
+  ['sh'] = {'shfmt'},
+  ['go'] = {'gofmt'}
+}
+vim.g.ale_linters = {
+  ['sh']   = {''},
+  ['go']   = {'gofmt'},
+  ['yaml'] = {'yamllint'}
+}
+vim.g.ale_fix_on_save = 1
+
+--------------------------------
+-- [[ General Options ]]
+--------------------------------
 
 -- Trailing whitespace
 vim.opt.listchars = {
@@ -242,14 +113,6 @@ autocmd('FileType', {
   pattern = 'Makefile',
   callback = function() vim.opt.expandtab = false end
 })
-autocmd({'BufNewFile', 'BufRead'}, {
-  pattern = '*.go',
-  callback = function()
-    vim.bo.expandtab  = false
-    vim.bo.tabstop    = 4
-    vim.bo.shiftwidth = 4
-  end
-})
 
 -- Remember last cursor position
 autocmd('BufReadPost', {
@@ -261,12 +124,6 @@ autocmd('BufReadPost', {
 for _, symbol in ipairs({',', '.', ':', ';', '-', '!', '?'}) do
   keymap('i', symbol, symbol .. '<c-g>u')
 end
-
--- Completion
-vim.opt.completeopt:append('menuone')
-vim.opt.completeopt:append('noselect')
-vim.opt.shortmess:append('c')
-vim.opt.previewheight = 5
 
 -- Searching
 vim.opt.hlsearch   = false
@@ -311,25 +168,8 @@ keymap('n', 'ga',        '<Plug>(EasyAlign)')
 keymap('n', '<c-p>', function() require('telescope.builtin').live_grep() end)
 keymap('n', '<c-f>', function() require('telescope.builtin').find_files() end)
 
-keymap('n', '<Leader>db', function() require('dap').toggle_breakpoint() end)
-keymap('n', '<Leader>dc', function() require('dap').continue() end)
-keymap('n', '<Leader>dd', function() require('dapui').close() end)
-
 -- NERDTree
 keymap('n', '<Leader>e', '<cmd>NERDTreeToggle<CR>')
-
--- golang
-autocmd('FileType', {
-  pattern = 'go',
-  callback = function()
-    keymap('n', '<Leader>r', '<cmd>GoRun! %<CR>')
-    keymap('n', '<Leader>t', '<cmd>!go test<CR>')
-    keymap('n', '<Leader>v', '<cmd>GoVet!<CR>')
-    keymap('n', '<Leader>b', '<cmd>GoBuild!<CR>')
-    keymap('n', '<Leader>c', '<cmd>GoCoverageToggle<CR>')
-    keymap('n', '<Leader>l', '<cmd>GoMetaLinter!<CR>')
-  end
-})
 
 -- Bash / sh
 autocmd('FileType', {
@@ -367,32 +207,3 @@ autocmd('FileType', {
 
 -- git
 keymap('n', 'gb', '<cmd>Git blame<CR>')
-
-
--- Markdown
-
-local telescope_actions = require 'telescope.actions'
-
-function generate_img_link()
-  local opts = {
-    attach_mappings = function(prompt_bufnr, map)
-      telescope_actions.select_default:replace(function()
-        telescope_actions.close(prompt_bufnr)
-        local selection = require('telescope.actions.state').get_selected_entry()
-        local path = selection[1]
-        local start, _ = path:find('[%w%s!-={-|]+[_%.].+')
-        local name = path:sub(start,#path)
-        vim.cmd.normal('A\n'..'!['..name..'](./'..path..')')
-      end)
-      return true
-    end
-  }
-  require('telescope.builtin').find_files(opts)
-end
-
-autocmd('FileType', {
-  pattern = 'markdown',
-  callback = function()
-    keymap('n', '<Leader>i', ":lua generate_img_link()<CR>")
-  end
-})
