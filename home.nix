@@ -16,6 +16,10 @@
   home.packages = [
   ];
 
+  imports = [
+    ./wm/gnome/gnome.nix
+  ];
+
   home.file = {
     ".bashrc".source = ./shell/bashrc;
     ".profile".source = ./shell/profile;
