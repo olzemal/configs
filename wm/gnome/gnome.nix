@@ -6,8 +6,9 @@ with lib.hm.gvariant;
     just-perfection
     caffeine
     emoji-copy
-    quick-settings-tweaker
     tailscale-qs
+    dash-to-dock
+    blur-my-shell
   ];
 
   dconf.settings = {
@@ -39,6 +40,8 @@ with lib.hm.gvariant;
         "caffeine@patapon.info"
         "tailscale@joaophi.github.com"
         "just-perfection-desktop@just-perfection"
+        "dash-to-dock@micxgx.gmail.com"
+        "blur-my-shell@aunetx"
       ];
       favorite-apps = [
         "firefox.desktop"
@@ -65,7 +68,6 @@ with lib.hm.gvariant;
     "org/gnome/desktop/wm/preferences" = {
       button-layout = ":minimize,maximize,close";
     };
-
     "org/gnome/shell/extensions/just-perfection" = {
       accessibility-menu = false;
       activities-button = false;
@@ -123,6 +125,49 @@ with lib.hm.gvariant;
       workspace-wrap-around = false;
       workspaces-in-app-grid = true;
       world-clock = false;
+    };
+    "org/gnome/shell/extensions/dash-to-dock" = {
+       apply-custom-theme = false;
+       background-color = "rgb(40,40,40)";
+       background-opacity = 0.90000000000000002;
+       custom-background-color = true;
+       custom-theme-shrink = true;
+       dash-max-icon-size = 48;
+       disable-overview-on-startup = false;
+       dock-position = "BOTTOM";
+       extend-height = false;
+       height-fraction = 0.90000000000000002;
+       hot-keys = false;
+       icon-size-fixed = true;
+       intellihide-mode = "FOCUS_APPLICATION_WINDOWS";
+       preferred-monitor = -2;
+       preferred-monitor-by-connector = "eDP-1";
+       preview-size-scale = 0.0;
+       running-indicator-style = "DEFAULT";
+       show-apps-always-in-the-edge = true;
+       show-apps-at-top = true;
+       show-trash = false;
+       transparency-mode = "FIXED";
+     };
+    "org/gnome/shell/extensions/blur-my-shell" = {
+      appfolder-blur = false;
+      brightness = 0.69999999999999996;
+      color-and-noise = false;
+      hacks-level = 0;
+      noise-amount = 0.0;
+      noise-lightness = 0.0;
+      overview-brightness = 1.0;
+      overview-customize = false;
+      overview-sigma = 8;
+      panel-static-blur = true;
+      panel-unblur-in-overview = true;
+      sigma = 6;
+    };
+    "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
+      blur = true;
+    };
+    "org/gtk/gtk4/settings/file-chooser" = {
+      show-hidden = true;
     };
   };
 }
