@@ -6,9 +6,11 @@
 
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    stylix.url = "github:danth/stylix/release-24.05";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, home-manager, stylix, ... }@inputs:
   let
     systemSettings = {
       system = "x86_64-linux";
@@ -27,6 +29,7 @@
     nixosConfigurations = {
       default = nixpkgs.lib.nixosSystem {
         modules = [
+          stylix.nixosModules.stylix
           ./configuration.nix
         ];
         specialArgs = { inherit inputs; };

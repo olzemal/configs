@@ -112,6 +112,9 @@
     discord
     slack
     nerdfonts
+    syncthing
+    obsidian
+    tailscale
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -145,6 +148,12 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
+
+  stylix = {
+    image = /home/alex/Pictures/Wallpapers/0312.jpg;
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }
