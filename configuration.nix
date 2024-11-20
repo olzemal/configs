@@ -138,9 +138,9 @@
     k9s
     trivy
 
-    shellcheck
-    python
     go
+    shellcheck
+    python3
     gdc
   ];
 
@@ -163,8 +163,8 @@
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 8384 220000 ];
-  networking.firewall.allowedUDPPorts = [ 220000 21027 ];
+  networking.firewall.allowedTCPPorts = [ 22 8384 22000 ];
+  networking.firewall.allowedUDPPorts = [ 22000 21027 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
