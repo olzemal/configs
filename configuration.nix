@@ -86,7 +86,6 @@
     description = "Alex";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    #  thunderbird
     ];
   };
 
@@ -107,6 +106,12 @@
     qtpass
     home-manager
     hunspell
+    lutris
+    spotify
+    signal-desktop
+    discord
+    slack
+    nerdfonts
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -115,6 +120,11 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+  };
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
   };
 
   # List services that you want to enable:
