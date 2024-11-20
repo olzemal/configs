@@ -29,37 +29,9 @@ cmp.setup({
     { name = 'ultisnips' },
     { name = 'path' },
     { name = 'emoji' },
-    { name = 'dictionary', keyword_length = 4 }
   }, {
     { name = 'buffer' },
   })
-})
-
--- Dictionary
-local dicts = {
-  ['*'] = {'/usr/share/dict/words'},
-  ['de'] = {'/usr/share/dict/ngerman'}
-}
-
-require('cmp_dictionary').setup({
-  paths = dicts['*'],
-  exact_length = 2,
-  first_case_insensitive = true,
-  document = {
-    enable = true,
-    command = {'wn', '${label}', '-over'},
-  },
-})
-
-autocmd('BufWrite', {
-  pattern  = '*',
-  callback = function()
-    local d = dicts[vim.opt.spelllang._value] or {}
-    vim.list_extend(d, dicts['*'])
-    require('cmp_dictionary').setup({
-      paths = d,
-    })
-  end
 })
 
 -- cmdline completion

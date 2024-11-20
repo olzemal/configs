@@ -20,6 +20,7 @@
     ".bashrc".source = ./shell/bashrc;
     ".profile".source = ./shell/profile;
     ".config/aliases".source = ./shell/aliases;
+    ".gitconfig".source = ./git/gitconfig;
 
     ".local/bin" = {
       source = ./scripts;
@@ -64,7 +65,6 @@
 
       nvim-cmp
       cmp-emoji
-      cmp-dictionary
       cmp-buffer
       cmp-path
       cmp-cmdline
@@ -77,7 +77,6 @@
 
       ale
       vim-go
-      markdown-nvim
       vim-DetectSpellLang
 
       nerdtree
