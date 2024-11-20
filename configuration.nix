@@ -98,11 +98,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
     kitty
-    pass
     qtpass
     home-manager
     hunspell
@@ -111,10 +107,41 @@
     signal-desktop
     discord
     slack
-    nerdfonts
     syncthing
     obsidian
     tailscale
+    chromium
+
+    betaflight-configurator
+    edgetx
+    blender
+
+    pass
+    vim
+    wget
+    git
+    tree
+    htop
+    dig
+    kubectl
+    helm
+    kind
+    minikube
+    bat
+    fzf
+    gh
+    gojq
+    yq-go
+    pre-commit
+    semver
+    hugo
+    k9s
+    trivy
+
+    shellcheck
+    python
+    go
+    gdc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -133,13 +160,11 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.allowedTCPPorts = [ 22 8384 220000 ];
+  networking.firewall.allowedUDPPorts = [ 220000 21027 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
