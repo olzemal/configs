@@ -42,6 +42,7 @@ with lib.hm.gvariant;
         "just-perfection-desktop@just-perfection"
         "dash-to-dock@micxgx.gmail.com"
         "blur-my-shell@aunetx"
+        "native-window-placement@gnome-shell-extensions.gcampax.github.com"
       ];
       favorite-apps = [
         "firefox.desktop"
@@ -55,8 +56,8 @@ with lib.hm.gvariant;
         "slack.desktop"
         "net.lutris.Lutris.desktop"
         "betaflight-configurator.desktop"
-        "expresslrs-configurator.desktop"
         "org.gnome.Settings.desktop"
+        "blender.desktop"
       ];
     };
     "org/gnome/desktop/session" = {
