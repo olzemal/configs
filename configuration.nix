@@ -124,7 +124,7 @@
     htop
     dig
     kubectl
-    helm
+    kubernetes-helm
     kind
     minikube
     bat
