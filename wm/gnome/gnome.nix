@@ -27,6 +27,7 @@ with lib.hm.gvariant;
     };
     "org/gnome/mutter" = {
       edge-tiling = true;
+      dynamic-workspaces = true;
     };
     "org/gnome/desktop/peripherals/mouse" = {
       accel-profile = "flat";
