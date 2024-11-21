@@ -24,6 +24,7 @@ with lib.hm.gvariant;
     };
     "org/gnome/desktop/interface" = {
       enable-hot-corners = true;
+      show-battery-percentage = true;
     };
     "org/gnome/mutter" = {
       edge-tiling = true;
