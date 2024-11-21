@@ -58,8 +58,8 @@ with lib.hm.gvariant;
         "slack.desktop"
         "net.lutris.Lutris.desktop"
         "betaflight-configurator.desktop"
-        "org.gnome.Settings.desktop"
         "blender.desktop"
+        "org.gnome.Settings.desktop"
       ];
     };
     "org/gnome/desktop/session" = {
@@ -130,13 +130,13 @@ with lib.hm.gvariant;
       world-clock = false;
     };
     "org/gnome/shell/extensions/dash-to-dock" = {
-       apply-custom-theme = false;
+       apply-custom-theme = true;
        background-color = "rgb(40,40,40)";
        background-opacity = 0.90000000000000002;
        custom-background-color = true;
        custom-theme-shrink = true;
        dash-max-icon-size = 48;
-       disable-overview-on-startup = false;
+       disable-overview-on-startup = true;
        dock-position = "BOTTOM";
        extend-height = false;
        height-fraction = 0.90000000000000002;
