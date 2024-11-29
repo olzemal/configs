@@ -44,7 +44,6 @@ with lib.hm.gvariant;
       color-scheme = "prefer-dark";
     };
     "org/gnome/desktop/input-sources" = {
-       current = mkUint32 0;
        mru-sources = [ (mkTuple [ "xkb" "us+alt-intl" ]) (mkTuple [ "xkb" "de" ]) ];
        per-window = false;
        sources = [ (mkTuple [ "xkb" "us+alt-intl" ]) (mkTuple [ "xkb" "de" ]) ];
@@ -158,9 +157,9 @@ with lib.hm.gvariant;
       world-clock = false;
     };
     "org/gnome/shell/extensions/dash-to-dock" = {
-       apply-custom-theme = true;
+       apply-custom-theme = false;
        background-color = "rgb(40,40,40)";
-       background-opacity = 0.90000000000000002;
+       transparency-mode = "DYNAMIC";
        custom-background-color = true;
        custom-theme-shrink = true;
        dash-max-icon-size = 48;
@@ -174,11 +173,10 @@ with lib.hm.gvariant;
        preferred-monitor = -2;
        preferred-monitor-by-connector = "eDP-1";
        preview-size-scale = 0.0;
-       running-indicator-style = "DEFAULT";
+       running-indicator-style = "DOTS";
        show-apps-always-in-the-edge = true;
        show-apps-at-top = true;
        show-trash = false;
-       transparency-mode = "FIXED";
      };
     "org/gnome/shell/extensions/blur-my-shell" = {
       appfolder-blur = false;
@@ -195,7 +193,7 @@ with lib.hm.gvariant;
       sigma = 6;
     };
     "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
-      blur = true;
+      blur = false;
     };
     "org/gtk/gtk4/settings/file-chooser" = {
       show-hidden = true;
