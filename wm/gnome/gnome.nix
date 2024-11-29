@@ -61,6 +61,9 @@ with lib.hm.gvariant;
       accel-profile = "flat";
       speed = 0.43;
     };
+    "org/gnome/shell/app-switcher" = {
+      current-workspace-only = true;
+    };
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
