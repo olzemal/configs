@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -15,11 +11,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "carbon"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -85,8 +76,6 @@
     isNormalUser = true;
     description = "Alex";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    ];
   };
 
   # Install firefox.
@@ -98,55 +87,57 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    nerdfonts
-    kitty
-    qtpass
+    blender
+    chromium
+    discord
     home-manager
     hunspell
+    kitty
     lutris
-    spotify
-    signal-desktop
-    discord
-    slack
-    syncthing
+    nerdfonts
     obsidian
+    qtpass
+    signal-desktop
+    slack
+    spotify
+    syncthing
     tailscale
-    chromium
-    blender
 
-    pass
-    vim
-    wget
-    git
-    tree
-    htop
-    dig
-    kubectl
-    kubernetes-helm
-    kind
-    minikube
     bat
+    dig
     fzf
     gh
+    git
     gojq
-    yq-go
-    pre-commit
-    semver
+    htop
     hugo
     k9s
+    kind
+    kubectl
+    kubernetes-helm
+    minikube
+    pass
+    pre-commit
+    semver
+    tree
     trivy
+    vim
+    wget
+    yq-go
     zoxide
 
-    go
-    shellcheck
-    python3
     gdc
+    go
+    python3
+    shellcheck
   ];
 
   services.tailscale.enable = true;
 
-  fonts.packages = with pkgs; [ nerdfonts ];
-  fonts.fontDir.enable = true;
+  fonts = {
+    packages = with pkgs; [ nerdfonts ];
+    fontDir.enable = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
