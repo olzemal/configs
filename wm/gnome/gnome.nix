@@ -100,6 +100,18 @@ with lib.hm.gvariant;
     "org/gnome/desktop/wm/preferences" = {
       button-layout = ":minimize,maximize,close";
     };
+
+    "org/gnome/desktop/wm/keybindings" = {
+      move-to-monitor-left = [];
+      move-to-monitor-right = [];
+      move-to-workspace-left = ["<Shift><Super>Left"];
+      move-to-workspace-right = ["<Shift><Super>Right"];
+      toggle-tiled-left = [];
+      toggle-tiled-right = [];
+      switch-to-workspace-left = ["<Super>Left"];
+      switch-to-workspace-right = ["<Super>Right"];
+    };
+
     "org/gnome/shell/extensions/just-perfection" = {
       accessibility-menu = false;
       activities-button = false;
