@@ -42,8 +42,8 @@
     enable = true;
 
     iconTheme = {
-      name = "oomox-gruvbox-dark";
-      package = pkgs.gruvbox-dark-icons-gtk;
+      name = "Papirus-Dark";
+      package = (pkgs.papirus-icon-theme.override { color = "brown"; });
     };
 
     theme = {
