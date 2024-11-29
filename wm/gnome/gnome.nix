@@ -3,12 +3,12 @@
 with lib.hm.gvariant;
 {
   home.packages = with pkgs.gnomeExtensions; [
-    just-perfection
-    caffeine
-    emoji-copy
-    tailscale-qs
-    dash-to-dock
     blur-my-shell
+    caffeine
+    dash-to-dock
+    emoji-copy
+    just-perfection
+    tailscale-qs
   ];
 
   home.sessionVariables.GTK_THEME = "Gruvbox-Dark";
@@ -64,14 +64,15 @@ with lib.hm.gvariant;
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
-        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
-        "drive-menu@gnome-shell-extensions.gcampax.github.com"
-        "caffeine@patapon.info"
-        "tailscale@joaophi.github.com"
-        "just-perfection-desktop@just-perfection"
-        "dash-to-dock@micxgx.gmail.com"
         "blur-my-shell@aunetx"
+        "caffeine@patapon.info"
+        "dash-to-dock@micxgx.gmail.com"
+        "drive-menu@gnome-shell-extensions.gcampax.github.com"
+        "just-perfection-desktop@just-perfection"
         "native-window-placement@gnome-shell-extensions.gcampax.github.com"
+        "tailscale@joaophi.github.com"
+        "user-theme@gnome-shell-extensions.gcampax.github.com"
+        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
       ];
       favorite-apps = [
         "firefox.desktop"
