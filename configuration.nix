@@ -105,6 +105,7 @@
 
     bat
     dig
+    direnv
     fzf
     gh
     git
@@ -151,6 +152,8 @@
     enable = true;
     binfmt = true;
   };
+
+  programs.direnv.enable = true;
 
   # List services that you want to enable:
 
