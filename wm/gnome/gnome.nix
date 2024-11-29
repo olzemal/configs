@@ -94,6 +94,7 @@ with lib.hm.gvariant;
       idle-delay = mkUint32 0;
     };
     "org/gnome/settings-daemon/plugins/power" = {
+      power-button-action = "interactive";
       power-saver-profile-on-low-battery = false;
     };
     "org/gnome/desktop/wm/preferences" = {
