@@ -11,6 +11,8 @@ with lib.hm.gvariant;
     blur-my-shell
   ];
 
+  home.sessionVariables.GTK_THEME = "Gruvbox-Dark";
+
   gtk = {
     enable = true;
     iconTheme = {

@@ -35,8 +35,6 @@
     ".config/kitty/kitty.conf".source = ./kitty/kitty.conf;
   };
 
-  home.sessionVariables.GTK_THEME = "palenight";
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
