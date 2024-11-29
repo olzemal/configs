@@ -43,6 +43,9 @@ with lib.hm.gvariant;
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
     };
+    "org/gnome/desktop/notifications" = {
+      show-in-lock-screen = false;
+    };
     "org/gnome/desktop/input-sources" = {
        mru-sources = [ (mkTuple [ "xkb" "us+alt-intl" ]) (mkTuple [ "xkb" "de" ]) ];
        per-window = false;
@@ -99,22 +102,36 @@ with lib.hm.gvariant;
     "org/gnome/settings-daemon/plugins/power" = {
       power-button-action = "interactive";
       power-saver-profile-on-low-battery = false;
+      sleep-inactive-ac-type = "nothing";
+      sleep-inactive-battery-type = "suspend";
+      sleep-inactive-battery-timeout = 1200;
     };
     "org/gnome/desktop/wm/preferences" = {
       button-layout = ":minimize,maximize,close";
     };
-
     "org/gnome/desktop/wm/keybindings" = {
+      screenreader = [];
       move-to-monitor-left = [];
       move-to-monitor-right = [];
-      move-to-workspace-left = ["<Shift><Super>Left"];
-      move-to-workspace-right = ["<Shift><Super>Right"];
+      move-to-workspace-left = [ "<Shift><Super>Left" ];
+      move-to-workspace-right = [ "<Shift><Super>Right" ];
       toggle-tiled-left = [];
       toggle-tiled-right = [];
-      switch-to-workspace-left = ["<Super>Left"];
-      switch-to-workspace-right = ["<Super>Right"];
+      switch-to-workspace-left = [ "<Super>Left" ];
+      switch-to-workspace-right = [ "<Super>Right" ];
+      panel-run-dialog = [ "<Super>r" ];
+      switch-input-source = [ "<Super>space" ];
+      switch-input-source-backward = [ "<Shift><Super>space" ];
     };
-
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      home = [ "<Super>e" ];
+      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      name = "Terminal";
+      binding = "<Super>t";
+      command = "kitty";
+    };
     "org/gnome/shell/extensions/just-perfection" = {
       accessibility-menu = false;
       activities-button = false;
