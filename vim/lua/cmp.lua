@@ -13,17 +13,18 @@ cmp.setup({
   window = {
     completion = {
       border = "rounded",
-      winhighlight = "Normal:NormalFloat",
+      winhighlight = "Normal:transparentBG,FloatBorder:transparentBG,Search:None",
     },
     documentation = {
       border = "rounded",
-      winhighlight = "Normal:NormalFloat",
+      winhighlight = "Normal:transparentBG,FloatBorder:transparentBG,Search:None",
     },
   },
-  mapping = cmp.mapping.preset.insert({
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+  mapping = {
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
-  }),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item()),
+    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item()),
+  },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'ultisnips' },
@@ -48,3 +49,4 @@ vim.opt.completeopt:append('menuone')
 vim.opt.completeopt:append('noselect')
 vim.opt.shortmess:append('c')
 vim.opt.previewheight = 5
+vim.opt.pumblend = 0

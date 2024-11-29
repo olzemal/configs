@@ -1,15 +1,16 @@
 --------------------------------
 -- [[ Setup ]]
 --------------------------------
+require "lib"
+
 local autoload_dir = vim.fn.stdpath('data') .. '/site/autoload'
 if not vim.fn.isdirectory(autoload_dir) then
   vim.fn.mkdir(autoload_dir, 'p')
 end
 
--- Short versions of functions
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
-local keymap  = vim.keymap.set
+--------------------------------
+-- [[ General Options ]]
+--------------------------------
 
 -- Colors
 autocmd('VimEnter', {
@@ -20,19 +21,6 @@ autocmd('colorscheme', {
 })
 vim.cmd.highlight({'Pmenu', 'ctermbg=darkgrey', 'ctermfg=white'})
 vim.cmd.highlight({'PmenuSel', 'ctermbg=blue', 'ctermfg=black'})
-
--- NerdTree
-NERDTreeMinimalUI      = 1
-NERDTreeQuitOnOpen     = 1
-NERDTreeCustomOpenArgs = {['file'] = {['where'] = 't'}}
-
--- Languages
-vim.g.detectspelllang_langs = {
-  ['aspell']   = {'en', 'de'},
-  ['hunspell'] = {'en', 'de'},
-}
-vim.g.detectspelllang_lines     = 20 -- Evaluate the first 20 lines of a file
-vim.g.detectspelllang_threshold = 20 -- Allow a maximum of 20% misspelled words
 
 -- markdown
 vim.g.vim_markdown_frontmatter = 1
@@ -55,26 +43,6 @@ autocmd('FileType', {
   pattern = 'gitcommit',
   command = 'setlocal spell'
 })
-
--- Default to static completion for SQL
-vim.g.omni_sql_default_compl_type = 'syntax'
-
--- Linter settings
-vim.g.ale_fixers = {
-  ['*']  = {'remove_trailing_lines', 'trim_whitespace'},
-  ['sh'] = {'shfmt'},
-  ['go'] = {'gofmt'}
-}
-vim.g.ale_linters = {
-  ['sh']   = {''},
-  ['go']   = {'gofmt'},
-  ['yaml'] = {'yamllint'}
-}
-vim.g.ale_fix_on_save = 1
-
---------------------------------
--- [[ General Options ]]
---------------------------------
 
 -- Trailing whitespace
 vim.opt.listchars = {
@@ -161,15 +129,6 @@ keymap('n', '<Leader>n', '<cmd>set number!<CR>')
 
 -- Formatting
 keymap('n', '<Leader>f', 'gqip')
-keymap('v', 'ga',        '<Plug>(EasyAlign)')
-keymap('n', 'ga',        '<Plug>(EasyAlign)')
-
--- ctrl-p
-keymap('n', '<c-p>', function() require('telescope.builtin').live_grep() end)
-keymap('n', '<c-f>', function() require('telescope.builtin').find_files() end)
-
--- NERDTree
-keymap('n', '<Leader>e', '<cmd>NERDTreeToggle<CR>')
 
 -- Bash / sh
 autocmd('FileType', {

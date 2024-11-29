@@ -1,5 +1,7 @@
 -- Debugger
 
+require "lib"
+
 local dap, dapui, dapgo = require("dap"), require("dapui"), require("dap-go")
 
 dapui.setup()
