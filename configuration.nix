@@ -98,6 +98,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    nerdfonts
     kitty
     qtpass
     home-manager
@@ -111,9 +112,6 @@
     obsidian
     tailscale
     chromium
-
-    betaflight-configurator
-    edgetx
     blender
 
     pass
@@ -137,6 +135,7 @@
     hugo
     k9s
     trivy
+    zoxide
 
     go
     shellcheck
@@ -145,6 +144,9 @@
   ];
 
   services.tailscale.enable = true;
+
+  fonts.packages = with pkgs; [ nerdfonts ];
+  fonts.fontDir.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -175,12 +177,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
-  stylix = {
-    image = /home/alex/Pictures/Wallpapers/0312.jpg;
-    polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }
