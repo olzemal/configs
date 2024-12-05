@@ -97,7 +97,7 @@ with lib.hm.gvariant;
       ];
     };
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 0;
+      idle-delay = mkUint32 900;
     };
     "org/gnome/settings-daemon/plugins/power" = {
       power-button-action = "interactive";
