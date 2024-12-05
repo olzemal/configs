@@ -6,9 +6,4 @@ if [ -z "$(command -v home-manager)" ]; then
   nix-shell '<home-manager>' -A install
 fi
 
-home_manager_dir="$HOME/.config/home-manager"
-
-[ ! -d "$home_manager_dir" ] && mkdir -p "$home_manager_dir"
-ln -s "$PWD/home.nix" "$home_manager_dir/home.nix"
-
-home-manager switch
+home-manager switch --flake .#alex
