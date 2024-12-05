@@ -103,8 +103,7 @@ with lib.hm.gvariant;
       power-button-action = "interactive";
       power-saver-profile-on-low-battery = false;
       sleep-inactive-ac-type = "nothing";
-      sleep-inactive-battery-type = "suspend";
-      sleep-inactive-battery-timeout = 1200;
+      sleep-inactive-battery-type = "nothing";
     };
     "org/gnome/desktop/wm/preferences" = {
       button-layout = ":minimize,maximize,close";
