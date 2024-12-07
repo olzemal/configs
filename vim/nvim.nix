@@ -1,6 +1,19 @@
 { config, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    ast-grep
+    nodePackages.bash-language-server
+    gopls
+    helm-ls
+    nodePackages.vscode-json-languageserver
+    lua-language-server
+    marksman
+    nixd
+    pyright
+    yaml-language-server
+  ];
+
   home.file = {
     ".config/nvim/lua/lib.lua".source = ./lua/lib.lua;
   };
@@ -13,47 +26,48 @@
   let
     toLua = str: "lua << EOF\n${str}\nEOF\n";
     toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+    vimPlug = pkgs.vimPlugins;
   in {
     enable = true;
     defaultEditor = true;
     viAlias = false;
     vimAlias = true;
     vimdiffAlias = true;
-    plugins = with pkgs.vimPlugins; [
-      { plugin = gruvbox-nvim; config = toLua "vim.cmd.colorscheme('gruvbox')"; }
-      nvim-web-devicons
+    plugins =  [
+      { plugin = vimPlug.gruvbox-nvim; config = toLua "vim.cmd.colorscheme('gruvbox')"; }
+      vimPlug.nvim-web-devicons
 
-      { plugin = nvim-lspconfig; config = toLuaFile ./lua/lsp.lua; }
-      mason-nvim
-      mason-lspconfig-nvim
+      { plugin = vimPlug.nvim-lspconfig; config = toLuaFile ./lua/lsp.lua; }
+      vimPlug.mason-nvim
+      vimPlug.mason-lspconfig-nvim
 
-      { plugin = nvim-dap; config = toLuaFile ./lua/dap.lua; }
-      nvim-dap-go
-      nvim-dap-ui
+      { plugin = vimPlug.nvim-dap; config = toLuaFile ./lua/dap.lua; }
+      vimPlug.nvim-dap-go
+      vimPlug.nvim-dap-ui
 
-      { plugin = nvim-cmp; config = toLuaFile ./lua/cmp.lua; }
-      cmp-emoji
-      cmp-buffer
-      cmp-path
-      cmp-cmdline
-      cmp-nvim-lsp
+      { plugin = vimPlug.nvim-cmp; config = toLuaFile ./lua/cmp.lua; }
+      vimPlug.cmp-emoji
+      vimPlug.cmp-buffer
+      vimPlug.cmp-path
+      vimPlug.cmp-cmdline
+      vimPlug.cmp-nvim-lsp
 
-      { plugin = vim-easy-align; config = toLuaFile ./lua/easyalign.lua; }
+      { plugin = vimPlug.vim-easy-align; config = toLuaFile ./lua/easyalign.lua; }
 
-      vim-fugitive
-      vim-gitgutter
+      vimPlug.vim-fugitive
+      vimPlug.vim-gitgutter
 
-      { plugin = ale; config = toLuaFile ./lua/ale.lua; }
-      { plugin = vim-go; config = toLuaFile ./lua/vimgo.lua; }
-      { plugin = vim-DetectSpellLang; config = toLuaFile ./lua/spelllang.lua; }
+      { plugin = vimPlug.ale; config = toLuaFile ./lua/ale.lua; }
+      { plugin = vimPlug.vim-go; config = toLuaFile ./lua/vimgo.lua; }
+      { plugin = vimPlug.vim-DetectSpellLang; config = toLuaFile ./lua/spelllang.lua; }
 
-      { plugin = nerdtree; config = toLuaFile ./lua/nerdtree.lua; }
-      { plugin = telescope-nvim; config = toLuaFile ./lua/telescope.lua; }
-      plenary-nvim
-      vim-visual-multi
+      { plugin = vimPlug.nerdtree; config = toLuaFile ./lua/nerdtree.lua; }
+      { plugin = vimPlug.telescope-nvim; config = toLuaFile ./lua/telescope.lua; }
+      vimPlug.plenary-nvim
+      vimPlug.vim-visual-multi
 
-      ultisnips
-      cmp-nvim-ultisnips
+      vimPlug.ultisnips
+      vimPlug.cmp-nvim-ultisnips
     ];
     extraLuaConfig = builtins.readFile ./lua/options.lua;
   };
