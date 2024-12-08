@@ -14,22 +14,22 @@
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   imports = [
-    ./wm/gnome/gnome.nix
-    ./vim/nvim.nix
+    ./apps/wm/gnome/gnome.nix
+    ./apps/vim/nvim.nix
   ];
 
   home.file = {
-    ".bashrc".source = ./shell/bashrc;
-    ".profile".source = ./shell/profile;
-    ".config/aliases".source = ./shell/aliases;
-    ".gitconfig".source = ./git/gitconfig;
+    ".bashrc".source = ./apps/shell/bashrc;
+    ".profile".source = ./apps/shell/profile;
+    ".config/aliases".source = ./apps/shell/aliases;
+    ".gitconfig".source = ./apps/git/gitconfig;
 
     ".local/bin" = {
-      source = ./scripts;
+      source = ./apps/scripts;
       recursive = true;
     };
 
-    ".config/kitty/kitty.conf".source = ./kitty/kitty.conf;
+    ".config/kitty/kitty.conf".source = ./apps/kitty/kitty.conf;
   };
 
   # Let Home Manager install and manage itself.
