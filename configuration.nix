@@ -2,15 +2,20 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
       ./system/system.nix
       ./system/locale.nix
 
       ./system/x11.nix
+      ./system/gnome.nix
 
-      ./system/syncthing.nix
+      ./system/appimage.nix
+      ./system/direnv.nix
+      ./system/fonts.nix
+      ./system/gpg.nix
       ./system/ssh.nix
+      ./system/syncthing.nix
       ./system/tailscale.nix
     ];
 
@@ -73,26 +78,6 @@
     python3
     shellcheck
   ];
-
-  fonts = {
-    packages = with pkgs; [ nerdfonts ];
-    fontDir.enable = true;
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
-  programs.appimage = {
-    enable = true;
-    binfmt = true;
-  };
-
-  programs.direnv.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
