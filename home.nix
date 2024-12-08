@@ -13,9 +13,6 @@
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
-  home.packages = [
-  ];
-
   imports = [
     ./wm/gnome/gnome.nix
     ./vim/nvim.nix
