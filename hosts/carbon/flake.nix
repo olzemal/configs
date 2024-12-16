@@ -37,7 +37,7 @@
       "alex" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-          ./home.nix
+          ../../homes/private/home.nix
         ];
         extraSpecialArgs = { inherit inputs; };
       };

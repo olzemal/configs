@@ -14,26 +14,29 @@
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   imports = [
-    ./apps/wm/gnome/gnome.nix
-    ./apps/vim/nvim.nix
+    ../../apps/wm/gnome/gnome.nix
+    ../../apps/k8s-tools.nix
+    ../../apps/games.nix
+    ../../apps/chat.nix
+    ../../apps/kitty/kitty.nix
+    ../../apps/music.nix
+    ../../apps/vim/nvim.nix
+    ../../apps/gui-tools.nix
+    ../../apps/cli-tools.nix
   ];
 
   home.file = {
-    ".bashrc".source = ./apps/shell/bashrc;
-    ".profile".source = ./apps/shell/profile;
-    ".config/aliases".source = ./apps/shell/aliases;
-    ".gitconfig".source = ./apps/git/gitconfig;
+    ".bashrc".source = ../../apps/shell/bashrc;
+    ".profile".source = ../../apps/shell/profile;
+    ".config/aliases".source = ../../apps/shell/aliases;
+    ".gitconfig".source = ../../apps/git/gitconfig;
 
     ".local/bin" = {
-      source = ./apps/scripts;
+      source = ../../apps/scripts;
       recursive = true;
     };
-
-    ".config/kitty/kitty.conf".source = ./apps/kitty/kitty.conf;
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-  programs.zoxide.enable = true;
 }

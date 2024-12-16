@@ -4,19 +4,19 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./system/system.nix
-      ./system/locale.nix
+      ../../system/system.nix
+      ../../system/locale.nix
 
-      ./system/x11.nix
-      ./system/gnome.nix
+      ../../system/x11.nix
+      ../../system/gnome.nix
 
-      ./system/appimage.nix
-      ./system/direnv.nix
-      ./system/fonts.nix
-      ./system/gpg.nix
-      ./system/ssh.nix
-      ./system/syncthing.nix
-      ./system/tailscale.nix
+      ../../system/appimage.nix
+      ../../system/direnv.nix
+      ../../system/fonts.nix
+      ../../system/gpg.nix
+      ../../system/ssh.nix
+      ../../system/syncthing.nix
+      ../../system/tailscale.nix
     ];
 
   networking.hostName = "carbon"; # Define your hostname.
@@ -37,46 +37,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    blender
-    chromium
-    discord
     home-manager
     hunspell
-    kitty
-    lutris
-    nerdfonts
-    obsidian
-    qtpass
-    signal-desktop
-    slack
-    spotify
 
-    bat
-    dig
-    direnv
-    fzf
-    gh
-    gojq
-    htop
-    hugo
-    k9s
-    kind
-    kubectl
-    kubernetes-helm
-    minikube
-    pass
-    pre-commit
-    semver
-    tree
-    trivy
-    wget
-    yq-go
-    zoxide
-
-    gdc
-    go
-    python3
-    shellcheck
+    chromium
   ];
 
   # This value determines the NixOS release from which the default
