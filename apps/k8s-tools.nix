@@ -2,6 +2,7 @@
 
 {
   home.packages = with pkgs; [
+    crossplane-cli
     docker-buildx
     k9s
     kind
