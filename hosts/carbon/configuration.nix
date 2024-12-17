@@ -12,6 +12,7 @@
 
       ../../system/appimage.nix
       ../../system/direnv.nix
+      ../../system/docker.nix
       ../../system/fonts.nix
       ../../system/gpg.nix
       ../../system/ssh.nix
@@ -25,7 +26,7 @@
   users.users.alex = {
     isNormalUser = true;
     description = "Alex";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
   # Install firefox.
