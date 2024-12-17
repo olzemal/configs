@@ -63,6 +63,7 @@
 
       { plugin = vimPlug.nerdtree; config = toLuaFile ./lua/nerdtree.lua; }
       { plugin = vimPlug.telescope-nvim; config = toLuaFile ./lua/telescope.lua; }
+      { plugin = vimPlug.indent-blankline-nvim; config = toLua "require('ibl').setup()"; }
       vimPlug.plenary-nvim
       vimPlug.vim-visual-multi
 
