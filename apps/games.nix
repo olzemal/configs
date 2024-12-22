@@ -1,7 +1,7 @@
-{ lib, pkgs, ... }:
+{ unstable, ... }:
 
 {
-  home.packages = with pkgs; [
+  home.packages = with unstable;[
     lutris
     steam
     vcv-rack

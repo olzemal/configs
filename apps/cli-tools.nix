@@ -7,7 +7,7 @@
     direnv
     fzf
     gh
-    gojq
+    jq
     htop
     hugo
     pass

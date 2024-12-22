@@ -2,7 +2,8 @@
   description = "My flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "nixpkgs/nixos-24.11";
+    unstable.url = "nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -22,6 +23,14 @@
         allowUnfreePredicate = (_: true);
       };
     };
+
+    unstable = import inputs.unstable {
+      system = systemSettings.system;
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = (_: true);
+      };
+    };
   in
   {
     nixosConfigurations = {
@@ -29,7 +38,10 @@
         modules = [
           ./configuration.nix
         ];
-        specialArgs = { inherit inputs; };
+        extraSpecialArgs = {
+          inherit inputs;
+          inherit unstable;
+        };
       };
     };
 
@@ -39,7 +51,10 @@
         modules = [
           ../../homes/private/home.nix
         ];
-        extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = {
+          inherit inputs;
+          inherit unstable;
+        };
       };
     };
   };
