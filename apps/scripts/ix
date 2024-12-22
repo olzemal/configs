@@ -1,16 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-url="ix.io"
+url="0x0.st"
 
 if [[ -t 0 ]]; then
-  # Get file from arg
-  if [[ -f "$1" ]]; then
-    curl -F f:1=@"$1" "$url"
-  else
-    curl "$url/$1"
-  fi
+  curl -F "file=@$1" "$url"
 else
-  # Read from stdin
-  curl -F f:1="<-" "$url"
+  echo "stdin not supported :("
 fi
-
