@@ -38,7 +38,7 @@
         modules = [
           ./configuration.nix
         ];
-        extraSpecialArgs = {
+        specialArgs = {
           inherit inputs;
           inherit unstable;
         };

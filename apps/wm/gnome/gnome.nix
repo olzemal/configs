@@ -108,6 +108,9 @@ with lib.hm.gvariant;
     "org/gnome/desktop/wm/preferences" = {
       button-layout = ":minimize,maximize,close";
     };
+    "org/gnome/desktop/peripherals/touchpad" = {
+      click-method = "areas";
+    };
     "org/gnome/desktop/wm/keybindings" = {
       screenreader = [];
       move-to-monitor-left = [];
