@@ -91,6 +91,7 @@ with lib.hm.gvariant;
         "discord.desktop"
         "slack.desktop"
         "net.lutris.Lutris.desktop"
+        "chrome-ecncjmpdddaohegghdgbiblpacgaehib-Default.desktop"
         "betaflight-configurator.desktop"
         "blender.desktop"
         "org.gnome.Settings.desktop"

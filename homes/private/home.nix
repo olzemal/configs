@@ -14,15 +14,16 @@
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   imports = [
-    ../../apps/wm/gnome/gnome.nix
-    ../../apps/k8s-tools.nix
-    ../../apps/games.nix
     ../../apps/chat.nix
+    ../../apps/cli-tools.nix
+    ../../apps/fpv.nix
+    ../../apps/games.nix
+    ../../apps/gui-tools.nix
+    ../../apps/k8s-tools.nix
     ../../apps/kitty/kitty.nix
     ../../apps/music.nix
     ../../apps/vim/nvim.nix
-    ../../apps/gui-tools.nix
-    ../../apps/cli-tools.nix
+    ../../apps/wm/gnome/gnome.nix
   ];
 
   home.file = {

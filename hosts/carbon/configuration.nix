@@ -18,6 +18,8 @@
       ../../system/ssh.nix
       ../../system/syncthing.nix
       ../../system/tailscale.nix
+
+      ../../system/udev-rules.nix
     ];
 
   networking.hostName = "carbon"; # Define your hostname.
@@ -26,7 +28,7 @@
   users.users.alex = {
     isNormalUser = true;
     description = "Alex";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
   };
 
   # Install firefox.
