@@ -47,9 +47,9 @@ with lib.hm.gvariant;
       show-in-lock-screen = false;
     };
     "org/gnome/desktop/input-sources" = {
-       mru-sources = [ (mkTuple [ "xkb" "us+alt-intl" ]) (mkTuple [ "xkb" "de" ]) ];
+       mru-sources = [ (mkTuple [ "xkb" "de" ]) (mkTuple [ "xkb" "us+alt-intl" ]) ];
        per-window = false;
-       sources = [ (mkTuple [ "xkb" "us+alt-intl" ]) (mkTuple [ "xkb" "de" ]) ];
+       sources = [ (mkTuple [ "xkb" "de" ]) (mkTuple [ "xkb" "us+alt-intl" ]) ];
        xkb-options = ["caps:swapescape" "lv3:ralt_switch"];
     };
     "org/gnome/desktop/interface" = {

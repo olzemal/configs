@@ -3,14 +3,15 @@
 {
   home.packages = with pkgs; [
     ast-grep
-    nodePackages.bash-language-server
     gopls
     helm-ls
-    nodePackages.vscode-json-languageserver
     lua-language-server
     marksman
     nixd
+    nodePackages.bash-language-server
+    nodePackages.vscode-json-languageserver
     pyright
+    ripgrep
     yaml-language-server
   ];
 
