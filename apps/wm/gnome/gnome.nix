@@ -110,6 +110,7 @@ with lib.hm.gvariant;
       button-layout = ":minimize,maximize,close";
     };
     "org/gnome/desktop/peripherals/touchpad" = {
+      tap-to-click = false;
       click-method = "areas";
     };
     "org/gnome/desktop/wm/keybindings" = {
