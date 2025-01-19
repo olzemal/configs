@@ -110,6 +110,7 @@ complete -cf sudo
 [[ -n "$(command -v kind)"     ]] && . <(kind completion bash 2>/dev/null)
 [[ -n "$(command -v zarf)"     ]] && . <(zarf completion bash 2>/dev/null)
 [[ -n "$(command -v cilium)"   ]] && . <(cilium completion bash 2>/dev/null)
+[[ -n "$(command -v porter)"   ]] && . <(porter completion bash 2>/dev/null)
 
 _kube_contexts() {
   local cur;
