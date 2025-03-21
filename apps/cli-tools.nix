@@ -7,9 +7,11 @@
     direnv
     fzf
     gh
+    gnumake
     jq
     htop
     hugo
+    openssl
     pass
     pre-commit
     semver

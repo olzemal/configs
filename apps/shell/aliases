@@ -51,3 +51,7 @@ if [ -n "$(command -v zoxide)" ]; then
   eval "$(zoxide init bash)"
   alias cd="z"
 fi
+
+for i in $(seq 2 4); do
+  alias "$(for _ in $(seq "$i"); do printf "."; done)=cd $(for _ in $(seq "$((i-1))"); do printf "../"; done)"
+done
