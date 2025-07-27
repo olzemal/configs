@@ -2,7 +2,7 @@
 require "lib"
 
 -- vim-go options
-vim.g.go_fmt_fail_silently               = 1
+vim.g.go_fmt_fail_silently               = 0
 vim.g.go_fmt_command                     = 'goimports'
 vim.g.go_fmt_autosave                    = 1
 vim.g.go_gopls_enabled                   = 1
@@ -18,6 +18,7 @@ vim.g.go_highlight_build_constraints     = 1
 vim.g.go_highlight_diagnostic_errors     = 1
 vim.g.go_highlight_diagnostic_warnings   = 1
 vim.g.go_auto_type_info                  = 1
+vim.g.go_list_type                       = "quickfix"
 
 autocmd({'BufNewFile', 'BufRead'}, {
   pattern = 'go',
@@ -31,8 +32,8 @@ autocmd({'BufNewFile', 'BufRead'}, {
 autocmd('FileType', {
   pattern = 'go',
   callback = function()
-    keymap('n', '<Leader>r', '<cmd>GoRun! %<CR>')
-    keymap('n', '<Leader>t', '<cmd>!go test<CR>')
+    keymap('n', '<Leader>r', '<cmd>!go run %<CR>')
+    keymap('n', '<Leader>t', '<cmd>!go test ./...<CR>')
     keymap('n', '<Leader>v', '<cmd>GoVet!<CR>')
     keymap('n', '<Leader>b', '<cmd>GoBuild!<CR>')
     keymap('n', '<Leader>c', '<cmd>GoCoverageToggle<CR>')
