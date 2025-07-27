@@ -80,6 +80,7 @@ with lib.hm.gvariant;
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
       ];
+      # gsettings get org.gnome.shell favorite-apps
       favorite-apps = [
         "firefox.desktop"
         "qtpass.desktop"
@@ -94,6 +95,7 @@ with lib.hm.gvariant;
         "chrome-ecncjmpdddaohegghdgbiblpacgaehib-Default.desktop"
         "betaflight-configurator.desktop"
         "blender.desktop"
+        "OrcaSlicer.desktop"
         "org.gnome.Settings.desktop"
       ];
     };

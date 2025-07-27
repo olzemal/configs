@@ -6,6 +6,7 @@
     gimp
     inkscape
     obsidian
+    orca-slicer
     qtpass
   ];
 }
