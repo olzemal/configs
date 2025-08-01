@@ -16,6 +16,7 @@
   imports = [
     ../../apps/chat.nix
     ../../apps/cli-tools.nix
+    ../../apps/code/code.nix
     ../../apps/fpv.nix
     ../../apps/games.nix
     ../../apps/gui-tools.nix
