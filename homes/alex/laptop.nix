@@ -8,7 +8,7 @@
     ./common
 
     ./features/gui/common.nix
-    ./features/gui/gnome/gnome.nix
+    ./features/gui/gnome
 
     ./features/git
     ./features/bash
