@@ -12,7 +12,7 @@
   home.packages = with unstable; [
     betaflight-configurator
     chromium
-    orca-slicer
+#    orca-slicer  # https://github.com/NixOS/nixpkgs/issues/429433
   ];
 
   home.file = {
