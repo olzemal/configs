@@ -1,7 +1,7 @@
 { unstable, ... }:
 
 {
-  unstable.overlays = [
+  nixpkgs.overlays = [
     (final: prev: {
       nwjs = prev.nwjs.overrideAttrs {
         version = "0.84.0";
@@ -13,12 +13,11 @@
     })
   ];
 
-  home.packages = with unstable;[
+  home.packages = with unstable; [
     lutris
-    wine64
-    winetricks
-
     steam
     vcv-rack
+    wine64
+    winetricks
   ];
 }

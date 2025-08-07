@@ -2,6 +2,17 @@
 
 My configuration files and shell scripts.
 
+## Apply home-manager configuration
+
+```console
+$ home-manager switch --flake .#alex@laptop
+```
+## Apply NixOS configuration
+
+```console
+$ sudo nixos-rebuild switch --flake .#laptop
+```
+
 ## Get home-manager for bootstrapping
 
 ```console
@@ -10,12 +21,4 @@ $ nix-channel --add https://github.com/nix-community/home-manager/archive/master
 $ nix-channel --update
 
 $ nix-shell '<home-manager>' -A install
-
-$ home-manager switch --flake ./homes/<profile>#default
-```
-
-```console
-$ sudo nixos-rebuild switch --flake .#default
-
-$ home-manager switch --flake .
 ```

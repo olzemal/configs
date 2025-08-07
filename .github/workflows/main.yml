@@ -11,4 +11,4 @@ jobs:
           sudo apt install shellcheck
           scripts=$(find . -type f -perm /u=x,g=x,o=x | sed 's#^./.git/.*##' |  grep .)
           echo $scripts
-          shellcheck $scripts | tee shellcheck.log          
+          shellcheck $scripts | tee shellcheck.log
