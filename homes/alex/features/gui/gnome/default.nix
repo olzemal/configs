@@ -95,7 +95,7 @@ with lib.hm.gvariant;
         "chrome-iadnoobhlbjkjgjddpaopeaiejghgegg-Default.desktop"
         "chrome-ecncjmpdddaohegghdgbiblpacgaehib-Default.desktop"
         "betaflight-configurator.desktop"
-        "blender.desktop"
+        "org.freecad.FreeCAD.desktop"
         "OrcaSlicer.desktop"
         "org.gnome.Settings.desktop"
       ];

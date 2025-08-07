@@ -11,7 +11,9 @@
 
   home.packages = with unstable; [
     betaflight-configurator
+    blender
     chromium
+    freecad
 #    orca-slicer  # https://github.com/NixOS/nixpkgs/issues/429433
   ];
 
