@@ -5,6 +5,7 @@
     ast-grep
     gopls
     helm-ls
+    hunspell
     lua-language-server
     marksman
     nixd

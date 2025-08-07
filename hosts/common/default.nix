@@ -1,9 +1,29 @@
 { config, pkgs, ... }:
+
 {
-  # Set your time zone.
+  nix = {
+    enable = true;
+    package = pkgs.nix;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    curl
+    direnv
+    git
+    vim
+    wget
+  ];
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  programs.direnv.enable = true;
+
   time.timeZone = "Europe/Berlin";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -18,6 +38,5 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  # Configure console keymap
   console.keyMap = "de";
 }
