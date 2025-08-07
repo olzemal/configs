@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+declare -a lines
+i=0
+while IFS= read -r line; do
+  lines[i]="$line"
+  i=$((i+1))
+done
+
+max=0
+for line in "${lines[@]}"; do
+  [[ ${#line} -gt $max ]] && max=${#line}
+done
+
+case $1 in
+  C|c)
+    printf '/'
+    for _ in $(seq 0 $((max+3))); do printf "*"; done; printf '/\n'
+    for line in "${lines[@]}"; do
+      printf '/* %-'"$((max))"'s */\n' "$line"
+    done
+    printf '/'
+    for _ in $(seq 0 $((max+3))); do printf "*"; done; printf '/\n'
+    ;;
+
+  go)
+    for _ in $(seq 0 $((max+5))); do printf "/"; done; printf '\n'
+    for line in "${lines[@]}"; do
+      printf '// %-'"$((max))"'s //\n' "$line"
+    done
+    for _ in $(seq 0 $((max+5))); do printf "/"; done; printf '\n'
+    ;;
+
+  bash|python)
+    for _ in $(seq 0 $((max+3))); do printf "#"; done; printf '\n'
+    for line in "${lines[@]}"; do
+      printf '# %-'"$((max))"'s #\n' "$line"
+    done
+    for _ in $(seq 0 $((max+3))); do printf "#"; done; printf '\n'
+    ;;
+
+  double)
+    printf '╔'
+    for _ in $(seq 0 $((max+1))); do printf "═"; done; printf '╗\n'
+    for line in "${lines[@]}"; do
+      printf '║ %-'"$((max))"'s ║\n' "$line"
+    done
+    printf '╚'
+    for _ in $(seq 0 $((max+1))); do printf "═"; done; printf '╝\n'
+    ;;
+
+  *)
+    printf '┌'
+    for _ in $(seq 0 $((max+1))); do printf "─"; done; printf '┐\n'
+    for line in "${lines[@]}"; do
+      printf '│ %-'"$((max))"'s │\n' "$line"
+    done
+    printf '└'
+    for _ in $(seq 0 $((max+1))); do printf "─"; done; printf '┘\n'
+    ;;
+esac
+

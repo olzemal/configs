@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+search="$1"
+
+grep-dict() {
+  grep "^$1" /etc/dictionaries-common/words
+}
+
+if [[ "$(grep-dict "$search" | wc -l)" -ge 1 ]]; then
+  printf 'ok\n'
+else
+  while [[ ${#search} -gt 0 ]]; do
+    search=${search:: -1}
+    if [[ "$(grep-dict "$search" | wc -l)" -ge 1 ]]; then
+      printf 'Did you mean:\n'
+      grep-dict "$search"
+      break
+    fi
+  done
+fi

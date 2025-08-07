@@ -1,0 +1,17 @@
+[user]
+	name = Alexander Olzem
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[commit]
+	gpgsign = true
+[includeIf "gitdir:~/repos/work/"]
+	path = ~/.gitconfig-work
+[push]
+	autoSetupRemote = true
