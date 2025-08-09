@@ -1,17 +1,8 @@
 { unstable, pkgs, ... }:
 
 {
-  nixpkgs.overlays = [
-    (final: prev: {
-      blender = prev.blender.overrideAttrs (old: {
-        pythonPath = (old.pythonPath or []) ++ [unstable.python313Packages.py-slvs];
-      });
-    })
-  ];
-
   home.packages = with unstable; [
     betaflight-configurator
-    blender
     chromium
     freecad
 #    orca-slicer  # https://github.com/NixOS/nixpkgs/issues/429433
