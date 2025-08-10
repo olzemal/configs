@@ -2,7 +2,12 @@
 
 {
   services.xserver = {
-    displayManager.gdm.enable = true;
+    enable = true;
+
+    displayManager.gdm = {
+      enable = true;
+      wayland = false;
+    };
     desktopManager.gnome.enable = true;
   };
 }
