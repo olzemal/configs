@@ -1,11 +1,11 @@
-{ unstable, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  home.packages = with unstable; [
-    betaflight-configurator
-    chromium
-    freecad
-#    orca-slicer  # https://github.com/NixOS/nixpkgs/issues/429433
+  home.packages = with pkgs; [
+    unstable.betaflight-configurator
+    unstable.chromium
+    unstable.freecad
+    edge.orca-slicer
   ];
 
   home.file = {

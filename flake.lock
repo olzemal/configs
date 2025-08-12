@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "edge": {
+      "locked": {
+        "lastModified": 1754985284,
+        "narHash": "sha256-mMa+AWPCre9kgXOXLqFqBaEF4/d+zDPvF7tiYYXzUco=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "18ee56ea9763ff1442fb9e3833a0a9cbdc47bcbd",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "HEAD",
+        "type": "indirect"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -38,6 +53,7 @@
     },
     "root": {
       "inputs": {
+        "edge": "edge",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "unstable": "unstable"

@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.11";
     unstable.url = "nixpkgs/nixos-unstable";
+    edge.url = "nixpkgs/HEAD";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
@@ -11,7 +12,7 @@
     };
   };
 
-  outputs = { nixpkgs, unstable, home-manager, ... }@inputs:
+  outputs = { nixpkgs, unstable, edge, home-manager, ... }@inputs:
   let
     lib = nixpkgs.lib;
     systems = ["x86_64-linux" "aarch64-linux"];
@@ -21,16 +22,20 @@
         allowUnfree = true;
         allowUnfreePredicate = (_: true);
       };
-    });
-    unstableFor = lib.genAttrs systems (system: import unstable {
-      inherit system;
-      config = {
-        allowUnfree = true;
-        allowUnfreePredicate = (_: true);
-      };
+      overlays = [
+        (final: _prev: {
+          unstable = import unstable {
+            inherit (final) system config;
+          };
+          edge = import edge {
+            inherit (final) system config;
+          };
+        })
+      ];
     });
   in
   {
+
     nixosConfigurations = {
       "laptop" = nixpkgs.lib.nixosSystem {
         pkgs = pkgsFor.x86_64-linux;
@@ -39,7 +44,6 @@
         ];
         specialArgs = {
           inherit inputs;
-          unstable = unstableFor.x86_64-linux;
         };
       };
     };
@@ -52,7 +56,6 @@
         ];
         extraSpecialArgs = {
           inherit inputs;
-          unstable = unstableFor.x86_64-linux;
         };
       };
 #      "alex@work" = home-manager.lib.homeManagerConfiguration {
@@ -61,7 +64,7 @@
 #          ./homes/alex/work.nix
 #        ];
 #        extraSpecialArgs = {
-#          inherit unstable;
+#          inherit inputs;
 #        };
 #      };
     };

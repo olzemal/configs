@@ -1,7 +1,7 @@
-{ unstable, ... }:
+{ pkgs, ... }:
 
 {
-  home.packages = with unstable; [
+  home.packages = with pkgs.unstable; [
     discord
     gimp
     inkscape
