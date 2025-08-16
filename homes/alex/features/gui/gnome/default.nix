@@ -1,8 +1,7 @@
 { lib, pkgs, ... }:
 
-with lib.hm.gvariant;
-{
-  home.packages = with pkgs.gnomeExtensions; [
+let
+  extensions = with pkgs.gnomeExtensions; [
     blur-my-shell
     caffeine
     dash-to-dock
@@ -10,6 +9,10 @@ with lib.hm.gvariant;
     just-perfection
     tailscale-qs
   ];
+in
+with lib.hm.gvariant;
+{
+  home.packages = extensions;
 
   programs.gnome-shell = {
     enable = true;
@@ -67,18 +70,13 @@ with lib.hm.gvariant;
     };
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      enabled-extensions = with pkgs.gnomeExtensions; [
-        blur-my-shell.extensionUuid
-        caffeine.extensionUuid
-        dash-to-dock.extensionUuid
-        emoji-copy.extensionUuid
-        just-perfection.extensionUuid
-        launch-new-instance.extensionUuid
-        native-window-placement.extensionUuid
-        removable-drive-menu.extensionUuid
-        tailscale-qs.extensionUuid
-        workspace-indicator.extensionUuid
-      ];
+      enabled-extensions = with pkgs.gnomeExtensions; builtins.map (e: e.extensionUuid)
+        ([
+          launch-new-instance
+          native-window-placement
+          removable-drive-menu
+          workspace-indicator
+        ] ++ extensions);
       # gsettings get org.gnome.shell favorite-apps
       favorite-apps = [
         "firefox.desktop"
