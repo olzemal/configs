@@ -2,7 +2,11 @@
 
 {
   fonts = {
-    packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" "Hack" ]; }) ];
+    packages = with pkgs.nerd-fonts; [
+      hack
+      iosevka
+      jetbrains-mono
+    ];
     fontDir.enable = true;
   };
 }

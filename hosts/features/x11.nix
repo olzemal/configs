@@ -3,6 +3,7 @@
 {
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  hardware.graphics.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -14,7 +15,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
