@@ -11,6 +11,14 @@ with lib.hm.gvariant;
     tailscale-qs
   ];
 
+  programs.gnome-shell = {
+    enable = true;
+    theme = {
+      name = "Gruvbox-Dark";
+      package = pkgs.gruvbox-gtk-theme;
+    };
+  };
+
   home.sessionVariables.GTK_THEME = "Gruvbox-Dark";
 
   gtk = {
@@ -26,13 +34,6 @@ with lib.hm.gvariant;
     cursorTheme = {
       name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
-    };
-    gtk3.extraConfig = {
-    };
-    gtk4.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
     };
   };
 
@@ -66,16 +67,17 @@ with lib.hm.gvariant;
     };
     "org/gnome/shell" = {
       disable-user-extensions = false;
-      enabled-extensions = [
-        "blur-my-shell@aunetx"
-        "caffeine@patapon.info"
-        "dash-to-dock@micxgx.gmail.com"
-        "drive-menu@gnome-shell-extensions.gcampax.github.com"
-        "just-perfection-desktop@just-perfection"
-        "native-window-placement@gnome-shell-extensions.gcampax.github.com"
-        "tailscale@joaophi.github.com"
-        "user-theme@gnome-shell-extensions.gcampax.github.com"
-        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+      enabled-extensions = with pkgs.gnomeExtensions; [
+        blur-my-shell.extensionUuid
+        caffeine.extensionUuid
+        dash-to-dock.extensionUuid
+        emoji-copy.extensionUuid
+        just-perfection.extensionUuid
+        launch-new-instance.extensionUuid
+        native-window-placement.extensionUuid
+        removable-drive-menu.extensionUuid
+        tailscale-qs.extensionUuid
+        workspace-indicator.extensionUuid
       ];
       # gsettings get org.gnome.shell favorite-apps
       favorite-apps = [
