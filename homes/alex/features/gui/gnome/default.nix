@@ -86,6 +86,7 @@ with lib.hm.gvariant;
         "obsidian.desktop"
         "spotify.desktop"
         "net.lutris.Lutris.desktop"
+        "steam.desktop"
         "org.gnome.Nautilus.desktop"
         "signal-desktop.desktop"
         "discord.desktop"
