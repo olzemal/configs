@@ -10,6 +10,7 @@
       ../features/docker.nix
       ../features/fonts.nix
       ../features/gnome.nix
+      ../features/steam.nix
       ../features/syncthing.nix
       ../features/tailscale.nix
       ../features/x11.nix
@@ -41,6 +42,12 @@
       SUBSYSTEM=="usb", ATTRS{idVendor}=="2e3c", ATTRS{idProduct}=="df11", TAG+="uaccess"
       SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess"
     '')
+  ];
+
+  hardware.graphics.extraPackages = with pkgs; [
+    vulkan-loader
+    vulkan-validation-layers
+    vulkan-extension-layer
   ];
 
   # This value determines the NixOS release from which the default
