@@ -9,6 +9,7 @@ let
     just-perfection
     tailscale-qs
     tiling-shell
+    tray-icons-reloaded
   ];
 in
 with lib.hm.gvariant;
@@ -287,6 +288,15 @@ with lib.hm.gvariant;
         ]
       '';
       selected-layouts = [["Horizontal Split" "Vertical Thirds"]];
+    };
+
+    "/org/gnome/shell/extensions/trayIconsReloaded" = {
+      applications = [];
+      icon-margin-horizontal = 0;
+      icon-padding-horizontal = 0;
+      icon-size = 20;
+      tray-margin-left = 0;
+      tray-margin-right = 0;
     };
 
     "org/gtk/gtk4/settings/file-chooser" = {
