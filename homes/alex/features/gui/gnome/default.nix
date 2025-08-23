@@ -8,6 +8,7 @@ let
     emoji-copy
     just-perfection
     tailscale-qs
+    tiling-shell
   ];
 in
 with lib.hm.gvariant;
@@ -58,7 +59,7 @@ with lib.hm.gvariant;
       show-battery-percentage = true;
     };
     "org/gnome/mutter" = {
-      edge-tiling = true;
+      edge-tiling = false;
       dynamic-workspaces = true;
     };
     "org/gnome/desktop/peripherals/mouse" = {
@@ -233,6 +234,60 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
       blur = false;
     };
+
+    "org/gnome/shell/extensions/tilingshell" = {
+      inner-gaps = mkUint32 0;
+      outer-gaps = mkUint32 0;
+      resize-complementing-windows = true;
+      enable-autotiling = false;
+      enable-move-keybindings = false;
+      enable-tiling-system-windows-suggestions = true;
+      enable-snap-assistant-windows-suggestions = true;
+      enable-screen-edges-windows-suggestions = true;
+      layouts-json = ''
+        [
+          {
+            "id": "Horizontal Split",
+            "tiles": [
+              {"x": 0,   "y": 0, "width": 0.5, "height": 1, "groups": [1]},
+              {"x": 0.5, "y": 0, "width": 0.5, "height": 1, "groups": [2]}
+            ]
+          },
+          {
+            "id": "Horizontal Thirds",
+            "tiles": [
+              {"x": 0,     "y": 0, "width": 0.333, "height": 1, "groups": [1   ]},
+              {"x": 0.333, "y": 0, "width": 0.333, "height": 1, "groups": [2, 1]},
+              {"x": 0.666, "y": 0, "width": 0.333, "height": 1, "groups": [2   ]}
+            ]
+          },
+          {
+            "id": "Left Two Thirds",
+            "tiles": [
+              {"x": 0,     "y": 0, "width": 0.333, "height": 1, "groups": [1]},
+              {"x": 0.333, "y": 0, "width": 0.666, "height": 1, "groups": [2]}
+            ]
+          },
+          {
+            "id": "Right Two Thirds",
+            "tiles": [
+              {"x": 0,     "y": 0, "width": 0.666, "height": 1, "groups": [1]},
+              {"x": 0.666, "y": 0, "width": 0.333, "height": 1, "groups": [2]}
+            ]
+          },
+          {
+            "id": "Vertical Thirds",
+            "tiles": [
+              {"x": 0, "y": 0,     "width": 1, "height": 0.333, "groups": [1   ]},
+              {"x": 0, "y": 0.333, "width": 1, "height": 0.333, "groups": [2, 1]},
+              {"x": 0, "y": 0.666, "width": 1, "height": 0.333, "groups": [2   ]}
+            ]
+          }
+        ]
+      '';
+      selected-layouts = [["Horizontal Split" "Vertical Thirds"]];
+    };
+
     "org/gtk/gtk4/settings/file-chooser" = {
       show-hidden = true;
     };
