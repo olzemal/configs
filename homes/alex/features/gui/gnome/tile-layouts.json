@@ -1,0 +1,32 @@
+[
+  {
+    "id": "Horizontal Split",
+    "tiles": [
+      {"x": 0,   "y": 0, "width": 0.5, "height": 1, "groups": [1]},
+      {"x": 0.5, "y": 0, "width": 0.5, "height": 1, "groups": [2]}
+    ]
+  },
+  {
+    "id": "Horizontal Thirds",
+    "tiles": [
+      {"x": 0,     "y": 0, "width": 0.333, "height": 1, "groups": [1   ]},
+      {"x": 0.333, "y": 0, "width": 0.333, "height": 1, "groups": [2, 1]},
+      {"x": 0.666, "y": 0, "width": 0.333, "height": 1, "groups": [2   ]}
+    ]
+  },
+  {
+    "id": "Vertical Split",
+    "tiles": [
+      {"x": 0, "y": 0,   "width": 1, "height": 0.5, "groups": [1]},
+      {"x": 0, "y": 0.5, "width": 1, "height": 0.5, "groups": [2]}
+    ]
+  },
+  {
+    "id": "Vertical Thirds",
+    "tiles": [
+      {"x": 0, "y": 0,     "width": 1, "height": 0.333, "groups": [1   ]},
+      {"x": 0, "y": 0.333, "width": 1, "height": 0.333, "groups": [2, 1]},
+      {"x": 0, "y": 0.666, "width": 1, "height": 0.333, "groups": [2   ]}
+    ]
+  }
+]

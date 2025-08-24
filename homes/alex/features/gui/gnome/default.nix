@@ -239,6 +239,11 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/tilingshell" = {
+      enable-tiling-system = true;
+      tiling-system-activation-key = ["0"];
+      enable-span-multiple-tiles = true;
+      span-multiple-tiles-activation-key = ["1"];
+
       inner-gaps = mkUint32 0;
       outer-gaps = mkUint32 0;
       resize-complementing-windows = true;
@@ -247,47 +252,8 @@ with lib.hm.gvariant;
       enable-tiling-system-windows-suggestions = true;
       enable-snap-assistant-windows-suggestions = true;
       enable-screen-edges-windows-suggestions = true;
-      layouts-json = ''
-        [
-          {
-            "id": "Horizontal Split",
-            "tiles": [
-              {"x": 0,   "y": 0, "width": 0.5, "height": 1, "groups": [1]},
-              {"x": 0.5, "y": 0, "width": 0.5, "height": 1, "groups": [2]}
-            ]
-          },
-          {
-            "id": "Horizontal Thirds",
-            "tiles": [
-              {"x": 0,     "y": 0, "width": 0.333, "height": 1, "groups": [1   ]},
-              {"x": 0.333, "y": 0, "width": 0.333, "height": 1, "groups": [2, 1]},
-              {"x": 0.666, "y": 0, "width": 0.333, "height": 1, "groups": [2   ]}
-            ]
-          },
-          {
-            "id": "Left Two Thirds",
-            "tiles": [
-              {"x": 0,     "y": 0, "width": 0.333, "height": 1, "groups": [1]},
-              {"x": 0.333, "y": 0, "width": 0.666, "height": 1, "groups": [2]}
-            ]
-          },
-          {
-            "id": "Right Two Thirds",
-            "tiles": [
-              {"x": 0,     "y": 0, "width": 0.666, "height": 1, "groups": [1]},
-              {"x": 0.666, "y": 0, "width": 0.333, "height": 1, "groups": [2]}
-            ]
-          },
-          {
-            "id": "Vertical Thirds",
-            "tiles": [
-              {"x": 0, "y": 0,     "width": 1, "height": 0.333, "groups": [1   ]},
-              {"x": 0, "y": 0.333, "width": 1, "height": 0.333, "groups": [2, 1]},
-              {"x": 0, "y": 0.666, "width": 1, "height": 0.333, "groups": [2   ]}
-            ]
-          }
-        ]
-      '';
+
+      layouts-json = (builtins.readFile ./tile-layouts.json);
       selected-layouts = [["Horizontal Split" "Vertical Thirds"]];
     };
 
