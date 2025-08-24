@@ -88,6 +88,7 @@ with lib.hm.gvariant;
         "spotify.desktop"
         "net.lutris.Lutris.desktop"
         "steam.desktop"
+        "com.moonlight_stream.Moonlight.desktop"
         "org.gnome.Nautilus.desktop"
         "signal-desktop.desktop"
         "discord.desktop"
@@ -101,7 +102,7 @@ with lib.hm.gvariant;
       ];
     };
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 900;
+      idle-delay = mkUint32 0;
     };
     "org/gnome/settings-daemon/plugins/power" = {
       power-button-action = "interactive";
@@ -290,8 +291,7 @@ with lib.hm.gvariant;
       selected-layouts = [["Horizontal Split" "Vertical Thirds"]];
     };
 
-    "/org/gnome/shell/extensions/trayIconsReloaded" = {
-      applications = [];
+    "org/gnome/shell/extensions/trayIconsReloaded" = {
       icon-margin-horizontal = 0;
       icon-padding-horizontal = 0;
       icon-size = 20;
