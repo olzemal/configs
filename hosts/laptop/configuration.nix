@@ -22,6 +22,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelParams = [
+    "i915.enable_psr=0"
+    "i915.enable_fbc=0"
+  ];
+
   networking.networkmanager.enable = true;
 
   users.users.alex = {
