@@ -27,6 +27,12 @@
     "i915.enable_fbc=0"
   ];
 
+  boot.blacklistedKernelModules = [ "cdc_ncm" ];
+
+  boot.kernelModules = [
+    "r8152"
+  ];
+
   networking.networkmanager.enable = true;
 
   users.users.alex = {
@@ -48,6 +54,8 @@
       SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess"
     '')
   ];
+
+  services.fwupd.enable = true;
 
   hardware = {
     bluetooth.enable = true;

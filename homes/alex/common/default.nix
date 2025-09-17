@@ -25,6 +25,9 @@
     zoxide
   ];
 
+  # Do not manage keyboard layout by home-manager
+  home.keyboard = null;
+
   programs.zoxide.enable = true;
 
   # This value determines the Home Manager release that your configuration is

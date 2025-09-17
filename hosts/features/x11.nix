@@ -7,7 +7,7 @@
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "de";
+    layout = "de,us";
     variant = "";
   };
 
