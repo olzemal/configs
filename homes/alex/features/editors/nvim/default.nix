@@ -3,6 +3,8 @@
 {
   home.packages = with pkgs; [
     ast-grep
+    delve
+    go
     gopls
     helm-ls
     hunspell
@@ -46,6 +48,7 @@
       { plugin = vimPlug.nvim-dap; config = toLuaFile ./lua/dap.lua; }
       vimPlug.nvim-dap-go
       vimPlug.nvim-dap-ui
+      { plugin = vimPlug.persistent-breakpoints-nvim; config = toLua "require('persistent-breakpoints').setup{ load_breakpoints_event = { 'BufReadPost' }}"; }
 
       { plugin = vimPlug.nvim-cmp; config = toLuaFile ./lua/cmp.lua; }
       vimPlug.cmp-emoji
