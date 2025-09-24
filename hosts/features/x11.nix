@@ -9,6 +9,7 @@
   services.xserver.xkb = {
     layout = "de,us";
     variant = "";
+    options = "compose:ralt";
   };
 
   # Enable CUPS to print documents.
