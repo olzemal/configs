@@ -25,6 +25,8 @@
   boot.kernelParams = [
     "i915.enable_psr=0"
     "i915.enable_fbc=0"
+    "i915.enable_dc=0"
+    "i915.disable_power_well=1"
   ];
 
   boot.blacklistedKernelModules = [ "cdc_ncm" ];
