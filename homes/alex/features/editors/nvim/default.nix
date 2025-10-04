@@ -62,11 +62,14 @@
       vimPlug.vim-fugitive
       vimPlug.vim-gitgutter
 
+      { plugin = vimPlug.barbar-nvim; config = toLuaFile ./lua/barbar.lua; }
+
+      { plugin = vimPlug.persisted-nvim; config = toLuaFile ./lua/persisted.lua; }
+
       { plugin = vimPlug.ale; config = toLuaFile ./lua/ale.lua; }
       { plugin = vimPlug.vim-go; config = toLuaFile ./lua/vimgo.lua; }
       { plugin = vimPlug.vim-DetectSpellLang; config = toLuaFile ./lua/spelllang.lua; }
 
-      { plugin = vimPlug.nerdtree; config = toLuaFile ./lua/nerdtree.lua; }
       { plugin = vimPlug.telescope-nvim; config = toLuaFile ./lua/telescope.lua; }
       { plugin = vimPlug.indent-blankline-nvim; config = toLua "require('ibl').setup()"; }
       vimPlug.plenary-nvim

@@ -1,5 +1,13 @@
-require "lib"
+require("lib")
 
--- ctrl-p
-keymap('n', '<c-p>', function() require('telescope.builtin').live_grep() end)
-keymap('n', '<c-f>', function() require('telescope.builtin').find_files() end)
+local telescope = require("telescope")
+local builtin = require("telescope.builtin")
+
+telescope.setup{
+  defaults = {
+    scroll_strategy = "limit"
+  }
+}
+
+keymap('n', '<C-P>', builtin.live_grep)
+keymap('n', '<C-F>', builtin.find_files)
