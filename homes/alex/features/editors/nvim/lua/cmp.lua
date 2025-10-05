@@ -96,12 +96,28 @@ cmp.setup({
     ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item()),
   },
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'ultisnips' },
-    { name = 'path' },
-    { name = 'emoji' },
-  }, {
-    { name = 'buffer' },
+    {
+      name = 'nvim_lsp',
+      priority = 10
+    },
+    {
+      name = 'ultisnips',
+      priority = 9
+    },
+    {
+      name = 'path',
+      priority = 8
+    },
+    {
+      name = 'emoji',
+      priority = 2,
+      max_item_count = 5
+    },
+    {
+      name = 'buffer',
+      priority = 1,
+      max_item_count = 1
+    }
   })
 })
 

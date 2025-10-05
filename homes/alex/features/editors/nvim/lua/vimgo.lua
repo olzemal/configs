@@ -32,8 +32,8 @@ autocmd({'BufNewFile', 'BufRead'}, {
 autocmd('FileType', {
   pattern = 'go',
   callback = function()
-    keymap('n', '<Leader>r', '<cmd>!go run %<CR>')
-    keymap('n', '<Leader>t', '<cmd>!go test ./...<CR>')
+    keymap('n', '<Leader>r', '<cmd>GoRun!<CR>')
+    keymap('n', '<Leader>t', '<cmd>GoTest!<CR>')
     keymap('n', '<Leader>v', '<cmd>GoVet!<CR>')
     keymap('n', '<Leader>b', '<cmd>GoBuild!<CR>')
     keymap('n', '<Leader>c', '<cmd>GoCoverageToggle<CR>')
