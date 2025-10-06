@@ -43,3 +43,27 @@ keymap("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
 keymap("n", "<A-b>", "<Cmd>BufferCloseAllButCurrent<CR>", opts)
 
 keymap("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
+
+keymap("n", "<A-t>", function()
+  vim.cmd("terminal")
+  vim.cmd("startinsert")
+end, opts)
+
+autocmd("TermOpen", {
+  pattern = "*",
+  callback = function()
+    vim.cmd("highlight! link TrailingWhitespace Normal")
+  end,
+})
+
+autocmd("TermClose", {
+  pattern = "*",
+  callback = function(args)
+    local bufnr = tonumber(args.buf)
+    if vim.api.nvim_buf_is_valid(bufnr) then
+      vim.api.nvim_buf_delete(bufnr, { force = true })
+    end
+  end,
+})
+
+keymap("t", "<C-d>", "<C-d>", { noremap = true, silent = true })
