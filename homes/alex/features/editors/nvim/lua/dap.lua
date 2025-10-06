@@ -10,11 +10,7 @@ local cfg = {
       elements = {
         {
           id = "scopes",
-          size = 0.66
-        },
-        {
-          id = "watches",
-          size = 0.33
+          size = 1
         }
       },
       position = "bottom",
@@ -27,7 +23,11 @@ local cfg = {
           size = 0.33
         }, {
           id = "stacks",
-          size = 0.66
+          size = 0.33
+        },
+        {
+          id = "watches",
+          size = 0.33
         }
       },
       position = "right",

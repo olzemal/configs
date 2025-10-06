@@ -10,3 +10,4 @@ vim.g.ale_linters = {
   ['yaml'] = {'yamllint'}
 }
 vim.g.ale_fix_on_save = 1
+vim.g.ale_disable_lsp = 1

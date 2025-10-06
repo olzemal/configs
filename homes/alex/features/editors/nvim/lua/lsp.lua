@@ -12,3 +12,9 @@ lspconfig.marksman.setup({ capabilities = lsp_capabilities })
 lspconfig.nixd.setup({ capabilities = lsp_capabilities })
 lspconfig.pyright.setup({ capabilities = lsp_capabilities })
 lspconfig.yamlls.setup({ capabilities = lsp_capabilities })
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  float = { border = "rounded" },
+})
