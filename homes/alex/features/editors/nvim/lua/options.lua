@@ -130,39 +130,5 @@ keymap('n', '<Leader>n', '<cmd>set number!<CR>')
 -- Formatting
 keymap('n', '<Leader>f', 'gqip')
 
--- Bash / sh
-autocmd('FileType', {
-  pattern = 'sh',
-  callback = function()
-    keymap('n', '<Leader>r', '<cmd>!./%<CR>')
-    keymap('n', '<Leader>t', '<cmd>!shellcheck ./%<CR>')
-  end
-})
-
--- Terraform
-autocmd('FileType', {
-  pattern = 'terraform',
-  callback = function()
-    keymap('n', '<Leader>r', '<cmd>!terraform apply<CR>')
-    keymap('n', '<Leader>t', '<cmd>!terraform validate<CR>')
-  end
-})
-
--- C
-autocmd('FileType', {
-  pattern = 'c',
-  callback = function()
-    keymap('n', '<Leader>r', '<cmd>!gcc -o /tmp/%.o % && /tmp/%.o<CR>')
-  end
-})
-
--- Python
-autocmd('FileType', {
-  pattern = 'python',
-  callback = function()
-    keymap('n', '<Leader>r', '<cmd>!python3 ./%<CR>')
-  end
-})
-
 -- git
 keymap('n', 'gb', '<cmd>Git blame<CR>')

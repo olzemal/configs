@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     ast-grep
+    clang
     delve
     go
     gopls
@@ -44,6 +45,7 @@
       { plugin = vimPlug.nvim-lspconfig; config = toLuaFile ./lua/lsp.lua; }
       vimPlug.mason-nvim
       vimPlug.mason-lspconfig-nvim
+      { plugin = vimPlug.nvim-treesitter; config = toLuaFile ./lua/treesitter.lua; }
 
       { plugin = vimPlug.nvim-dap; config = toLuaFile ./lua/dap.lua; }
       vimPlug.nvim-dap-go
