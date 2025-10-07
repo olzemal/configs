@@ -43,8 +43,7 @@
       vimPlug.nvim-web-devicons
 
       { plugin = vimPlug.nvim-lspconfig; config = toLuaFile ./lua/lsp.lua; }
-      vimPlug.mason-nvim
-      vimPlug.mason-lspconfig-nvim
+
       { plugin = vimPlug.nvim-treesitter; config = toLuaFile ./lua/treesitter.lua; }
 
       { plugin = vimPlug.nvim-dap; config = toLuaFile ./lua/dap.lua; }
