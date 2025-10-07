@@ -44,6 +44,7 @@
 
       { plugin = vimPlug.nvim-lspconfig; config = toLuaFile ./lua/lsp.lua; }
 
+      vimPlug.playground
       { plugin = vimPlug.nvim-treesitter; config = toLuaFile ./lua/treesitter.lua; }
 
       { plugin = vimPlug.nvim-dap; config = toLuaFile ./lua/dap.lua; }
