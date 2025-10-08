@@ -32,6 +32,44 @@
     toLua = str: "lua << EOF\n${str}\nEOF\n";
     toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
     vimPlug = pkgs.vimPlugins;
+    languages = [
+      "arduino"
+      "awk"
+      "bash"
+      "c"
+      "comment"
+      "css"
+      "csv"
+      "diff"
+      "dockerfile"
+      "gitcommit"
+      "git_config"
+      "gitignore"
+      "git_rebase"
+      "go"
+      "gotmpl"
+      "html"
+      "javascript"
+      "json"
+      "kcl"
+      "lua"
+      "make"
+      "markdown"
+      "markdown_inline"
+      "mermaid"
+      "nginx"
+      "nix"
+      "nu"
+      "promql"
+      "python"
+      "regex"
+      "sql"
+      "sql"
+      "toml"
+      "vim"
+      "vimdoc"
+      "yaml"
+    ];
   in {
     enable = true;
     defaultEditor = true;
@@ -80,7 +118,7 @@
 
       vimPlug.ultisnips
       vimPlug.cmp-nvim-ultisnips
-    ];
+    ] ++ builtins.map (lang: vimPlug.nvim-treesitter-parsers."${lang}") languages;
     extraLuaConfig = builtins.readFile ./lua/options.lua;
   };
 }
