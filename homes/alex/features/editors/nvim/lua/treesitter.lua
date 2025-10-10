@@ -11,5 +11,6 @@ vim.treesitter.language.register('gotmpl', 'yaml')
 vim.treesitter.query.set("gotmpl", "injections", [[
   ((text) @injection.content
     (#set! injection.include-children)
+    (#set! injection.combined)
     (#set! injection.language "yaml"))
   ]])
