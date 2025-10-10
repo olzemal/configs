@@ -1,4 +1,5 @@
--- Ale settings
+require "lib"
+
 vim.g.ale_fixers = {
   ['*']  = {'remove_trailing_lines', 'trim_whitespace'},
   ['sh'] = {'shfmt'},

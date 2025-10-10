@@ -1,4 +1,4 @@
-require("lib")
+require "lib"
 
 vim.g.barbar_auto_setup = false
 

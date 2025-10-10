@@ -81,6 +81,7 @@
       vimPlug.nvim-web-devicons
 
       { plugin = vimPlug.nvim-lspconfig; config = toLuaFile ./lua/lsp.lua; }
+      vimPlug.lsp_signature-nvim
 
       vimPlug.playground
       { plugin = vimPlug.nvim-treesitter; config = toLuaFile ./lua/treesitter.lua; }
@@ -91,11 +92,13 @@
       { plugin = vimPlug.persistent-breakpoints-nvim; config = toLua "require('persistent-breakpoints').setup{ load_breakpoints_event = { 'BufReadPost' }}"; }
 
       { plugin = vimPlug.nvim-cmp; config = toLuaFile ./lua/cmp.lua; }
-      vimPlug.cmp-emoji
       vimPlug.cmp-buffer
-      vimPlug.cmp-path
+      vimPlug.cmp-calc
       vimPlug.cmp-cmdline
+      vimPlug.cmp-emoji
       vimPlug.cmp-nvim-lsp
+      vimPlug.cmp-path
+      vimPlug.cmp-spell
 
       { plugin = vimPlug.vim-easy-align; config = toLuaFile ./lua/easyalign.lua; }
 
@@ -108,13 +111,12 @@
 
       { plugin = vimPlug.ale; config = toLuaFile ./lua/ale.lua; }
       { plugin = vimPlug.vim-go; config = toLuaFile ./lua/vimgo.lua; }
-      { plugin = vimPlug.vim-DetectSpellLang; config = toLuaFile ./lua/spelllang.lua; }
 
       { plugin = vimPlug.telescope-nvim; config = toLuaFile ./lua/telescope.lua; }
       { plugin = vimPlug.indent-blankline-nvim; config = toLua "require('ibl').setup({ scope = { enabled = false }})"; }
 
-      vimPlug.plenary-nvim
       vimPlug.vim-visual-multi
+      { plugin = vimPlug.nvim-surround; config = toLua "require('nvim-surround').setup()"; }
 
       vimPlug.ultisnips
       vimPlug.cmp-nvim-ultisnips

@@ -1,5 +1,3 @@
--- Debugger
-
 require "lib"
 
 local dap, dapui, dapgo = require("dap"), require("dapui"), require("dap-go")
@@ -69,7 +67,7 @@ dap.listeners.after.event_exited['restore-buf'] = function(session, body)
   end
 end
 
-keymap({'n', 'v'}, '<C-D>', '<Nop>')
+keymap({'n', 'v', 'i'}, '<C-D>', '<Nop>')
 
 -- keymap('n', '<C-D>b', function() require('dap').toggle_breakpoint() end)
 keymap('n', '<C-D>b', function() require('persistent-breakpoints.api').toggle_breakpoint() end)

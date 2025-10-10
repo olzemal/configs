@@ -1,4 +1,4 @@
-require("lib")
+require "lib"
 
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")

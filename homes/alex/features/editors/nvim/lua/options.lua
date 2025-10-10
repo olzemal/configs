@@ -1,16 +1,9 @@
---------------------------------
--- [[ Setup ]]
---------------------------------
 require "lib"
 
 local autoload_dir = vim.fn.stdpath('data') .. '/site/autoload'
 if not vim.fn.isdirectory(autoload_dir) then
   vim.fn.mkdir(autoload_dir, 'p')
 end
-
---------------------------------
--- [[ General Options ]]
---------------------------------
 
 -- Colors
 autocmd('VimEnter', {
@@ -25,6 +18,7 @@ vim.cmd.highlight({'PmenuSel', 'ctermbg=blue', 'ctermfg=black'})
 -- markdown
 vim.g.vim_markdown_frontmatter = 1
 vim.g.vim_markdown_math        = 1
+vim.opt.spelllang              = "en,de"
 
 -- Enable spell checking for markdown and commit messages
 autocmd('FileType', {
@@ -105,10 +99,7 @@ vim.opt.path:append('**')
 vim.opt.visualbell = false
 vim.opt.mouse = ''
 
---------------------------------
--- [[ Bindings ]]
---------------------------------
-
+-- Keybinds
 vim.g.mapleader = ' '
 
 keymap('n', 'Y', 'y$')
@@ -117,10 +108,12 @@ keymap('n', 'Y', 'y$')
 keymap('n', 'n', 'nzzzv')
 keymap('n', 'N', 'Nzzzv')
 keymap('n', 'J', 'mzJ`z')
+keymap({'n', 'v', 'i'}, '<S-Up>', '<Nop>')
+keymap({'n', 'v', 'i'}, '<S-Down>', '<Nop>')
 
 -- Moving text
-keymap('v', 'J',         '<cmd>m >+1<CR>gv=gv')
-keymap('v', 'K',         '<cmd>m <-2<CR>gv=gv')
+keymap('v', '<Leader>j', '<cmd>m >+1<CR>gv=gv')
+keymap('v', '<leader>k', '<cmd>m <-2<CR>gv=gv')
 keymap('n', '<Leader>j', '<cmd>m .+1<CR>==')
 keymap('n', '<Leader>k', '<cmd>m .-2<CR>==')
 

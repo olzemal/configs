@@ -1,3 +1,5 @@
+require "lib"
+
 -- Buffer Completion
 local cmp = require('cmp')
 cmp.register_source('emoji', require'cmp_emoji'.new())
@@ -114,7 +116,17 @@ cmp.setup({
       max_item_count = 5
     },
     {
+      name = 'spell',
+      priority = 2,
+      max_item_count = 3
+    },
+    {
       name = 'buffer',
+      priority = 1,
+      max_item_count = 1
+    },
+    {
+      name = 'calc',
       priority = 1,
       max_item_count = 1
     }
@@ -135,7 +147,6 @@ cmp.setup.cmdline(':', {
 cmp.setup.cmdline('/', {
     completion = { autocomplete = false },
     sources = {
-        -- { name = 'buffer' }
         { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } }
     }
 })
