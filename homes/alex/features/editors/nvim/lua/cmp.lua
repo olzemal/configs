@@ -27,6 +27,15 @@ cmp.setup({
     end
   end,
   preselect = cmp.PreselectMode.None,
+  formatting = {
+    expandable_indicator = true,
+    fields = { 'abbr', 'kind', 'menu' },
+    format = function(entry, vim_item)
+      vim_item.menu = "[" .. entry.source.name .. "]"
+      return vim_item
+    end,
+  },
+
   snippet = {
     expand = function(args)
       vim.fn["UltiSnips#Anon"](args.body)
@@ -123,7 +132,7 @@ cmp.setup({
     {
       name = 'buffer',
       priority = 1,
-      max_item_count = 1
+      max_item_count = 3
     },
     {
       name = 'calc',

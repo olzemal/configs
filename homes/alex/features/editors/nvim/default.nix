@@ -21,6 +21,10 @@
 
   home.file = {
     ".config/nvim/lua/lib.lua".source = ./lua/lib.lua;
+    ".local/share/nvim/site/spell/de.utf-8.spl".source = builtins.fetchurl {
+      url = "https://ftp.nluug.nl/pub/vim/runtime/spell/de.utf-8.spl";
+      sha256 = "sha256:1ld3hgv1kpdrl4fjc1wwxgk4v74k8lmbkpi1x7dnr19rldz11ivk";
+    };
   };
 
   home.sessionVariables = {
