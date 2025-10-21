@@ -14,7 +14,7 @@ vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
 vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
 vim.g.UltiSnipsRemoveSelectModeMappings = 0
 
-cmp.setup({
+cmp.setup{
   enabled = function()
     -- disable completion in comments
     local context = require 'cmp.config.context'
@@ -106,7 +106,7 @@ cmp.setup({
     ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item()),
     ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item()),
   },
-  sources = cmp.config.sources({
+  sources = cmp.config.sources{
     {
       name = 'nvim_lsp',
       priority = 10
@@ -139,25 +139,34 @@ cmp.setup({
       priority = 1,
       max_item_count = 1
     }
-  })
-})
+  }
+}
 
 -- cmdline completion
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
+  sources = cmp.config.sources{
+    {
+      name = 'path',
+      max_item_count = 5
+    },
+    {
+      name = 'cmdline',
+      max_item_count = 15
+    }
+  }
 })
 
 -- Use buffer source for `/`.
 cmp.setup.cmdline('/', {
-    completion = { autocomplete = false },
-    sources = {
-        { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } }
+  completion = { autocomplete = false },
+  sources = {
+    {
+      name = 'buffer',
+      max_item_count = 15,
+      opts = { keyword_pattern = [=[[^[:blank:]].*]=] }
     }
+  }
 })
 
 vim.opt.completeopt:append('menuone')

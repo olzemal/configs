@@ -125,3 +125,41 @@ keymap('n', '<Leader>f', 'gqip')
 
 -- git
 keymap('n', 'gb', '<cmd>Git blame<CR>')
+
+-- run
+autocmd("TermOpen", {
+  pattern = '*',
+  callback = function ()
+    local closebuf = function ()
+      vim.api.nvim_buf_delete(0, { force = false })
+    end
+    keymap('n', '<Esc>', closebuf)
+    keymap('n', '<Enter>', closebuf)
+  end
+})
+
+keymap('n', '<Leader>r', function()
+  local line = vim.api.nvim_buf_get_text(0, 0, 0, 0, -1, {})
+  if not line then
+    return
+  end
+  local abs_file = vim.fn.shellescape(vim.fn.expand("%:p"))
+  local rel_file = "./" .. vim.fn.shellescape(vim.fn.expand("%"))
+  local ft = vim.bo.filetype
+
+  -- shebang
+  if string.find(line[1], '^#!') then
+    vim.cmd("belowright terminal " .. abs_file)
+    return
+  end
+
+  if ft == "go" then
+    vim.cmd("belowright terminal go run " .. rel_file)
+    return
+  end
+
+  if ft == "nix" then
+    vim.cmd("belowright terminal nix-instantiate --eval " .. rel_file)
+    return
+  end
+end)

@@ -86,7 +86,7 @@ with lib.hm.gvariant;
         "qtpass.desktop"
         "kitty.desktop"
         "obsidian.desktop"
-        "spotify.desktop"
+        "chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default.desktop"
         "net.lutris.Lutris.desktop"
         "steam.desktop"
         "com.moonlight_stream.Moonlight.desktop"

@@ -39,13 +39,7 @@ alias ports='netstat -atulpn'
 alias S='sudo systemctl'
 alias watch='watch -n 1'
 alias d='docker'
-
-vimcmd=vim
-if [ -n "$(command -v nvim)" ]; then vimcmd=nvim; fi
-alias v="$vimcmd"
-alias vi="$vimcmd"
-alias vim="$vimcmd"
-alias cim="$vimcmd"
+alias nie='nix-instantiate --eval'
 
 if [ -n "$(command -v zoxide)" ]; then
   eval "$(zoxide init bash)"
