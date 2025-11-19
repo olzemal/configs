@@ -159,7 +159,7 @@ keymap('n', '<Leader>r', function()
   end
 
   if ft == "nix" then
-    vim.cmd("belowright terminal nix-instantiate --eval " .. rel_file)
+    vim.cmd("belowright terminal nix-instantiate --eval --strict " .. rel_file)
     return
   end
 end)
