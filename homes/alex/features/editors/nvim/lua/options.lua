@@ -138,28 +138,40 @@ autocmd("TermOpen", {
   end
 })
 
-keymap('n', '<Leader>r', function()
-  local line = vim.api.nvim_buf_get_text(0, 0, 0, 0, -1, {})
-  if not line then
-    return
-  end
-  local abs_file = vim.fn.shellescape(vim.fn.expand("%:p"))
-  local rel_file = "./" .. vim.fn.shellescape(vim.fn.expand("%"))
+vim.keymap.set("n", "<Leader>r", function()
   local ft = vim.bo.filetype
-
-  -- shebang
-  if string.find(line[1], '^#!') then
-    vim.cmd("belowright terminal " .. abs_file)
-    return
-  end
+  local rel_file = "./" .. vim.fn.expand("%")
+  local abs_file = vim.fn.expand("%:p")
+  local cmd
 
   if ft == "go" then
-    vim.cmd("belowright terminal go run " .. rel_file)
-    return
+    cmd = { "go", "run", rel_file }
+  elseif ft == "nix" then
+    cmd = { "nix-instantiate", "--eval", "--strict", rel_file }
+  else
+    cmd = { abs_file }
   end
 
-  if ft == "nix" then
-    vim.cmd("belowright terminal nix-instantiate --eval --strict " .. rel_file)
-    return
-  end
+  vim.fn.jobstart(cmd, {
+    stdout_buffered = false,
+    stderr_buffered = false,
+    on_stdout = function(_, data)
+      if data then
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            print(line)
+          end
+        end
+      end
+    end,
+    on_stderr = function(_, data)
+      if data then
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            print("[stderr] " .. line)
+          end
+        end
+      end
+    end,
+  })
 end)
