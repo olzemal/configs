@@ -240,19 +240,17 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/tilingshell" = {
-      enable-tiling-system = true;
-      tiling-system-activation-key = ["0"];
-      enable-span-multiple-tiles = true;
-      span-multiple-tiles-activation-key = ["1"];
+      enable-snap-assist = true;
+      resize-complementing-windows = true;
+
+      enable-tiling-system = false;
+      active-screen-edges = false;
 
       inner-gaps = mkUint32 0;
       outer-gaps = mkUint32 0;
-      resize-complementing-windows = true;
       enable-autotiling = false;
       enable-move-keybindings = false;
-      enable-tiling-system-windows-suggestions = true;
-      enable-snap-assistant-windows-suggestions = true;
-      enable-screen-edges-windows-suggestions = true;
+      enable-snap-assistant-windows-suggestions = false;
 
       layouts-json = (builtins.readFile ./tile-layouts.json);
       selected-layouts = [["Horizontal Split" "Vertical Thirds"]];
