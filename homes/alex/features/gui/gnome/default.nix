@@ -242,18 +242,18 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/tilingshell" = {
       enable-snap-assist = true;
       resize-complementing-windows = true;
+      active-screen-edges = true;
+      quarter-tiling-threshold = mkUint32 10;
+      top-edge-maximize = true;
+      layouts-json = (builtins.readFile ./tile-layouts.json);
+      selected-layouts = [["Horizontal Split" "Vertical Thirds"]];
 
       enable-tiling-system = false;
-      active-screen-edges = false;
-
       inner-gaps = mkUint32 0;
       outer-gaps = mkUint32 0;
       enable-autotiling = false;
       enable-move-keybindings = false;
       enable-snap-assistant-windows-suggestions = false;
-
-      layouts-json = (builtins.readFile ./tile-layouts.json);
-      selected-layouts = [["Horizontal Split" "Vertical Thirds"]];
     };
 
     "org/gnome/shell/extensions/trayIconsReloaded" = {
