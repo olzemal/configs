@@ -15,6 +15,7 @@
     ./features/scripts
     ./features/editors/vscode
     ./features/editors/nvim
+    ./features/tmux
     ./features/terminals/kitty.nix
 
     ./features/browsers/firefox.nix
