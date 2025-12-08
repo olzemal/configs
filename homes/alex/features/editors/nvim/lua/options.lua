@@ -56,6 +56,7 @@ vim.opt.undoreload = 10000
 vim.opt.hidden     = true
 vim.opt.tabline    = '2'
 vim.opt.laststatus = 2
+vim.opt.clipboard = "unnamedplus"
 
 -- Command line
 vim.opt.wildmenu  = true
