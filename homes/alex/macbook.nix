@@ -11,6 +11,7 @@
     ./features/bash
     ./features/scripts
     ./features/editors/nvim
+    ./features/terminals/kitty.nix
     ./features/tmux
     ./features/kubernetes/client.nix
   ];

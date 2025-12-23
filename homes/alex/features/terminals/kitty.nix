@@ -1,10 +1,14 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    kitty
-  ];
-  home.file = {
-    ".config/kitty/kitty.conf".source = ./kitty.conf;
+  programs.kitty = {
+    enable = true;
+
+    extraConfig = ''
+      ${pkgs.lib.readFile ./kitty.conf}
+      ${pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
+      macos_option_as_alt left
+      ''}
+    '';
   };
 }
