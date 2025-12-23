@@ -50,6 +50,15 @@
           inherit inputs;
         };
       };
+      "sebastian" = nixpkgs.lib.nixosSystem {
+        pkgs = pkgsFor.x86_64-linux;
+        modules = [
+          ./hosts/sebastian/configuration.nix
+        ];
+        specialArgs = {
+          inherit inputs;
+        };
+      };
     };
 
     homeConfigurations = {
