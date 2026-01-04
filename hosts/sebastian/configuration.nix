@@ -14,6 +14,8 @@
   networking.hostName = "sebastian";
   networking.domain = "";
 
+  services.tailscale.enable = true;
+
   services.headscale = {
     enable = true;
     address = "[::]";
@@ -21,6 +23,21 @@
     settings = {
       server_url = "https://headscale.olzemal.de";
       dns.base_domain = "hs.olzemal.de";
+    };
+  };
+
+  services.traefik.dynamicConfigOptions.http = {
+    services.headscale.loadBalancer.servers = [
+      {
+        url = "http://localhost:20002/";
+      }
+    ];
+
+    routers.headscale = {
+      rule = "Host(`headscale.olzemal.de`)";
+      tls.certResolver = "hetzner";
+      service = "headscale";
+      entrypoints = "websecure";
     };
   };
 

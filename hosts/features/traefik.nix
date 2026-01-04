@@ -4,19 +4,21 @@
   services.traefik = {
     enable = true;
 
+    package = pkgs.unstable.traefik;
+
     staticConfigOptions = {
       log.level = "WARN";
       api = {};
       entryPoints = {
         web = {
-          address = ":80";
+          address = "[::]:80";
           http.redirections.entryPoint = {
             to = "websecure";
             scheme = "https";
           };
         };
         websecure = {
-          address = ":443";
+          address = "[::]:443";
         };
       };
 
@@ -28,7 +30,7 @@
             caserver = "https://acme-v02.api.letsencrypt.org/directory";
             dnsChallenge = {
               provider = "hetzner";
-              resolvers = ["1.1.1.1:53" "8.8.8.8:53"];
+              resolvers = [ "hydrogen.ns.hetzner.com." "dns.hetzner.com." ];
             };
           };
         };
