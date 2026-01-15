@@ -10,6 +10,7 @@
     ./features/gui/common.nix
     ./features/gui/gnome
 
+    ./features/ai/opencode.nix
     ./features/git
     ./features/bash
     ./features/scripts

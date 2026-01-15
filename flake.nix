@@ -28,7 +28,7 @@
         allowUnfreePredicate = (_: true);
       };
       overlays = [
-        (final: _prev: {
+        (final: prev: {
           unstable = import unstable {
             inherit (final) system config;
           };

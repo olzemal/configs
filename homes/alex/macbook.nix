@@ -7,6 +7,7 @@
   imports = [
     ./common
 
+    ./features/ai/opencode.nix
     ./features/git
     ./features/bash
     ./features/scripts

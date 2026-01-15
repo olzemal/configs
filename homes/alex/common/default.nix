@@ -22,7 +22,6 @@
     tree
     wget
     yq-go
-    zoxide
   ];
 
   # Do not manage keyboard layout by home-manager
