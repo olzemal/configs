@@ -30,7 +30,7 @@ alias ll='ls -laH'
 
 # confirmation
 alias mv='mv -i'
-alias rm='rm -I --preserve-root'
+alias rm='rm -I'
 
 # Other
 alias tf='terraform'
