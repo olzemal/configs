@@ -4,6 +4,10 @@
   home.username = "alex";
   home.homeDirectory = "/Users/alex";
 
+  home.packages = with pkgs.unstable; [
+    qtpass
+  ];
+
   imports = [
     ./common
 
