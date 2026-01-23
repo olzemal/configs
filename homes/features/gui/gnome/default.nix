@@ -5,9 +5,7 @@ let
     blur-my-shell
     caffeine
     dash-to-dock
-    emoji-copy
     just-perfection
-    tailscale-qs
     tiling-shell
     tray-icons-reloaded
   ];
@@ -80,7 +78,7 @@ with lib.hm.gvariant;
           removable-drive-menu
           workspace-indicator
         ] ++ extensions);
-      
+
     };
     "org/gnome/desktop/session" = {
       idle-delay = mkUint32 0;
