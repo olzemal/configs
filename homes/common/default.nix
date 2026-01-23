@@ -8,6 +8,7 @@
     bat
     dig
     direnv
+    devenv
     fzf
     gh
     gnumake

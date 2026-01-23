@@ -66,6 +66,8 @@
 
   services.fwupd.enable = true;
 
+  nix.settings.trusted-users = [ "root" ] ++ (builtins.attrNames config.users.users);
+
   hardware = {
     bluetooth.enable = true;
     graphics = {
