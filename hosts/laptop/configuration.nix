@@ -37,10 +37,17 @@
 
   networking.networkmanager.enable = true;
 
-  users.users.alex = {
-    isNormalUser = true;
-    description = "Alex";
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
+  users.users = {
+    alex = {
+      isNormalUser = true;
+      description = "Alex";
+      extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
+    };
+    work = {
+      isNormalUser = true;
+      description = "Alex work";
+      extraGroups = [ "networkmanager" "wheel" "docker" ];
+    };
   };
 
   services.udev.extraRules = ''
