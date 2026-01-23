@@ -45,7 +45,7 @@
     };
     work = {
       isNormalUser = true;
-      description = "Alex work";
+      description = "Work";
       extraGroups = [ "networkmanager" "wheel" "docker" ];
     };
   };

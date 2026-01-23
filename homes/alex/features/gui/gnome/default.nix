@@ -88,7 +88,6 @@ with lib.hm.gvariant;
         "obsidian.desktop"
         "chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default.desktop"
         "net.lutris.Lutris.desktop"
-        "steam.desktop"
         "com.moonlight_stream.Moonlight.desktop"
         "org.gnome.Nautilus.desktop"
         "signal-desktop.desktop"
