@@ -80,26 +80,7 @@ with lib.hm.gvariant;
           removable-drive-menu
           workspace-indicator
         ] ++ extensions);
-      # gsettings get org.gnome.shell favorite-apps
-      favorite-apps = [
-        "firefox.desktop"
-        "qtpass.desktop"
-        "kitty.desktop"
-        "obsidian.desktop"
-        "chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default.desktop"
-        "net.lutris.Lutris.desktop"
-        "com.moonlight_stream.Moonlight.desktop"
-        "org.gnome.Nautilus.desktop"
-        "signal-desktop.desktop"
-        "discord.desktop"
-        "slack.desktop"
-        "chrome-iadnoobhlbjkjgjddpaopeaiejghgegg-Default.desktop"
-        "chrome-ecncjmpdddaohegghdgbiblpacgaehib-Default.desktop"
-        "betaflight-configurator.desktop"
-        "org.freecad.FreeCAD.desktop"
-        "OrcaSlicer.desktop"
-        "org.gnome.Settings.desktop"
-      ];
+      
     };
     "org/gnome/desktop/session" = {
       idle-delay = mkUint32 0;

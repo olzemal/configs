@@ -9,6 +9,7 @@
 
     ./features/gui/common.nix
     ./features/gui/gnome
+    ./features/gui/gnome/dock-alex.nix
 
     ./features/ai/opencode.nix
     ./features/git
