@@ -62,37 +62,28 @@
     };
 
     homeConfigurations = {
-      "alex@laptop" = home-manager.lib.homeManagerConfiguration {
+      "alex" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgsFor.x86_64-linux;
         modules = [
-          ./homes/alex/laptop.nix
+          ./homes/alex.nix
         ];
         extraSpecialArgs = {
           inherit inputs;
         };
       };
-      "work@laptop" = home-manager.lib.homeManagerConfiguration {
+      "work" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgsFor.x86_64-linux;
         modules = [
-          ./homes/alex/work-laptop.nix
+          ./homes/work.nix
         ];
         extraSpecialArgs = {
           inherit inputs;
         };
       };
-      "alex@work" = home-manager.lib.homeManagerConfiguration {
-        pkgs = pkgsFor.x86_64-linux;
-        modules = [
-          ./homes/alex/work.nix
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-      "alex@macbook" = home-manager.lib.homeManagerConfiguration {
+      "macbook" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgsFor.aarch64-darwin;
         modules = [
-          ./homes/alex/macbook.nix
+          ./homes/macbook.nix
         ];
         extraSpecialArgs = {
           inherit inputs;
