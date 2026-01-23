@@ -71,6 +71,15 @@
           inherit inputs;
         };
       };
+      "work@laptop" = home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgsFor.x86_64-linux;
+        modules = [
+          ./homes/alex/work-laptop.nix
+        ];
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+      };
       "alex@work" = home-manager.lib.homeManagerConfiguration {
         pkgs = pkgsFor.x86_64-linux;
         modules = [
