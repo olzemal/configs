@@ -36,27 +36,6 @@
         "type": "github"
       }
     },
-    "nix-darwin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1762912391,
-        "narHash": "sha256-4hpBE7bGd24SfD28rzMdUGXsLsNEYxCCrTipFdoqoNM=",
-        "owner": "LnL7",
-        "repo": "nix-darwin",
-        "rev": "d76299b2cd01837c4c271a7b5186e3d5d8ebd126",
-        "type": "github"
-      },
-      "original": {
-        "owner": "LnL7",
-        "ref": "nix-darwin-25.05",
-        "repo": "nix-darwin",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1767313136,
@@ -72,12 +51,33 @@
         "type": "indirect"
       }
     },
+    "ocm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764767546,
+        "narHash": "sha256-m32BF3VHczy9zFPBsUtpfwcLu1RifdlUlNGpdamkRa4=",
+        "owner": "open-component-model",
+        "repo": "ocm",
+        "rev": "8bbe85063753d4d01e417852256f019ba205e8c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "open-component-model",
+        "ref": "v0.35",
+        "repo": "ocm",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "edge": "edge",
         "home-manager": "home-manager",
-        "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
+        "ocm": "ocm",
         "unstable": "unstable"
       }
     },

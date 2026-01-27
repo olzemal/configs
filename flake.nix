@@ -11,8 +11,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin/nix-darwin-25.05";
+    ocm = {
+      url = "github:open-component-model/ocm/v0.35";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

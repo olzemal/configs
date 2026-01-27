@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, inputs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -12,5 +12,6 @@
     grafana-loki
     talosctl
     trivy
+    inputs.ocm.packages.${pkgs.system}.ocm
   ];
 }
