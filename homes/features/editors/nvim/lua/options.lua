@@ -98,7 +98,7 @@ vim.opt.path:append('**')
 
 -- Annoying things
 vim.opt.visualbell = false
-vim.opt.mouse = ''
+vim.opt.mouse = 'a'
 
 -- Keybinds
 vim.g.mapleader = ' '

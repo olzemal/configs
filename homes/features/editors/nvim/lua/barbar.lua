@@ -5,7 +5,7 @@ vim.g.barbar_auto_setup = false
 local barbar = require("barbar")
 
 barbar.setup{
-  clickable = false,
+  clickable = true,
   tabpages = false,
   auto_hide = 1,
   insert_at_end = true,
