@@ -2,7 +2,6 @@
 
 {
   home.packages = with pkgs.unstable; [
-    element-desktop
     discord
     gimp
     inkscape
@@ -10,5 +9,6 @@
     qtpass
     signal-desktop
     slack
+    thunderbird
   ];
 }

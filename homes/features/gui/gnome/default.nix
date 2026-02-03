@@ -142,7 +142,7 @@ with lib.hm.gvariant;
       events-button = false;
       hot-corner = false;
       looking-glass-width = 0;
-      notification-banner-position = 0;
+      notification-banner-position = 1;
       osd = true;
       osd-position = 0;
       panel = true;

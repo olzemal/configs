@@ -8,10 +8,10 @@ with lib.hm.gvariant;
         "firefox.desktop"
         "qtpass.desktop"
         "kitty.desktop"
+        "element-desktop.desktop"
         "obsidian.desktop"
         "org.gnome.Nautilus.desktop"
-        "element-desktop.desktop"
-        "slack.desktop"
+        "thunderbird.desktop"
         "org.gnome.Settings.desktop"
       ];
     };

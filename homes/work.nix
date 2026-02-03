@@ -8,6 +8,7 @@
     ./common
 
     ./features/gui/common.nix
+    ./features/gui/element.nix
     ./features/gui/gnome
     ./features/gui/gnome/dock-work.nix
 
