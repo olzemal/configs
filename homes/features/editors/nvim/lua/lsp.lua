@@ -7,7 +7,10 @@ local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 lspconfig.ast_grep.setup{ capabilities = lsp_capabilities }
 lspconfig.bashls.setup{ capabilities = lsp_capabilities }
 lspconfig.gopls.setup{ capabilities = lsp_capabilities }
-lspconfig.jsonls.setup{ capabilities = lsp_capabilities }
+lspconfig.jsonls.setup{
+  capabilities = lsp_capabilities,
+  cmd = {"vscode-json-languageserver", "--stdio"}
+}
 lspconfig.lua_ls.setup{ capabilities = lsp_capabilities }
 lspconfig.marksman.setup{ capabilities = lsp_capabilities }
 lspconfig.nixd.setup{ capabilities = lsp_capabilities }
