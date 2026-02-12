@@ -9,6 +9,5 @@
     qtpass
     signal-desktop
     slack
-    thunderbird
   ];
 }

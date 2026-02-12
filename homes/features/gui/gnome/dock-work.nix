@@ -1,6 +1,5 @@
-{ lib, ... }:
+{ ... }:
 
-with lib.hm.gvariant;
 {
   dconf.settings = {
     "org/gnome/shell" = {
@@ -11,7 +10,6 @@ with lib.hm.gvariant;
         "element-desktop.desktop"
         "obsidian.desktop"
         "org.gnome.Nautilus.desktop"
-        "thunderbird.desktop"
         "org.gnome.Settings.desktop"
       ];
     };
