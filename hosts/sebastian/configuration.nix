@@ -1,45 +1,20 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   imports =
     [
+      inputs.sops-nix.nixosModules.sops
+
       ./hardware-configuration.nix
       ./networking.nix
-      ../common
 
-      ../features/ssh.nix
+      ../common
       ../features/traefik.nix
+      ../features/ssh.nix
     ];
 
   networking.hostName = "sebastian";
   networking.domain = "";
-
-  services.tailscale.enable = true;
-
-  services.headscale = {
-    enable = true;
-    address = "[::]";
-    port = 20002;
-    settings = {
-      server_url = "https://headscale.olzemal.de";
-      dns.base_domain = "hs.olzemal.de";
-    };
-  };
-
-  services.traefik.dynamicConfigOptions.http = {
-    services.headscale.loadBalancer.servers = [
-      {
-        url = "http://localhost:20002/";
-      }
-    ];
-
-    routers.headscale = {
-      rule = "Host(`headscale.olzemal.de`)";
-      tls.certResolver = "hetzner";
-      service = "headscale";
-      entrypoints = "websecure";
-    };
-  };
 
   users.users.alex = {
     isNormalUser = true;
@@ -48,9 +23,17 @@
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDCj/abIX+hFRMuZoFWhMZDk9UYnnSy0LQB/aHpaCbnD" ];
   };
 
+  nix.settings.trusted-users = [ "root" ] ++ (builtins.attrNames config.users.users);
+
   users.users.root.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDCj/abIX+hFRMuZoFWhMZDk9UYnnSy0LQB/aHpaCbnD" ];
 
   security.sudo.wheelNeedsPassword = false;
+
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    age.keyFile = "/home/alex/.age/key.txt";
+  };
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;

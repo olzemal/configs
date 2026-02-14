@@ -13,11 +13,11 @@
     })
   ];
 
-  home.packages = with pkgs; [
-    betaflight-configurator
-    unstable.chromium
-    unstable.freecad
-    edge.orca-slicer
+  home.packages = with pkgs.unstable; [
+    pkgs.betaflight-configurator
+    chromium
+    freecad
+    orca-slicer
   ];
 
   home.file = {

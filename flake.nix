@@ -4,10 +4,14 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-25.05";
     unstable.url = "nixpkgs/nixos-unstable";
-    edge.url = "nixpkgs/HEAD";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -17,7 +21,7 @@
     };
   };
 
-  outputs = { nixpkgs, unstable, edge, home-manager, ... }@inputs:
+  outputs = { nixpkgs, unstable, home-manager, ... }@inputs:
   let
     lib = nixpkgs.lib;
     systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
@@ -30,9 +34,6 @@
       overlays = [
         (final: prev: {
           unstable = import unstable {
-            inherit (final) system config;
-          };
-          edge = import edge {
             inherit (final) system config;
           };
         })

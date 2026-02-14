@@ -5,21 +5,23 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+    age
     bat
+    devenv
     dig
     direnv
-    devenv
     fzf
     gh
     gnumake
-    jq
     htop
     hugo
+    jq
     openssl
     pass
     pre-commit
     semver
     shellcheck
+    sops
     tree
     wget
     yq-go

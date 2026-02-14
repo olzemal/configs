@@ -8,7 +8,7 @@
 
     staticConfigOptions = {
       log.level = "WARN";
-      api = {};
+
       entryPoints = {
         web = {
           address = "[::]:80";
@@ -37,13 +37,36 @@
       };
     };
 
-    dynamicConfigOptions = {
+    dynamicConfigOptions.http = {
+      routers.root = {
+        rule = "Host(`olzemal.de`)";
+        entrypoints = "websecure";
+        tls.certResolver = "hetzner";
+        middlewares = [ "github-redirect" ];
+        service = "root";
+      };
 
+      services."root" = {
+        loadBalancer.servers = [ { url = "http://localhost:80"; } ];
+      };
+
+      middlewares."github-redirect" = {
+        redirectRegex = {
+          regex = "olzemal.de/(.*)";
+          replacement = "github.com/olzemal/\${1}";
+        };
+      };
     };
   };
 
+  sops.secrets."traefik/env" = {
+    owner = config.systemd.services.traefik.serviceConfig.User;
+    group = config.services.traefik.group;
+    mode = "0440";
+  };
+
   systemd.services.traefik.serviceConfig = {
-    EnvironmentFile = [ "/var/lib/traefik/env" ];
+    EnvironmentFile = [ config.sops.secrets."traefik/env".path ];
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
