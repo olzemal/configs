@@ -19,8 +19,11 @@
   networking.hostName = "carbon";
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    timeout = 1;
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   boot.kernelParams = [
     "i915.enable_psr=0"
