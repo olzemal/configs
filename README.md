@@ -2,15 +2,20 @@
 
 My configuration files and shell scripts.
 
-## Apply home-manager configuration
-
-```console
-$ home-manager switch --flake .#alex@laptop
-```
 ## Apply NixOS configuration
 
 ```console
 $ sudo nixos-rebuild switch --flake .#laptop
+```
+
+```console
+$ nixos-rebuild switch --flake .#sebastian --target-host sebastian --use-remote-sudo
+```
+
+## Apply home-manager configuration
+
+```console
+$ home-manager switch --flake .#alex
 ```
 
 ## Get home-manager for bootstrapping
