@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     ast-grep
     clang
-    delve
     go
     gopls
     helm-ls
