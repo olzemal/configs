@@ -17,6 +17,10 @@ PATH="$PATH:$HOME/.local/bin:$HOME/.scripts:/usr/local/bin:/usr/local/sbin:/usr/
 PATH="$GOBIN:$PATH"
 export PATH
 
+# Editor
+if command -V vim >/dev/null 2>&1;  then export EDITOR=vim; fi
+if command -V nvim >/dev/null 2>&1; then export EDITOR=nvim; fi
+
 # Source bashrc if bash is running and file exists
 if [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ]; then
   . "$HOME/.bashrc"

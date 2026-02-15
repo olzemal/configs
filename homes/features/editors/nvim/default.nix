@@ -26,10 +26,6 @@
     };
   };
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
-
   programs.neovim =
   let
     toLua = str: "lua << EOF\n${str}\nEOF\n";
