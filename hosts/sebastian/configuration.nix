@@ -10,6 +10,7 @@
 
       ../common
       ../features/traefik.nix
+      ../features/zitadel.nix
       ../features/ssh.nix
     ];
 
