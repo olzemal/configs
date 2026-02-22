@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -13,7 +13,5 @@
     minikube
     talosctl
     trivy
-
-    inputs.ocm.packages.${pkgs.stdenv.hostPlatform.system}.ocm
   ];
 }

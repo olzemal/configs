@@ -4,7 +4,7 @@
   services.traefik = {
     enable = true;
 
-    package = pkgs.unstable.traefik;
+    package = pkgs.traefik;
 
     staticConfigOptions = {
       log.level = "WARN";

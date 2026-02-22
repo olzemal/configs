@@ -2,8 +2,7 @@
   description = "My flake";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-25.11";
-    unstable.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -14,14 +13,9 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    ocm = {
-      url = "github:open-component-model/ocm/v0.35";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { nixpkgs, unstable, home-manager, ... }@inputs:
+  outputs = { nixpkgs, home-manager, ... }@inputs:
   let
     lib = nixpkgs.lib;
     systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
@@ -31,13 +25,6 @@
         allowUnfree = true;
         allowUnfreePredicate = (_: true);
       };
-      overlays = [
-        (final: prev: {
-          unstable = import unstable {
-            inherit (final) system config;
-          };
-        })
-      ];
     });
   in
   {
@@ -60,33 +47,17 @@
           inherit inputs;
         };
       };
-    };
-
-    homeConfigurations = {
-      "alex" = home-manager.lib.homeManagerConfiguration {
+      "vm" = nixpkgs.lib.nixosSystem {
         pkgs = pkgsFor.x86_64-linux;
         modules = [
-          ./homes/alex.nix
+          home-manager.nixosModules.home-manager
+          ./hosts/vm/configuration.nix
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.users.alex = { imports = [ ./homes/alex.nix ]; };
+          }
         ];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-      "work" = home-manager.lib.homeManagerConfiguration {
-        pkgs = pkgsFor.x86_64-linux;
-        modules = [
-          ./homes/work.nix
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-      };
-      "macbook" = home-manager.lib.homeManagerConfiguration {
-        pkgs = pkgsFor.aarch64-darwin;
-        modules = [
-          ./homes/macbook.nix
-        ];
-        extraSpecialArgs = {
+        specialArgs = {
           inherit inputs;
         };
       };

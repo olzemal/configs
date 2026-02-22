@@ -3,7 +3,7 @@
 {
   programs.element-desktop = {
     enable = true;
-    package = pkgs.unstable.element-desktop;
+    package = pkgs.element-desktop;
   };
 
   # Auto-start Element on login
@@ -13,7 +13,7 @@
       PartOf = [ "graphical-session.target" ];
     };
     Service = {
-      ExecStart = "${pkgs.unstable.element-desktop}/bin/element-desktop";
+      ExecStart = "${pkgs.element-desktop}/bin/element-desktop";
       Restart = "on-failure";
     };
     Install.WantedBy = [ "graphical-session.target" ];
