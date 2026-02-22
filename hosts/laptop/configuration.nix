@@ -8,6 +8,7 @@
 
       ../features/appimage.nix
       ../features/docker.nix
+      ../features/qemu.nix
       ../features/fonts.nix
       ../features/gnome.nix
       ../features/steam.nix
