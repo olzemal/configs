@@ -3,8 +3,8 @@
 {
   programs.tmux = {
     enable = true;
-    package = pkgs.unstable.tmux;
-    plugins = with pkgs.unstable.tmuxPlugins; [
+    package = pkgs.tmux;
+    plugins = with pkgs.tmuxPlugins; [
       sensible
       yank
       {
