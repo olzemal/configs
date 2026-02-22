@@ -20,6 +20,7 @@
     ./features/editors/nvim
     ./features/tmux
     ./features/terminals/kitty.nix
+    ./features/terminals/ghostty.nix
 
     ./features/browsers/firefox.nix
     ./features/kubernetes/client.nix
