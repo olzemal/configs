@@ -6,7 +6,7 @@
       favorite-apps = [
         "firefox.desktop"
         "qtpass.desktop"
-        "kitty.desktop"
+        "com.mitchellh.ghostty.desktop"
         "element-desktop.desktop"
         "obsidian.desktop"
         "org.gnome.Nautilus.desktop"

@@ -14,6 +14,6 @@
     talosctl
     trivy
 
-    inputs.ocm.packages.${pkgs.system}.ocm
+    inputs.ocm.packages.${pkgs.stdenv.hostPlatform.system}.ocm
   ];
 }

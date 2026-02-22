@@ -7,7 +7,7 @@ with lib.hm.gvariant;
       favorite-apps = [
         "firefox.desktop"
         "qtpass.desktop"
-        "kitty.desktop"
+        "com.mitchellh.ghostty.desktop"
         "obsidian.desktop"
         "chrome-cinhimbnkkaeohfgghhklpknlkffjgod-Default.desktop"
         "net.lutris.Lutris.desktop"
