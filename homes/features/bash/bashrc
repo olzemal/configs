@@ -94,7 +94,11 @@ __ps1() {
   PS1="${x}${b}╭ \u@\h ${w}\w$(__git_info)$(__kube_info)${x}\n${b}╰ ${R} ${U}${x} "
 }
 
-PROMPT_COMMAND="__ps1"
+__restore_cursor() {
+  printf '\e[ q'
+}
+
+PROMPT_COMMAND="__restore_cursor; __ps1"
 
 ## Completion
 # sudo
