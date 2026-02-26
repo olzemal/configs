@@ -9,6 +9,13 @@ let
     tiling-shell
     tray-icons-reloaded
   ];
+
+  gtk-theme = pkgs.unstable.gruvbox-gtk-theme.override {
+    iconVariants = [ "Dark" ];
+    tweakVariants = [ "medium" "macos" ];
+    sizeVariants = [ "standard" ];
+    colorVariants = [ "dark" ];
+  };
 in
 with lib.hm.gvariant;
 {
@@ -17,12 +24,12 @@ with lib.hm.gvariant;
   programs.gnome-shell = {
     enable = true;
     theme = {
-      name = "Gruvbox-Dark";
-      package = pkgs.gruvbox-gtk-theme;
+      name = "Gruvbox-Dark-Medium";
+      package = gtk-theme;
     };
   };
 
-  home.sessionVariables.GTK_THEME = "Gruvbox-Dark";
+  home.sessionVariables.GTK_THEME = "Gruvbox-Dark-Medium";
 
   gtk = {
     enable = true;
@@ -31,8 +38,8 @@ with lib.hm.gvariant;
       package = (pkgs.papirus-icon-theme.override { color = "brown"; });
     };
     theme = {
-      name = "Gruvbox-Dark";
-      package = pkgs.gruvbox-gtk-theme;
+      name = "Gruvbox-Dark-Medium";
+      package = gtk-theme;
     };
     cursorTheme = {
       name = "Bibata-Modern-Ice";

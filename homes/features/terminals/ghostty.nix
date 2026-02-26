@@ -21,6 +21,7 @@
         "shaders/ripple_cursor.glsl"
       ];
       window-decoration = "server";
+      confirm-close-surface = false;
       shell-integration-features = "no-title";
       title = "   ";
       keybind = [
