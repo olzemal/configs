@@ -1,5 +1,0 @@
-#!/bin/sh
-[ -z "$(command -v tmux)" ] && exit
-[ -n "$TMUX" ] && exit
-[ -z "$(tmux list-sessions)" ] && exec tmux -u
-exec tmux attach
