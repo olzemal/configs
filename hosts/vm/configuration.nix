@@ -1,15 +1,7 @@
-{ inputs, config, pkgs, ... }:
+{ config, ... }:
 
 {
-  imports =
-    [
-      ../common
-      ./hardware-configuration.nix
-
-      ../features/fonts.nix
-      ../features/gnome.nix
-      ../features/x11.nix
-    ];
+  imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "nixvm";
 
@@ -19,22 +11,6 @@
   boot.loader.grub.useOSProber = true;
 
   networking.networkmanager.enable = true;
-
-  users.users = {
-    alex = {
-      isNormalUser = true;
-      description = "Alex";
-      extraGroups = [ "networkmanager" "wheel" ];
-      openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDCj/abIX+hFRMuZoFWhMZDk9UYnnSy0LQB/aHpaCbnD" ];
-    };
-  };
-
-  security.sudo.wheelNeedsPassword = false;
-
-  nix.settings.trusted-users = [ "root" ] ++ (builtins.attrNames config.users.users);
-
-  services.openssh.enable = true;
-  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
