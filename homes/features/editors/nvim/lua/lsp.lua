@@ -17,6 +17,11 @@ vim.lsp.enable('bashls')
 -- golang
 vim.lsp.config.gopls = {
   capabilities = lsp_capabilities,
+  settings = {
+    gopls = {
+      buildFlags = { "-tags=e2e" },
+    },
+  },
 }
 vim.lsp.enable('gopls')
 
