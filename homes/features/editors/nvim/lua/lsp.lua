@@ -22,6 +22,9 @@ vim.lsp.config.gopls = {
       buildFlags = { "-tags=e2e" },
     },
   },
+  on_attach = function(client, _)
+    client.server_capabilities.documentFormattingProvider = true
+  end,
 }
 vim.lsp.enable('gopls')
 

@@ -13,7 +13,5 @@
     minikube
     talosctl
     trivy
-
-    inputs.ocm.packages.${pkgs.stdenv.hostPlatform.system}.ocm
   ];
 }

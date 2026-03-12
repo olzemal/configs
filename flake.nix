@@ -15,10 +15,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ocm = {
-      url = "github:open-component-model/ocm/v0.35";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { nixpkgs, unstable, home-manager, ... }@inputs:

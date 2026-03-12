@@ -82,7 +82,6 @@
       { plugin = vimPlug.nvim-lspconfig; config = toLuaFile ./lua/lsp.lua; }
       vimPlug.lsp_signature-nvim
 
-      vimPlug.playground
       { plugin = vimPlug.nvim-treesitter; config = toLuaFile ./lua/treesitter.lua; }
 
       { plugin = vimPlug.nvim-dap; config = toLuaFile ./lua/dap.lua; }
@@ -109,7 +108,6 @@
       { plugin = vimPlug.persisted-nvim; config = toLuaFile ./lua/persisted.lua; }
 
       { plugin = vimPlug.ale; config = toLuaFile ./lua/ale.lua; }
-      { plugin = vimPlug.vim-go; config = toLuaFile ./lua/vimgo.lua; }
 
       { plugin = vimPlug.telescope-nvim; config = toLuaFile ./lua/telescope.lua; }
       { plugin = vimPlug.indent-blankline-nvim; config = toLua "require('ibl').setup({ scope = { enabled = false }})"; }
