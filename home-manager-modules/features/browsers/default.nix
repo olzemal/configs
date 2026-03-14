@@ -7,7 +7,7 @@
   };
 
   config = {
-    features.firefox.enable = lib.mkDefault true;
+    features.firefox.enable = lib.mkDefault config.features.desktopapps.enable;
     programs.firefox = lib.mkIf config.features.firefox.enable {
       enable = true;
       profiles."default" = {

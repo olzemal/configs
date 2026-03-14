@@ -1,13 +1,7 @@
 { lib, config, pkgs, ... }:
 
 let
-  mkChromiumApp = name: url: iconurl: sha: let
-    icon = builtins.fetchurl {
-      name = "${name}.png";
-      url = iconurl;
-      sha256 = sha;
-    };
-  in
+  mkChromiumApp = name: url: icon:
   {
     executable = true;
     text = ''
@@ -17,7 +11,7 @@ let
        Terminal=false
        Type=Application
        Name=${name}
-       Exec=${pkgs.chromium}/bin/chromium --app=${url}
+       Exec=${pkgs.chromium}/bin/chromium --ozone-platform=wayland --app=${url}
        Icon=${icon}
      '';
   };
@@ -34,16 +28,19 @@ in
 
     features.chromium.enable = true;
 
-    home.file = {
-      ".local/share/applications/elrs-web-flasher.desktop" = mkChromiumApp "ELRS-Web-Flasher" "https://expresslrs.github.io/web-flasher"
-        "https://github.com/ExpressLRS/ExpressLRS-Configurator/blob/92b4111ac146332be99b037cce4506a5b0b5bf68/assets/icons/96x96.png?raw=true" "sha256:07cqa1s7swmnxmlqs1w1ljymnldrmgi87xxdyz25kmylqns3ia54";
-      ".local/share/applications/esc-configurator.desktop" = mkChromiumApp "ESC-Configurator" "https://esc-configurator.com"
-        "https://esc-configurator.com/logo192.png" "sha256:08mqyma78ybymvv9637fji05dki410xa3i76hdk74pjw6yrj7n8a";
+    home.file = let
+      app-folder = ".local/share/applications";
+    in
+    {
+      "${app-folder}/elrs-web-flasher.desktop" = mkChromiumApp "ELRS-Web-Flasher" "https://expresslrs.github.io/web-flasher" ../../../assets/icons/elrs-configurator.png;
+      "${app-folder}/esc-configurator.desktop" = mkChromiumApp "ESC-Configurator" "https://esc-configurator.com" ../../../assets/icons/esc-configurator.png;
+      "${app-folder}/edgetx-buddy.desktop"     = mkChromiumApp "EdgeTX-Buddy"     "https://buddy.edgetx.org" ../../../assets/icons/edgetx.png;
     };
 
     features.gnome.dock-apps = [
       "elrs-web-flasher.desktop"
       "esc-configurator.desktop"
+      "edgetx-buddy.desktop"
       "betaflight-configurator.desktop"
       "org.freecad.FreeCAD.desktop"
       "OrcaSlicer.desktop"

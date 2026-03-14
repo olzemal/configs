@@ -1,13 +1,7 @@
 { lib, config, pkgs, ... }:
 
 let
-  mkChromiumApp = name: url: iconurl: sha: let
-    icon = builtins.fetchurl {
-      name = "${name}.png";
-      url = iconurl;
-      sha256 = sha;
-    };
-  in
+  mkChromiumApp = name: url: icon:
   {
     executable = true;
     text = ''
@@ -17,7 +11,7 @@ let
        Terminal=false
        Type=Application
        Name=${name}
-       Exec=${pkgs.chromium}/bin/chromium --app=${url}
+       Exec=${pkgs.chromium}/bin/chromium --ozone-platform=wayland --app=${url}
        Icon=${icon}
      '';
   };
@@ -25,6 +19,7 @@ in
 {
   imports = [
     ./terminals
+    ./vscode
   ];
 
   options.features.desktopapps = {
@@ -58,23 +53,24 @@ in
         PartOf = [ "graphical-session.target" ];
       };
       Service = {
-        ExecStart = "${config.element-desktop.package}/bin/element-desktop";
+        ExecStart = "${config.programs.element-desktop.package}/bin/element-desktop";
         Restart = "on-failure";
       };
       Install.WantedBy = [ "graphical-session.target" ];
     };
 
-    features.desktopapps.youtube-music.enable = lib.mkDefault config.features.desktopapps.enable;
     features.chromium.enable = config.features.desktopapps.youtube-music.enable;
     home.file.".local/share/applications/youtube-music.desktop" = lib.mkIf config.features.desktopapps.youtube-music.enable
-      (mkChromiumApp "youtube-music" "https://music.youtube.com"
-        "https://music.youtube.com/img/favicon_96.png"
-        "sha256:1lr6xx8yqh56fzv2zvmzhaj35dbql6r0xkxy6sf429xpba7b44a7");
+      (mkChromiumApp "Youtube-Music" "https://music.youtube.com" ../../../assets/icons/youtube-music.png);
 
-    features.gnome.dock-apps = lib.optionals config.features.desktopapps.youtube-music.enable [
+    features.gnome.dock-apps = lib.mkBefore (lib.optionals config.features.desktopapps.youtube-music.enable [
       "youtube-music.desktop"
     ] ++ lib.optionals config.features.desktopapps.element.enable [
       "element-desktop.desktop"
-    ];
+    ] ++ lib.optionals config.features.desktopapps.gaming.enable [
+      "discord.desktop"
+      "net.lutris.Lutris.desktop"
+      "com.moonlight_stream.Moonlight.desktop"
+    ]);
   };
 }
