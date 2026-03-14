@@ -54,6 +54,13 @@
                 enable = true;
                 gnome.enable = true;
               };
+              tailscale-client.enable = true;
+              syncthing.enable = true;
+              docker.enable = true;
+              qemu = {
+                enable = true;
+                users = [ "alex" "work" ];
+              };
             };
 
             users.users = {
@@ -82,6 +89,7 @@
                     youtube-music.enable = true;
                     fpv.enable = true;
                   };
+                  ai.opencode.enable = true;
                 };
               };
               work = {
@@ -93,6 +101,7 @@
                     element.enable = true;
                     vscode.enable = true;
                   };
+                  ai.opencode.enable = true;
                 };
               };
             };
@@ -111,8 +120,14 @@
 
           home-manager.nixosModules.home-manager
           {
-            features.desktop.enable = true;
-            features.ssh.enable = true;
+            features = {
+              desktop = {
+                enable = true;
+                gnome.enable = true;
+              };
+              tailscale-client.enable = true;
+              docker.enable = true;
+            };
 
             users.users = {
               alex = {
@@ -120,11 +135,6 @@
                 description = "Alex";
                 extraGroups = [ "networkmanager" "wheel" ];
                 openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDCj/abIX+hFRMuZoFWhMZDk9UYnnSy0LQB/aHpaCbnD" ];
-              };
-              work = {
-                isNormalUser = true;
-                description = "Work";
-                extraGroups = [ "networkmanager" "wheel" "docker" ];
               };
             };
             security.sudo.wheelNeedsPassword = false;
@@ -144,16 +154,6 @@
                     image-editing.enable = true;
                     youtube-music.enable = true;
                     fpv.enable = true;
-                  };
-                };
-              };
-              work = {
-                username = "work";
-                features = {
-                  gnome.enable = true;
-                  desktopapps = {
-                    enable = true;
-                    element.enable = true;
                     vscode.enable = true;
                   };
                 };
