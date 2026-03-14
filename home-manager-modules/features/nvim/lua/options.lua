@@ -126,3 +126,6 @@ keymap('n', '<Leader>f', 'gqip')
 
 -- git
 keymap('n', 'gb', '<cmd>Git blame<CR>')
+
+-- lsp
+keymap('n', '<leader>lr', vim.lsp.buf.rename)
