@@ -1,3 +1,0 @@
-#!/bin/sh
-exec ncal -w -A 2 -M
-
