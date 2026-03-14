@@ -41,6 +41,68 @@
     ];
 
     nixosConfigurations = {
+      "laptop" = nixpkgs.lib.nixosSystem {
+        pkgs = pkgsFor.x86_64-linux;
+        modules = [
+          ./hosts/laptop/configuration.nix
+          self.nixosModules.default
+
+          home-manager.nixosModules.home-manager
+          {
+            features = {
+              desktop = {
+                enable = true;
+                gnome.enable = true;
+              };
+            };
+
+            users.users = {
+              alex = {
+                isNormalUser = true;
+                description = "Alex";
+                extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
+              };
+              work = {
+                isNormalUser = true;
+                description = "Work";
+                extraGroups = [ "networkmanager" "wheel" "docker" ];
+              };
+            };
+
+            home-manager.useGlobalPkgs = true;
+            home-manager.users = {
+              alex = {
+                username = "alex";
+                features = {
+                  gnome.enable = true;
+                  desktopapps = {
+                    enable = true;
+                    gaming.enable = true;
+                    image-editing.enable = true;
+                    youtube-music.enable = true;
+                  };
+                  fpv.enable = true;
+                };
+              };
+              work = {
+                username = "work";
+                features = {
+                  gnome.enable = true;
+                  desktopapps = {
+                    enable = true;
+                    element.enable = true;
+                    vscode.enable = true;
+                  };
+                };
+              };
+            };
+          }
+        ];
+        specialArgs = {
+          inherit inputs;
+        };
+      };
+
       "vm" = nixpkgs.lib.nixosSystem {
         pkgs = pkgsFor.x86_64-linux;
         modules = [
@@ -59,6 +121,11 @@
                 extraGroups = [ "networkmanager" "wheel" ];
                 openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDCj/abIX+hFRMuZoFWhMZDk9UYnnSy0LQB/aHpaCbnD" ];
               };
+              work = {
+                isNormalUser = true;
+                description = "Work";
+                extraGroups = [ "networkmanager" "wheel" "docker" ];
+              };
             };
             security.sudo.wheelNeedsPassword = false;
             nix.settings.trusted-users = [ "root" "alex"];
@@ -66,12 +133,30 @@
             networking.firewall.enable = false;
 
             home-manager.useGlobalPkgs = true;
-            home-manager.users.alex = {
-              username = "alex";
-              features = {
-                gnome.enable = true;
-                desktopapps.gaming.enable = true;
-                fpv.enable = true;
+            home-manager.users = {
+              alex = {
+                username = "alex";
+                features = {
+                  gnome.enable = true;
+                  desktopapps = {
+                    enable = true;
+                    gaming.enable = true;
+                    image-editing.enable = true;
+                    youtube-music.enable = true;
+                  };
+                  fpv.enable = true;
+                };
+              };
+              work = {
+                username = "work";
+                features = {
+                  gnome.enable = true;
+                  desktopapps = {
+                    enable = true;
+                    element.enable = true;
+                    vscode.enable = true;
+                  };
+                };
               };
             };
           }

@@ -1,21 +1,7 @@
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ../common
-      ./hardware-configuration.nix
-
-      ../features/appimage.nix
-      ../features/docker.nix
-      ../features/qemu.nix
-      ../features/fonts.nix
-      ../features/gnome.nix
-      ../features/steam.nix
-      ../features/syncthing.nix
-      ../features/tailscale.nix
-      ../features/x11.nix
-    ];
+  imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "carbon";
 
@@ -40,19 +26,6 @@
   ];
 
   networking.networkmanager.enable = true;
-
-  users.users = {
-    alex = {
-      isNormalUser = true;
-      description = "Alex";
-      extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
-    };
-    work = {
-      isNormalUser = true;
-      description = "Work";
-      extraGroups = [ "networkmanager" "wheel" "docker" ];
-    };
-  };
 
   services.udev.extraRules = ''
     # DFU (Internal bootloader for STM32 and AT32 MCUs)
