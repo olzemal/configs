@@ -80,8 +80,8 @@
                     gaming.enable = true;
                     image-editing.enable = true;
                     youtube-music.enable = true;
+                    fpv.enable = true;
                   };
-                  fpv.enable = true;
                 };
               };
               work = {
@@ -143,8 +143,8 @@
                     gaming.enable = true;
                     image-editing.enable = true;
                     youtube-music.enable = true;
+                    fpv.enable = true;
                   };
-                  fpv.enable = true;
                 };
               };
               work = {

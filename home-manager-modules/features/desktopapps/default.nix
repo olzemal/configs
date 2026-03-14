@@ -20,6 +20,7 @@ in
   imports = [
     ./terminals
     ./vscode
+    ./fpv
   ];
 
   options.features.desktopapps = {

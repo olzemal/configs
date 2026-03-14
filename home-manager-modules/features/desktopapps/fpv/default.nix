@@ -17,24 +17,22 @@ let
   };
 in
 {
-  options.features.fpv.enable = lib.mkEnableOption "fpv";
+  options.features.desktopapps.fpv.enable = lib.mkEnableOption "fpv";
 
-  config = lib.mkIf config.features.fpv.enable {
+  config = lib.mkIf config.features.desktopapps.fpv.enable {
     home.packages = with pkgs; [
       betaflight-configurator
       freecad
       orca-slicer
     ];
 
-    features.chromium.enable = true;
-
     home.file = let
       app-folder = ".local/share/applications";
     in
     {
-      "${app-folder}/elrs-web-flasher.desktop" = mkChromiumApp "ELRS-Web-Flasher" "https://expresslrs.github.io/web-flasher" ../../../assets/icons/elrs-configurator.png;
-      "${app-folder}/esc-configurator.desktop" = mkChromiumApp "ESC-Configurator" "https://esc-configurator.com" ../../../assets/icons/esc-configurator.png;
-      "${app-folder}/edgetx-buddy.desktop"     = mkChromiumApp "EdgeTX-Buddy"     "https://buddy.edgetx.org" ../../../assets/icons/edgetx.png;
+      "${app-folder}/elrs-web-flasher.desktop" = mkChromiumApp "ELRS-Web-Flasher" "https://expresslrs.github.io/web-flasher" ../../../../assets/icons/elrs-configurator.png;
+      "${app-folder}/esc-configurator.desktop" = mkChromiumApp "ESC-Configurator" "https://esc-configurator.com" ../../../../assets/icons/esc-configurator.png;
+      "${app-folder}/edgetx-buddy.desktop"     = mkChromiumApp "EdgeTX-Buddy"     "https://buddy.edgetx.org" ../../../../assets/icons/edgetx.png;
     };
 
     features.gnome.dock-apps = [
