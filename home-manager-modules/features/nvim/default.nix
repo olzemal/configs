@@ -11,7 +11,6 @@ in
     home.packages = with pkgs; [
       ast-grep
       clang
-      go
       gopls
       helm-ls
       hunspell
