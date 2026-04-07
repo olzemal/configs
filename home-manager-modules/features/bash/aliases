@@ -21,6 +21,7 @@ alias gap='git add -p'
 # Kubernetes
 alias kgc='kubectl config get-contexts'
 alias kuc='kubectl config use-context'
+alias k9s='k9s --splashless --logoless'
 
 # ls
 alias ls='ls --color=auto'
