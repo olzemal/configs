@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rg --line-number --no-heading --max-columns=80 -i 'fixme|todo' | shuf -n1
