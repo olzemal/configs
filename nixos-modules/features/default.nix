@@ -21,7 +21,7 @@
       enable = true;
       binfmt = true;
     };
-    virtualisation.docker.enable = config.features.docker.enable;
-    services.tailscale.enable = config.features.tailscale-client.enable;
+    virtualisation.docker.enable = lib.mkIf config.features.docker.enable true;
+    services.tailscale.enable = lib.mkIf config.features.tailscale-client.enable true;
   };
 }

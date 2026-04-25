@@ -14,9 +14,9 @@ in
     };
   };
 
-  config = {
-    virtualisation.libvirtd.enable = config.features.qemu.enable;
-    programs.virt-manager.enable = config.features.qemu.enable && config.features.desktop.enable;
+  config = lib.mkIf config.features.qemu.enable {
+    virtualisation.libvirtd.enable = true;
+    programs.virt-manager.enable = lib.mkIf config.features.desktop.enable true;
     users.users = builtins.listToAttrs (map (user: lib.nameValuePair user {
       extraGroups = [ "libvirtd" ];
     }) config.features.qemu.users);

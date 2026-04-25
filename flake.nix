@@ -87,7 +87,9 @@
                 features = {
                   bash.enable = true;
                   nvim.enable = true;
+                  tmux.enable = true;
                   gnome.enable = true;
+                  firefox.enable = true;
                   desktopapps = {
                     enable = true;
                     ghostty.enable = true;
@@ -104,7 +106,9 @@
                 features = {
                   bash.enable = true;
                   nvim.enable = true;
+                  tmux.enable = true;
                   gnome.enable = true;
+                  firefox.enable = true;
                   desktopapps = {
                     enable = true;
                     ghostty.enable = true;

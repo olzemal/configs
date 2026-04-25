@@ -40,6 +40,6 @@
 
     services.displayManager.gdm.enable = true;
 
-    services.desktopManager.gnome.enable = config.features.desktop.gnome.enable;
+    services.desktopManager.gnome.enable = lib.mkIf config.features.desktop.gnome.enable true;
   };
 }

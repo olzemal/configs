@@ -47,7 +47,7 @@ in
       winetricks
     ];
 
-    programs.element-desktop.enable = config.features.desktopapps.element.enable;
+    programs.element-desktop.enable = lib.mkIf config.features.desktopapps.element.enable true;
     systemd.user.services.element-desktop = lib.mkIf config.programs.element-desktop.enable {
       Unit = {
         Description = "Element Desktop";
@@ -60,7 +60,7 @@ in
       Install.WantedBy = [ "graphical-session.target" ];
     };
 
-    features.chromium.enable = config.features.desktopapps.youtube-music.enable;
+    features.chromium.enable = lib.mkIf config.features.desktopapps.youtube-music.enable true;
     home.file.".local/share/applications/youtube-music.desktop" = lib.mkIf config.features.desktopapps.youtube-music.enable
       (mkChromiumApp "Youtube-Music" "https://music.youtube.com" ../../../assets/icons/youtube-music.png);
 

@@ -4,10 +4,8 @@
   options.features.tmux.enable = lib.mkEnableOption "tmux";
 
   config = {
-    features.tmux.enable = lib.mkDefault true;
-
-    programs.tmux = {
-      enable = config.features.tmux.enable;
+    programs.tmux = lib.mkIf config.features.tmux.enable {
+      enable = true;
       plugins = with pkgs.tmuxPlugins; [
         sensible
         yank

@@ -7,9 +7,8 @@
   };
 
   config = {
-    features.firefox.enable = lib.mkDefault config.features.desktopapps.enable;
-    programs.firefox.enable = config.features.firefox.enable;
+    programs.firefox.enable = lib.mkIf config.features.firefox.enable true;
 
-    programs.chromium.enable = config.features.chromium.enable;
+    programs.chromium.enable = lib.mkIf config.features.chromium.enable true;
   };
 }
