@@ -23,7 +23,6 @@ in
     # Default packages
     home.packages = with pkgs; [
       age
-      devenv
       dig
       direnv
       fzf
@@ -33,20 +32,13 @@ in
       jq
       openssl
       pass
-      pre-commit
       semver
-      shellcheck
       sops
       tree
+      vim
       wget
       yq-go
     ];
-
-    # Default features
-    features = {
-      nvim.enable = lib.mkDefault true;
-      bash.enable = lib.mkDefault true;
-    };
 
     # Do not manage keyboard layout by home-manager
     home.keyboard = null;

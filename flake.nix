@@ -85,9 +85,12 @@
               alex = {
                 username = "alex";
                 features = {
+                  bash.enable = true;
+                  nvim.enable = true;
                   gnome.enable = true;
                   desktopapps = {
                     enable = true;
+                    ghostty.enable = true;
                     gaming.enable = true;
                     image-editing.enable = true;
                     youtube-music.enable = true;
@@ -99,67 +102,16 @@
               work = {
                 username = "work";
                 features = {
+                  bash.enable = true;
+                  nvim.enable = true;
                   gnome.enable = true;
                   desktopapps = {
                     enable = true;
+                    ghostty.enable = true;
                     element.enable = true;
                     vscode.enable = true;
                   };
                   ai.opencode.enable = true;
-                };
-              };
-            };
-          }
-        ];
-        specialArgs = {
-          inherit inputs;
-        };
-      };
-
-      "vm" = nixpkgs.lib.nixosSystem {
-        pkgs = pkgsFor.x86_64-linux;
-        modules = [
-          ./hosts/vm/configuration.nix
-          self.nixosModules.default
-
-          home-manager.nixosModules.home-manager
-          {
-            features = {
-              desktop = {
-                enable = true;
-                gnome.enable = true;
-              };
-              tailscale-client.enable = true;
-              docker.enable = true;
-            };
-
-            users.users = {
-              alex = {
-                isNormalUser = true;
-                description = "Alex";
-                extraGroups = [ "networkmanager" "wheel" ];
-                openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDCj/abIX+hFRMuZoFWhMZDk9UYnnSy0LQB/aHpaCbnD" ];
-              };
-            };
-            security.sudo.wheelNeedsPassword = false;
-            nix.settings.trusted-users = [ "root" "alex"];
-            services.openssh.enable = true;
-            networking.firewall.enable = false;
-
-            home-manager.useGlobalPkgs = true;
-            home-manager.users = {
-              alex = {
-                username = "alex";
-                features = {
-                  gnome.enable = true;
-                  desktopapps = {
-                    enable = true;
-                    gaming.enable = true;
-                    image-editing.enable = true;
-                    youtube-music.enable = true;
-                    fpv.enable = true;
-                    vscode.enable = true;
-                  };
                 };
               };
             };

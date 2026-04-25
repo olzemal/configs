@@ -1,11 +1,11 @@
 { lib, config, ... }:
 
 {
-  options.features.kitty.enable = lib.mkEnableOption "kitty";
+  options.features.desktopapps.kitty.enable = lib.mkEnableOption "kitty";
 
   config = {
-    programs.kitty = {
-      enable = config.features.kitty.enable;
+    programs.kitty = lib.mkIf config.features.desktopapps.kitty.enable {
+      enable = true;
       extraConfig = builtins.readFile ./kitty.conf;
     };
   };

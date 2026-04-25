@@ -1,18 +1,16 @@
 { lib, config, ... }:
 
 {
-  options.features.ghostty.enable = lib.mkEnableOption "ghostty";
+  options.features.desktopapps.ghostty.enable = lib.mkEnableOption "ghostty";
 
-  config = {
-    features.ghostty.enable = lib.mkDefault config.features.desktopapps.enable;
-
-    home.file.".config/ghostty/shaders".source = lib.mkIf config.features.ghostty.enable (builtins.fetchGit {
+  config = lib.mkIf config.features.desktopapps.ghostty.enable {
+    home.file.".config/ghostty/shaders".source = builtins.fetchGit {
       url = "https://github.com/sahaj-b/ghostty-cursor-shaders.git";
       rev = "4faa83e4b9306750fc8de64b38c6f53c57862db8";
-    });
+    };
 
     programs.ghostty = {
-      enable = config.features.ghostty.enable;
+      enable = true;
       settings = {
         theme = "gruvbox-dark";
         font-family             = "JetBrainsMono Nerd Font Mono";
