@@ -15,6 +15,9 @@ let
        Icon=${icon}
      '';
   };
+  freecad-wrapper = pkgs.writeShellScriptBin "freecad-wrapper" ''
+    XDG_DATA_DIRS="${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:''${XDG_DATA_DIRS:-}" exec ${pkgs.freecad}/bin/freecad "$@"
+  '';
 in
 {
   options.features.desktopapps.fpv.enable = lib.mkEnableOption "fpv";
@@ -23,6 +26,7 @@ in
     home.packages = with pkgs; [
       betaflight-configurator
       freecad
+      freecad-wrapper
       orca-slicer
     ];
 
@@ -33,6 +37,19 @@ in
       "${app-folder}/elrs-web-flasher.desktop" = mkChromiumApp "ELRS-Web-Flasher" "https://expresslrs.github.io/web-flasher" ../../../../assets/icons/elrs-configurator.png;
       "${app-folder}/esc-configurator.desktop" = mkChromiumApp "ESC-Configurator" "https://esc-configurator.com" ../../../../assets/icons/esc-configurator.png;
       "${app-folder}/edgetx-buddy.desktop"     = mkChromiumApp "EdgeTX-Buddy"     "https://buddy.edgetx.org" ../../../../assets/icons/edgetx.png;
+
+      "${app-folder}/org.freecad.FreeCAD.desktop" = {
+        executable = true;
+        text = ''
+          #!/usr/bin/env xdg-open
+          [Desktop Entry]
+          Name=FreeCAD
+          Exec=${freecad-wrapper}/bin/freecad-wrapper %F
+          Terminal=false
+          Type=Application
+          Icon=org.freecad.FreeCAD
+        '';
+      };
     };
 
     features.gnome.dock-apps = [
