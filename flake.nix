@@ -97,6 +97,7 @@
                     image-editing.enable = true;
                     youtube-music.enable = true;
                     fpv.enable = true;
+                    vcv-rack.enable = true;
                   };
                   ai.opencode.enable = true;
                 };

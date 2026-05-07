@@ -21,6 +21,7 @@ in
     ./terminals
     ./vscode
     ./fpv
+    ./vcv-rack
   ];
 
   options.features.desktopapps = {
