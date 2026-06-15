@@ -30,6 +30,7 @@
           };
         };
         devenv = (import unstable {system = prev.system;}).devenv;
+        docker = prev.docker_29;
       })
     ];
     pkgsFor = lib.genAttrs systems (system: import nixpkgs {
