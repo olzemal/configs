@@ -7,7 +7,10 @@
   };
 
   config = {
-    programs.firefox.enable = lib.mkIf config.features.firefox.enable true;
+    programs.firefox = lib.mkIf config.features.firefox.enable {
+      enable = true;
+      configPath = ".mozilla/firefox";
+    };
 
     programs.chromium.enable = lib.mkIf config.features.chromium.enable true;
   };

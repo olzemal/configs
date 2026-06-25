@@ -46,6 +46,7 @@ with lib.hm.gvariant;
 
     gtk = {
       enable = true;
+      gtk4.theme = config.gtk.theme;
       iconTheme = {
         name = "Papirus-Dark";
         package = (pkgs.papirus-icon-theme.override { color = "brown"; });

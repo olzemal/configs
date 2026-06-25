@@ -1,9 +1,5 @@
 { lib, config, pkgs, ... }:
 
-let
-  toLua = str: "lua << EOF\n${str}\nEOF\n";
-  toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
-in
 {
   options.features.nvim.enable = lib.mkEnableOption "nvim";
 
@@ -75,24 +71,26 @@ in
     in {
       enable = true;
       defaultEditor = true;
+      withRuby = false;
+      withPython3 = true;
       viAlias = false;
       vimAlias = true;
       vimdiffAlias = true;
       plugins =  [
-        { plugin = vimPlug.gruvbox-nvim; config = toLua "vim.cmd.colorscheme('gruvbox')"; }
+        { plugin = vimPlug.gruvbox-nvim; type = "lua"; config = "vim.cmd.colorscheme('gruvbox')"; }
         vimPlug.nvim-web-devicons
 
-        { plugin = vimPlug.nvim-lspconfig; config = toLuaFile ./lua/lsp.lua; }
+        { plugin = vimPlug.nvim-lspconfig; type = "lua"; config = builtins.readFile ./lua/lsp.lua; }
         vimPlug.lsp_signature-nvim
 
-        { plugin = vimPlug.nvim-treesitter; config = toLuaFile ./lua/treesitter.lua; }
+        { plugin = vimPlug.nvim-treesitter; type = "lua"; config = builtins.readFile ./lua/treesitter.lua; }
 
-        { plugin = vimPlug.nvim-dap; config = toLuaFile ./lua/dap.lua; }
+        { plugin = vimPlug.nvim-dap; type = "lua"; config = builtins.readFile ./lua/dap.lua; }
         vimPlug.nvim-dap-go
         vimPlug.nvim-dap-ui
-        { plugin = vimPlug.persistent-breakpoints-nvim; config = toLua "require('persistent-breakpoints').setup{ load_breakpoints_event = { 'BufReadPost' }}"; }
+        { plugin = vimPlug.persistent-breakpoints-nvim; type = "lua"; config = "require('persistent-breakpoints').setup{ load_breakpoints_event = { 'BufReadPost' }}"; }
 
-        { plugin = vimPlug.nvim-cmp; config = toLuaFile ./lua/cmp.lua; }
+        { plugin = vimPlug.nvim-cmp; type = "lua"; config = builtins.readFile ./lua/cmp.lua; }
         vimPlug.cmp-buffer
         vimPlug.cmp-calc
         vimPlug.cmp-cmdline
@@ -101,27 +99,27 @@ in
         vimPlug.cmp-path
         vimPlug.cmp-spell
 
-        { plugin = vimPlug.vim-easy-align; config = toLuaFile ./lua/easyalign.lua; }
+        { plugin = vimPlug.vim-easy-align; type = "lua"; config = builtins.readFile ./lua/easyalign.lua; }
 
         vimPlug.vim-fugitive
         vimPlug.vim-gitgutter
 
-        { plugin = vimPlug.barbar-nvim; config = toLuaFile ./lua/barbar.lua; }
+        { plugin = vimPlug.barbar-nvim; type = "lua"; config = builtins.readFile ./lua/barbar.lua; }
 
-        { plugin = vimPlug.persisted-nvim; config = toLuaFile ./lua/persisted.lua; }
+        { plugin = vimPlug.persisted-nvim; type = "lua"; config = builtins.readFile ./lua/persisted.lua; }
 
-        { plugin = vimPlug.ale; config = toLuaFile ./lua/ale.lua; }
+        { plugin = vimPlug.ale; type = "lua"; config = builtins.readFile ./lua/ale.lua; }
 
-        { plugin = vimPlug.telescope-nvim; config = toLuaFile ./lua/telescope.lua; }
-        { plugin = vimPlug.indent-blankline-nvim; config = toLua "require('ibl').setup({ scope = { enabled = false }})"; }
+        { plugin = vimPlug.telescope-nvim; type = "lua"; config = builtins.readFile ./lua/telescope.lua; }
+        { plugin = vimPlug.indent-blankline-nvim; type = "lua"; config = "require('ibl').setup({ scope = { enabled = false }})"; }
 
         vimPlug.vim-visual-multi
-        { plugin = vimPlug.nvim-surround; config = toLua "require('nvim-surround').setup()"; }
+        { plugin = vimPlug.nvim-surround; type = "lua"; config = "require('nvim-surround').setup()"; }
 
         vimPlug.ultisnips
         vimPlug.cmp-nvim-ultisnips
       ] ++ builtins.map (lang: vimPlug.nvim-treesitter-parsers."${lang}") languages;
-      extraLuaConfig = builtins.readFile ./lua/options.lua;
+      initLua = builtins.readFile ./lua/options.lua;
     };
   };
 }
