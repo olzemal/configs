@@ -17,8 +17,8 @@ in
       lua-language-server
       marksman
       nixd
-      nodePackages.bash-language-server
-      nodePackages.vscode-json-languageserver
+      bash-language-server
+      vscode-json-languageserver
       pyright
       ripgrep
       yaml-language-server
@@ -85,7 +85,6 @@ in
         { plugin = vimPlug.nvim-lspconfig; config = toLuaFile ./lua/lsp.lua; }
         vimPlug.lsp_signature-nvim
 
-        vimPlug.playground
         { plugin = vimPlug.nvim-treesitter; config = toLuaFile ./lua/treesitter.lua; }
 
         { plugin = vimPlug.nvim-dap; config = toLuaFile ./lua/dap.lua; }
