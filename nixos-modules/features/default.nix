@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./appimage.nix
     ./desktop.nix
     ./qemu.nix
     ./ssh.nix
@@ -11,7 +12,6 @@
   ];
 
   options.features = {
-    appimage.enable = lib.mkEnableOption "appimage";
     docker.enable = lib.mkEnableOption "docker";
     tailscale-client.enable = lib.mkEnableOption "tailscale";
   };

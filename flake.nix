@@ -65,6 +65,7 @@
                 enable = true;
                 users = [ "alex" "work" ];
               };
+              appimage.enable = true;
             };
 
             users.users = {
