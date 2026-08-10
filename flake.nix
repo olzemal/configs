@@ -30,6 +30,7 @@
           };
         };
         docker = prev.docker_29;
+        netbird = (import unstable {system = prev.system;}).netbird;
       })
     ];
     pkgsFor = lib.genAttrs systems (system: import nixpkgs {
@@ -59,6 +60,7 @@
                 gnome.enable = true;
               };
               tailscale-client.enable = true;
+              netbird.enable = true;
               syncthing.enable = true;
               docker.enable = true;
               qemu = {
@@ -113,8 +115,15 @@
                   firefox.enable = true;
                   desktopapps = {
                     enable = true;
+                    element = {
+                      enable = true;
+                      autostart = true;
+                    };
                     ghostty.enable = true;
-                    element.enable = true;
+                    teamspeak = {
+                      enable = true;
+                      autostart = true;
+                    };
                     vscode.enable = true;
                   };
                   ai.opencode.enable = true;

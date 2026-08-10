@@ -4,6 +4,7 @@
   imports = [
     ./appimage.nix
     ./desktop.nix
+    ./netbird.nix
     ./qemu.nix
     ./ssh.nix
     ./syncthing.nix
