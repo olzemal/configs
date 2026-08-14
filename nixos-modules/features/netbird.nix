@@ -5,5 +5,9 @@
   config.services.netbird = lib.mkIf config.features.netbird.enable {
     enable = true;
     ui.enable = false;
+    clients.default.config = {
+      DisableDNS = true;
+      BlockInbound = true;
+    };
   };
 }
