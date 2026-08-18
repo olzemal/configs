@@ -15,6 +15,7 @@ export SOPS_AGE_KEY_FILE="$HOME/.age/key.txt"
 # Path
 PATH="$PATH:$HOME/.local/bin:$HOME/.scripts:/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/snap/bin:/sbin:/bin"
 PATH="$GOBIN:$PATH"
+PATH="${KREW_ROOT:-$HOME/.krew}:$PATH"
 export PATH
 
 # Editor
