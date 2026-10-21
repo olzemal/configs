@@ -30,11 +30,13 @@
           };
         };
         docker = prev.docker_29;
-        netbird = (import unstable {system = prev.system;}).netbird;
+        netbird = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).netbird;
+        opencode = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).opencode;
+        element-desktop = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).element-desktop;
       })
     ];
     pkgsFor = lib.genAttrs systems (system: import nixpkgs {
-      inherit system;
+      localSystem = system;
       config = {
         allowUnfree = true;
         allowUnfreePredicate = (_: true);
@@ -122,11 +124,13 @@
                     ghostty.enable = true;
                     teamspeak = {
                       enable = true;
-                      autostart = true;
+                      autostart = false;
                     };
                     vscode.enable = true;
                   };
-                  ai.opencode.enable = true;
+                  ai = {
+                    opencode.enable = true;
+                  };
                 };
               };
             };
