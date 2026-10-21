@@ -129,3 +129,7 @@ keymap('n', 'gb', '<cmd>Git blame<CR>')
 
 -- lsp
 keymap('n', '<leader>lr', vim.lsp.buf.rename)
+keymap('n', 'K', vim.lsp.buf.hover)
+keymap({'n', 'x'}, 'gra', function()
+  vim.lsp.buf.code_action({ apply = true })
+end)

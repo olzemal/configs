@@ -33,6 +33,7 @@
         netbird = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).netbird;
         opencode = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).opencode;
         element-desktop = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).element-desktop;
+        gopls = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).gopls;
       })
     ];
     pkgsFor = lib.genAttrs systems (system: import nixpkgs {

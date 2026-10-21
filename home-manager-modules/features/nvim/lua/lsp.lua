@@ -22,14 +22,22 @@ vim.lsp.config.gopls = {
       buildFlags = { "-tags=e2e" },
       analyses = {
         unusedparams = true,
+
+        SA6001 = false, -- missing optimization when indexing maps by byte slices
+        SA6002 = false, -- storing non-pointer values in sync.Pool allocates
+        SA6003 = false, -- converting a string to []rune before ranging over it
       },
       staticcheck = true,
       gofumpt = true,
+      usePlaceholders = true,
+      codelenses = { test = true },
+      hints = {
+        parameterNames = true,
+        ignoredError = true,
+        constantValues = true,
+      },
     },
   },
-  on_attach = function(client, _)
-    client.server_capabilities.documentFormattingProvider = true
-  end,
 }
 vim.lsp.enable('gopls')
 
@@ -102,3 +110,5 @@ vim.diagnostic.config {
   signs = true,
   float = { border = "rounded" },
 }
+
+vim.lsp.inlay_hint.enable(true)
