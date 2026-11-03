@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   imports = [
@@ -18,6 +18,10 @@
   };
 
   config = {
+    environment.systemPackages = with pkgs; [
+      python3
+    ];
+
     programs.appimage = lib.mkIf config.features.appimage.enable {
       enable = true;
       binfmt = true;
