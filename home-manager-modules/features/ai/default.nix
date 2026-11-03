@@ -2,12 +2,16 @@
 
 {
   options.features.ai = {
-    opencode = {
-      enable = lib.mkEnableOption "opencode";
-    };
+    opencode.enable = lib.mkEnableOption "opencode";
+    codex.enable = lib.mkEnableOption "codex";
   };
 
-  config = lib.mkIf config.features.ai.opencode.enable {
-    home.packages = with pkgs; [ opencode ];
+  config = {
+    home.packages = with pkgs; []
+    ++ lib.optionals config.features.ai.opencode.enable [ opencode ];
+
+    programs.codex = {
+      enable = config.features.ai.codex.enable;
+    };
   };
 }

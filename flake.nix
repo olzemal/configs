@@ -32,6 +32,7 @@
         docker = prev.docker_29;
         netbird = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).netbird;
         opencode = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).opencode;
+        codex = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).codex;
         element-desktop = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).element-desktop;
         gopls = (import unstable {localSystem = prev.stdenv.hostPlatform.system;}).gopls;
       })
@@ -131,6 +132,7 @@
                   };
                   ai = {
                     opencode.enable = true;
+                    codex.enable = true;
                   };
                 };
               };
