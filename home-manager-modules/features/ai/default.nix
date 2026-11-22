@@ -8,7 +8,8 @@
 
   config = {
     home.packages = with pkgs; []
-    ++ lib.optionals config.features.ai.opencode.enable [ opencode ];
+    ++ lib.optionals config.features.ai.opencode.enable [ opencode ]
+    ++ lib.optionals config.features.ai.codex.enable [ bubblewrap ];
 
     programs.codex = {
       enable = config.features.ai.codex.enable;
